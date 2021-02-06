@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.calendarfx.app;
+package Application.App;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.Calendar.Style;

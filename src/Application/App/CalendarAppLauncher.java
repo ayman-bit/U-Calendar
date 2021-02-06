@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.calendarfx.app;
+package Application.App;
 
 public class CalendarAppLauncher {
 

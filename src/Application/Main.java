@@ -1,4 +1,4 @@
-package com.u_calendar.app;
+package Application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.u_calendar.model.Calendar;
-import com.u_calendar.model.Calendar.Style;
-import com.u_calendar.model.CalendarSource;
-import com.u_calendar.view.CalendarView;
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.view.CalendarView;
 
 import javafx.application.Platform;
 
