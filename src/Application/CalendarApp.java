@@ -80,7 +80,7 @@ public class CalendarApp extends Application {
         updateTimeThread.start();
 
         Scene scene = new Scene(stackPane);
-        primaryStage.setTitle("Calendar");
+        primaryStage.setTitle("U-Calendar");
         primaryStage.setScene(scene);
         primaryStage.setWidth(1300);
         primaryStage.setHeight(1000);
