@@ -34,29 +34,17 @@ public class CalendarApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         CalendarView calendarView = new CalendarView();
 
-        Calendar katja = new Calendar("Katja");
-        Calendar dirk = new Calendar("Dirk");
-        Calendar philip = new Calendar("Philip");
-        Calendar jule = new Calendar("Jule");
-        Calendar armin = new Calendar("Armin");
+        Calendar myCalendar = new Calendar("My Calendar");
         Calendar birthdays = new Calendar("Birthdays");
         Calendar holidays = new Calendar("Holidays");
 
-        katja.setShortName("K");
-        dirk.setShortName("D");
-        philip.setShortName("P");
-        jule.setShortName("J");
-        armin.setShortName("A");
+        myCalendar.setShortName("ME");
         birthdays.setShortName("B");
         holidays.setShortName("H");
 
-        katja.setStyle(Style.STYLE1);
-        dirk.setStyle(Style.STYLE2);
-        philip.setStyle(Style.STYLE3);
-        jule.setStyle(Style.STYLE4);
-        armin.setStyle(Style.STYLE5);
-        birthdays.setStyle(Style.STYLE6);
-        holidays.setStyle(Style.STYLE7);
+        myCalendar.setStyle(Style.STYLE1);
+        birthdays.setStyle(Style.STYLE2);
+        holidays.setStyle(Style.STYLE3);
 
         CalendarSource familyCalendarSource = new CalendarSource("Family");
         familyCalendarSource.getCalendars().addAll(birthdays, holidays, katja, dirk, philip, jule, armin);
