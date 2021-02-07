@@ -47,7 +47,7 @@ public class CalendarApp extends Application {
         holidays.setStyle(Style.STYLE3);
 
         CalendarSource familyCalendarSource = new CalendarSource("Family");
-        familyCalendarSource.getCalendars().addAll(birthdays, holidays, katja, dirk, philip, jule, armin);
+        familyCalendarSource.getCalendars().addAll(birthdays, holidays, myCalendar);
 
         calendarView.getCalendarSources().setAll(familyCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
