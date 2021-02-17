@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,18 +41,21 @@ public class Controller implements Initializable {
         try {
             VBox box = FXMLLoader.load(getClass().getResource("SidePanel.fxml"));
             sidepanel.setSidePane(box);
+            sidepanel.setDefaultDrawerSize(150);
+
 
             for (Node node : box.getChildren()){
                 node.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                     switch (node.getAccessibleText()){
                         case "Exit" : System.exit(0);
+
                     }
                 });
             }
 
             HamburgerBasicCloseTransition menu = new HamburgerBasicCloseTransition(options);
             menu.setRate(-1);
-            options.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+            options.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event event) -> {
                 menu.setRate(menu.getRate() * -1);
                 menu.play();
 

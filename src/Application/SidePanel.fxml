@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="150.0" style="-fx-background-color: CCCCCC;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="150.0" style="-fx-background-color: CCCCCC;" stylesheets="@SidePanel.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.SidePanel_Conroller">
    <children>
       <ImageView fitHeight="115.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -29,7 +29,8 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>
-      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Settings" />
+      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Tasks" />
+      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Calculator" />
       <JFXButton accessibleText="Quit" prefHeight="70.0" prefWidth="155.0" text="Exit" />
    </children>
 </VBox>
