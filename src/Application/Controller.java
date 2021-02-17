@@ -44,9 +44,8 @@ public class Controller implements Initializable {
             for (Node node : box.getChildren()){
                 node.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                     switch (node.getAccessibleText()){
-
+                        case "Exit" : System.exit(0);
                     }
-
                 });
             }
 

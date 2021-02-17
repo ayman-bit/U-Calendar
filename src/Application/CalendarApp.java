@@ -18,7 +18,7 @@ public class CalendarApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Application.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("SidePanel.fxml"));
 
         primaryStage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);

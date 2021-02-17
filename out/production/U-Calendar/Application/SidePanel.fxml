@@ -21,6 +21,6 @@
       <JFXButton prefHeight="40.0" prefWidth="155.0" />
       <JFXButton prefHeight="40.0" prefWidth="155.0" />
       <JFXButton prefHeight="40.0" prefWidth="155.0" />
-      <JFXButton accessibleText="Exit" prefHeight="40.0" prefWidth="155.0" text="Exit" />
+      <JFXButton accessibleText="Quit" prefHeight="40.0" prefWidth="155.0" text="Exit" />
    </children>
 </VBox>
