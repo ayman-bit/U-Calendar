@@ -38,17 +38,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXHamburger fx:id="options" layoutX="10.0" layoutY="10.0">
-         <padding>
-            <Insets left="10.0" top="5.0" />
-         </padding>
-      </JFXHamburger>
       <JFXDrawer fx:id="sidepanel" layoutY="40.0" prefHeight="560.0" prefWidth="150.0" />
+      <HBox prefHeight="40.0" prefWidth="700.0">
+         <children>
+            <JFXHamburger fx:id="options">
+               <padding>
+                  <Insets left="10.0" top="5.0" />
+               </padding>
+            </JFXHamburger>
+         </children>
+      </HBox>
       <GridPane layoutX="150.0" layoutY="40.0" prefHeight="560.0" prefWidth="550.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
