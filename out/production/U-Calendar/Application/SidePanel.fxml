@@ -24,7 +24,10 @@
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>
-      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Change Event" />
+      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Change Event">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></JFXButton>
       <JFXButton prefHeight="70.0" prefWidth="155.0" text="Delete">
          <font>
             <Font name="System Bold" size="13.0" />
