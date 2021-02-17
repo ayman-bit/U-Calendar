@@ -1,12 +1,23 @@
 package Application;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Controller {
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+
+public class Controller implements Initializable {
 
     @FXML
     private ResourceBundle resources;
@@ -15,23 +26,36 @@ public class Controller {
     private URL location;
 
     @FXML
-    private Font x1;
+    private AnchorPane anchorPane;
 
     @FXML
-    private Color x2;
+    private JFXDrawer sidepanel;
 
     @FXML
-    private Font x3;
+    private JFXHamburger options;
 
-    @FXML
-    private Color x4;
 
-    @FXML
-    void initialize() {
-        assert x1 != null : "fx:id=\"x1\" was not injected: check your FXML file 'Application.fxml'.";
-        assert x2 != null : "fx:id=\"x2\" was not injected: check your FXML file 'Application.fxml'.";
-        assert x3 != null : "fx:id=\"x3\" was not injected: check your FXML file 'Application.fxml'.";
-        assert x4 != null : "fx:id=\"x4\" was not injected: check your FXML file 'Application.fxml'.";
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("SidePanel.fxml"));
+            sidepanel.setSidePane(box);
+
+            HamburgerBasicCloseTransition menu = new HamburgerBasicCloseTransition(options);
+            menu.setRate(-1);
+            options.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                menu.setRate(menu.getRate() * -1);
+                menu.play();
+
+                if (sidepanel.isOpened()) {
+                    sidepanel.close();
+                } else {
+                    sidepanel.open();
+                }
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

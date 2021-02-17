@@ -6,7 +6,6 @@
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/jar_files" />
-      <root url="jar://$USER_HOME$/.ideaLibSources/view-11.8.3-sources.jar!/" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/jar_files" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/jar_files" recursive="false" type="SOURCES" />
