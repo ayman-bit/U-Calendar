@@ -3,6 +3,10 @@ package Application;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+
 
 
 
@@ -23,11 +28,33 @@ public class Login_Controller implements Initializable {
 
     private Label label;
 
+    Preferences preferences;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO
+
     }
 
+    @FXML
+    private JFXTextField username;
+
+    @FXML
+    private JFXPasswordField password;
+
+    @FXML
+    void handleLogin(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleMin(MouseEvent event) {
+
+    }
+
+    @FXML
+    void initialize() {
+
+    }
 
     @FXML
     private void handleClose (MouseEvent event){

@@ -5,33 +5,23 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="150.0" style="-fx-background-color: CCCCCC;" stylesheets="@SidePanel.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.SidePanel_Conroller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="150.0" styleClass="vbox" stylesheets="@SidePanel.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.SidePanel_Conroller">
    <children>
       <ImageView fitHeight="115.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/Logo.png" />
          </image>
          <VBox.margin>
-            <Insets left="3.0" top="5.0" />
+            <Insets left="3.0" top="15.0" />
          </VBox.margin>
       </ImageView>
       <JFXButton prefHeight="70.0" prefWidth="155.0" text="Add Class">
          <VBox.margin>
-            <Insets top="30.0" />
-         </VBox.margin>
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></JFXButton>
-      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Change Event">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></JFXButton>
-      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Delete">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></JFXButton>
+            <Insets top="15.0" />
+         </VBox.margin></JFXButton>
+      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Change Event" />
+      <JFXButton prefHeight="70.0" prefWidth="155.0" text="Delete" />
       <JFXButton prefHeight="70.0" prefWidth="155.0" text="Tasks" />
       <JFXButton prefHeight="70.0" prefWidth="155.0" text="Calculator" />
       <JFXButton accessibleText="Quit" prefHeight="70.0" prefWidth="155.0" text="Exit" />

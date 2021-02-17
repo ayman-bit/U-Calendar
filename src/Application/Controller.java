@@ -43,11 +43,10 @@ public class Controller implements Initializable {
             sidepanel.setSidePane(box);
             sidepanel.setDefaultDrawerSize(150);
 
-
             for (Node node : box.getChildren()){
                 node.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                     switch (node.getAccessibleText()){
-                        case "Exit" : System.exit(0);
+                        case "Quit" : System.exit(0);
 
                     }
                 });

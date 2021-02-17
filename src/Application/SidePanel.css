@@ -3,10 +3,11 @@
     -fx-text-fill: #ffffff;
     -fx-text-alignment: center;
 }
+
 .button{
     -fx-background-color: #ffffff;
 }
 
- .pane{
-
+.vbox{
+    -fx-background-color: #2A2E37;
 }

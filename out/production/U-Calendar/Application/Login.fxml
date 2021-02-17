@@ -14,13 +14,13 @@
 @author Ayman Abu Awad
  */-->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="894.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.Login_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="894.0" style="-fx-background-color: #2A2E37;" stylesheets="@SidePanel.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.Login_Controller">
     <children>
         <AnchorPane layoutX="563.0" layoutY="24.0" prefHeight="350.0" prefWidth="301.0" style="-fx-background-color: #9C2B27;">
             <children>
-                <JFXTextField focusColor="#3cc656" labelFloat="true" layoutX="27.0" layoutY="108.0" prefHeight="30.0" prefWidth="260.0" promptText="Email" unFocusColor="#c9c9c9" />
-                <JFXPasswordField focusColor="#3cc656" layoutX="26.0" layoutY="170.0" prefHeight="30.0" prefWidth="260.0" promptText="Password" unFocusColor="#c9c9c9" />
-                <JFXButton layoutX="27.0" layoutY="234.0" prefHeight="35.0" prefWidth="260.0" style="-fx-background-color: #E45652#E45652;" text="Sign In" textFill="#c9c9c9">
+                <JFXTextField fx:id="username" focusColor="#3cc656" labelFloat="true" layoutX="27.0" layoutY="108.0" prefHeight="30.0" prefWidth="260.0" promptText="Email" style="-fx-text-fill: white;" stylesheets="@Login.css" unFocusColor="#c9c9c9" />
+                <JFXPasswordField fx:id="password" focusColor="#3cc656" layoutX="26.0" layoutY="170.0" prefHeight="30.0" prefWidth="260.0" promptText="Password" stylesheets="@Login.css" unFocusColor="#c9c9c9" />
+                <JFXButton layoutX="27.0" layoutY="234.0" onAction="#handleLogin" prefHeight="35.0" prefWidth="260.0" style="-fx-background-color: #E45652#E45652;" text="Sign In" textFill="#c9c9c9">
                     <font>
                         <Font name="System Bold" size="13.0" />
                     </font>
