@@ -44,7 +44,7 @@
                     <release>${maven.compiler.release}</release>
                     <jlinkImageName>UCalendar</jlinkImageName>
                     <launcher>launcher</launcher>
-                    <mainClass>org.openjfx.App</mainClass>
+                    <mainClass>org.openjfx.UCalendar</mainClass>
                 </configuration>
             </plugin>
         </plugins>

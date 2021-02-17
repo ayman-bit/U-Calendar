@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
-public class App extends Application {
+public class UCalendar extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
