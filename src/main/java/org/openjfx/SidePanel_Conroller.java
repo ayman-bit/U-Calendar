@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/*
+@Author Ayman Abu Awad
+ */
 public class SidePanel_Conroller {
 
     @FXML

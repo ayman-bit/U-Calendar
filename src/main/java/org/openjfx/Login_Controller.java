@@ -15,12 +15,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-
-
-
-
 /*
-@author Ayman Abu Awad
+@Author Ayman Abu Awad
  */
 
 
