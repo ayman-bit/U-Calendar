@@ -1,3 +1,6 @@
+/*
+@Author Ayman Abu Awad
+ */
 .text-input {
     -fx-text-fill: white;
     -fx-highlight-fill: derive(-fx-control-inner-background,-20%);

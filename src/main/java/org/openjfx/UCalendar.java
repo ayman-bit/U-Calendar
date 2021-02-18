@@ -16,7 +16,7 @@ public class UCalendar extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Application.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

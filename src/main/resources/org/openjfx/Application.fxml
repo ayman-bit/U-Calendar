@@ -2,7 +2,6 @@
 <!--
 @Author Ayman Abu Awad
  -->
-
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.geometry.Insets?>
