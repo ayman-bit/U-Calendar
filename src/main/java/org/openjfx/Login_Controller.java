@@ -1,6 +1,5 @@
 package org.openjfx;
 
-
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -18,7 +17,6 @@ import java.util.prefs.Preferences;
 /*
 @Author Ayman Abu Awad
  */
-
 
 public class Login_Controller implements Initializable {
 
