@@ -7,11 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
+
 /*
 @Author Ayman Abu Awad
 @Mohammed Shahwan
  */
 public class UCalendar extends Application {
+
+    private static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

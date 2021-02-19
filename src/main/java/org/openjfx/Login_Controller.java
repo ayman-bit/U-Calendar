@@ -4,12 +4,17 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
@@ -36,8 +41,20 @@ public class Login_Controller implements Initializable {
     private JFXPasswordField password;
 
     @FXML
-    void handleLogin(ActionEvent event) {
+    void handleLogin(ActionEvent event) throws IOException {
 
+        System.out.println(username.getText());
+        System.out.println( password.getText());
+
+        if(username.getText().equals("root") && password.getText().equals("toor"))
+        {
+            Parent mainApp = FXMLLoader.load(getClass().getResource("Application.fxml"));
+            Scene mainScene = new Scene(mainApp);
+            Stage  window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setTitle("UCalendar");
+            window.setScene(mainScene);
+            window.show();
+        }
     }
 
     @FXML
