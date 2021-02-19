@@ -44,3 +44,15 @@ If you run on Windows, follow these steps:
     cd UCalendar
     mvn clean javafx:jlink
     target\UCalendar\bin\launcher
+
+### TODO List
+
+Ayman : Create Task task view
+        Create Week view
+        Create month view 
+        Create Grid
+
+Moe : Create Add / Edit / Delete events
+
+Kamel : Create The Calculator 
+
