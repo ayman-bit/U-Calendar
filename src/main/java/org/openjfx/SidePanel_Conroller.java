@@ -1,6 +1,8 @@
 package org.openjfx;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +17,11 @@ public class SidePanel_Conroller {
 
     @FXML
     private URL location;
+
+
+    @FXML
+    void Quit(MouseEvent event) { System.exit(0);}
+
 
     @FXML
     void initialize() {
