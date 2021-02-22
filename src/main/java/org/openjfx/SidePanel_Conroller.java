@@ -32,8 +32,9 @@ public class SidePanel_Conroller {
 
     }
 
+
     @FXML
-    private JFXButton addEvent;
+    void Quit(MouseEvent event) { System.exit(0);}
 
     @FXML
     void handleAdd(MouseEvent event) throws IOException {

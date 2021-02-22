@@ -60,7 +60,8 @@ public class Login_Controller implements Initializable {
 
     @FXML
     void handleMin(MouseEvent event) {
-
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 
     @FXML
@@ -73,16 +74,5 @@ public class Login_Controller implements Initializable {
         System.exit(0);
     }
 
-    @FXML
-    private void handleMin (ActionEvent event){
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setIconified(true);
-        /*
-        Trying to implement the minimize full screen and close button using Node..
-        For some reason it does not seem to work on Mac  >.>
-         */
-        //stage.setFullScreen(true);
-        //stage.close();
-    }
 
 }
