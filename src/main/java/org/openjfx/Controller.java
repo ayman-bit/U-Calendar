@@ -46,15 +46,6 @@ public class Controller implements Initializable {
             sidepanel.setSidePane(box);
             sidepanel.setDefaultDrawerSize(150);
 
-            for (Node node : box.getChildren()){
-                node.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                    switch (node.getAccessibleText()){
-                        case "Quit" : System.exit(0);
-
-                    }
-                });
-            }
-
             HamburgerBasicCloseTransition menu = new HamburgerBasicCloseTransition(options);
             menu.setRate(-1);
             options.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event event) -> {

@@ -28,6 +28,6 @@
       <JFXButton prefHeight="70.0" prefWidth="155.0" text="Delete" />
       <JFXButton prefHeight="70.0" prefWidth="155.0" text="Tasks" />
       <JFXButton prefHeight="70.0" prefWidth="155.0" text="Calculator" />
-      <JFXButton accessibleText="Quit" prefHeight="70.0" prefWidth="155.0" text="Exit" />
+      <JFXButton accessibleText="Quit" onMouseClicked="#Quit" prefHeight="70.0" prefWidth="155.0" text="Exit" />
    </children>
 </VBox>
