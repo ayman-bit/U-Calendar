@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import java.util.Calendar;
 
 import java.io.IOException;
 
@@ -19,10 +20,11 @@ public class UCalendar extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+    public void start(Stage primaryStage) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("YearView.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
+        primaryStage.setTitle("U-Calendar");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

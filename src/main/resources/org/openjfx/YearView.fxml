@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="560.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.YearView_Controller">
+<AnchorPane prefHeight="560.0" prefWidth="550.0" style="-fx-background-color: #FFFFFF;" stylesheets="@YearView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.YearView_Controller">
    <children>
-      <GridPane fx:id="Grid" layoutX="-10.0" layoutY="50.0" prefHeight="510.0" prefWidth="560.0">
+      <GridPane fx:id="mainPanel" alignment="CENTER" gridLinesVisible="true" layoutY="84.0" prefHeight="475.0" prefWidth="550.0" stylesheets="@YearView.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -29,9 +28,31 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <JFXButton layoutX="463.0" layoutY="14.0" onMouseClicked="#Today" text="Today" />
-      <JFXButton layoutX="518.0" layoutY="14.0" onMouseClicked="#forwardButton" text="&gt;" />
-      <JFXButton layoutX="437.0" layoutY="14.0" onMouseClicked="#backwardButton" text="&lt;" />
-      <JFXTextField fx:id="CurrentMonth" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="200.0" unFocusColor="TRANSPARENT" />
+      <JFXButton layoutX="463.0" layoutY="14.0" onMouseClicked="#Today" stylesheets="@YearView.css" text="Today" />
+      <JFXButton layoutX="518.0" layoutY="14.0" onMouseClicked="#forwardButton" stylesheets="@YearView.css" text="&gt;" />
+      <JFXButton layoutX="437.0" layoutY="14.0" onMouseClicked="#backwardButton" stylesheets="@YearView.css" text="&lt;" />
+      <GridPane alignment="CENTER" layoutY="56.0" prefHeight="27.0" prefWidth="550.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="131.0" stylesheets="@YearView.css" text="Sunday" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="124.0" stylesheets="@YearView.css" text="Monday" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label id="Top" alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="104.0" text="Tuesday" textAlignment="CENTER" GridPane.columnIndex="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="100.0" stylesheets="@YearView.css" text="Wednesday" textAlignment="CENTER" GridPane.columnIndex="3" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="101.0" stylesheets="@YearView.css" text="Thursday" textAlignment="CENTER" GridPane.columnIndex="4" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="160.0" stylesheets="@YearView.css" text="Friday" textAlignment="CENTER" GridPane.columnIndex="5" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="103.0" stylesheets="@YearView.css" text="Saturday" textAlignment="CENTER" GridPane.columnIndex="6" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
