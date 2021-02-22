@@ -2,6 +2,9 @@ package org.openjfx;
 
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -22,9 +25,12 @@ public class YearView_Controller {
 
     @FXML
     private GridPane mainPanel;
+    static DateFormat dateformatter = new SimpleDateFormat("yyyy");
 
     @FXML
     void CreateGrid (){
+
+
         int rows = 6;
         int cols = 7;
 
@@ -44,7 +50,8 @@ public class YearView_Controller {
 
     @FXML
     void Today(MouseEvent event) {
-
+        Date now = new Date();
+        System.out.println(now);
     }
 
     @FXML

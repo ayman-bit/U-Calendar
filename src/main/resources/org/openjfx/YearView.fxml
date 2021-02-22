@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="560.0" prefWidth="550.0" style="-fx-background-color: #FFFFFF;" stylesheets="@YearView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.YearView_Controller">
+<AnchorPane prefHeight="560.0" prefWidth="550.0" style="-fx-background-color: #FFFFFF;" stylesheets="@YearView.css" xmlns="http://javafx.com/javafx/15.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.YearView_Controller">
    <children>
       <GridPane fx:id="mainPanel" alignment="CENTER" gridLinesVisible="true" layoutY="84.0" prefHeight="475.0" prefWidth="550.0" stylesheets="@YearView.css">
          <columnConstraints>

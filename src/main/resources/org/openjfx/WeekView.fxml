@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -8,7 +10,7 @@
 
 <AnchorPane prefHeight="510.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
    <children>
-      <ScrollPane layoutX="-2.0" layoutY="-2.0" prefHeight="510.0" prefWidth="550.0" vbarPolicy="ALWAYS">
+      <ScrollPane layoutX="-2.0" layoutY="63.0" prefHeight="445.0" prefWidth="550.0" vbarPolicy="ALWAYS">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="532.0">
                <children>
@@ -54,5 +56,31 @@
             </AnchorPane>
         </content>
       </ScrollPane>
+      <JFXButton layoutX="473.0" layoutY="7.0" onMouseClicked="#Today" text="Today" />
+      <JFXButton layoutX="528.0" layoutY="7.0" onMouseClicked="#forwardButton" text="&gt;" />
+      <JFXButton layoutX="447.0" layoutY="7.0" onMouseClicked="#backwardButton" text="&lt;" />
+      <GridPane alignment="CENTER" layoutY="34.0" prefHeight="27.0" prefWidth="550.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="131.0" text="Sunday" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="124.0" text="Monday" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label id="Top" alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="104.0" text="Tuesday" textAlignment="CENTER" GridPane.columnIndex="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="100.0" text="Wednesday" textAlignment="CENTER" GridPane.columnIndex="3" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="101.0" text="Thursday" textAlignment="CENTER" GridPane.columnIndex="4" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="160.0" text="Friday" textAlignment="CENTER" GridPane.columnIndex="5" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="103.0" text="Saturday" textAlignment="CENTER" GridPane.columnIndex="6" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
