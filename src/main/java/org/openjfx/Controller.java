@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import javafx.event.Event;
@@ -35,6 +36,9 @@ public class Controller implements Initializable {
     private JFXDrawer sidepanel;
 
     @FXML
+    private JFXDrawer mainPanel;
+
+    @FXML
     private JFXHamburger options;
 
 
@@ -45,6 +49,11 @@ public class Controller implements Initializable {
             VBox box = FXMLLoader.load(getClass().getResource("SidePanel.fxml"));
             sidepanel.setSidePane(box);
             sidepanel.setDefaultDrawerSize(150);
+
+            AnchorPane YearView = FXMLLoader.load(getClass().getResource("YearView.fxml"));
+            mainPanel.setSidePane(YearView);
+            mainPanel.setDefaultDrawerSize(-30);
+
 
             HamburgerBasicCloseTransition menu = new HamburgerBasicCloseTransition(options);
             menu.setRate(-1);

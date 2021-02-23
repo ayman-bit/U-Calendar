@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="510.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/15.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
+<AnchorPane prefHeight="510.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
    <children>
-      <ScrollPane layoutX="-2.0" layoutY="63.0" prefHeight="445.0" prefWidth="550.0" vbarPolicy="ALWAYS">
+      <ScrollPane layoutX="-2.0" layoutY="63.0" prefHeight="510.0" prefWidth="550.0" vbarPolicy="ALWAYS">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="532.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="750.0" prefWidth="532.0">
                <children>
-                  <GridPane prefHeight="601.0" prefWidth="53.0">
+                  <GridPane layoutY="-1.0" prefHeight="750.0" prefWidth="42.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -45,33 +45,33 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="12 AM" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="1 AM" GridPane.rowIndex="1" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="2 AM" GridPane.rowIndex="3" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="3 AM" GridPane.rowIndex="2" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="4 AM" GridPane.rowIndex="4" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="5 AM" GridPane.rowIndex="5" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="6 AM" GridPane.rowIndex="6" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="7 AM" GridPane.rowIndex="7" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="8 AM" GridPane.rowIndex="9" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="9 AM" GridPane.rowIndex="8" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="10 AM" GridPane.rowIndex="10" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="11 AM" GridPane.rowIndex="11" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="Noon" GridPane.rowIndex="12" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="1 PM" GridPane.rowIndex="13" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="2 PM" GridPane.rowIndex="14" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="3 PM" GridPane.rowIndex="15" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="4 PM" GridPane.rowIndex="16" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="5 PM" GridPane.rowIndex="17" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="6 PM" GridPane.rowIndex="18" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="7 PM" GridPane.rowIndex="19" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="8 PM" GridPane.rowIndex="20" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="9 PM" GridPane.rowIndex="21" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="10 PM" GridPane.rowIndex="22" />
-                        <Label alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="69.0" text="11 PM" GridPane.rowIndex="23" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="12 AM" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="1 AM" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="2 AM" GridPane.rowIndex="3" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="3 AM" GridPane.rowIndex="2" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="4 AM" GridPane.rowIndex="4" />
+                        <Label fx:id="hoursPanel" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="5 AM" GridPane.rowIndex="5" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="6 AM" GridPane.rowIndex="6" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="7 AM" GridPane.rowIndex="7" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="8 AM" GridPane.rowIndex="9" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="9 AM" GridPane.rowIndex="8" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="10 AM" GridPane.rowIndex="10" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="11 AM" GridPane.rowIndex="11" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="Noon" GridPane.rowIndex="12" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="1 PM" GridPane.rowIndex="13" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="2 PM" GridPane.rowIndex="14" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="3 PM" GridPane.rowIndex="15" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="4 PM" GridPane.rowIndex="16" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="5 PM" GridPane.rowIndex="17" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="6 PM" GridPane.rowIndex="18" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="7 PM" GridPane.rowIndex="19" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="8 PM" GridPane.rowIndex="20" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="9 PM" GridPane.rowIndex="21" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="10 PM" GridPane.rowIndex="22" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="11 PM" GridPane.rowIndex="23" />
                      </children>
                   </GridPane>
-                  <GridPane fx:id="Grid" layoutX="45.0" prefHeight="599.0" prefWidth="486.0">
+                  <GridPane fx:id="mainPanel" gridLinesVisible="true" layoutX="45.0" prefHeight="750.0" prefWidth="486.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

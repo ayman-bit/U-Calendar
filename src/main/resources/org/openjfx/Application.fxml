@@ -27,6 +27,7 @@
             <Cursor fx:constant="H_RESIZE" />
          </cursor>
       </HBox>
-      <JFXDrawer fx:id="mainpanel" layoutX="150.0" layoutY="40.0" prefHeight="560.0" prefWidth="550.0" />
+      <JFXDrawer fx:id="mainPanel" layoutX="150.0" layoutY="40.0" prefHeight="560.0" prefWidth="550.0" />
+      <JFXDrawer layoutX="-293.0" layoutY="-111.0" />
    </children>
 </AnchorPane>
