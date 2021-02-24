@@ -50,8 +50,8 @@ public class Controller implements Initializable {
             sidepanel.setSidePane(box);
             sidepanel.setDefaultDrawerSize(150);
 
-            AnchorPane YearView = FXMLLoader.load(getClass().getResource("YearView.fxml"));
-            mainPanel.setSidePane(YearView);
+            AnchorPane MonthView = FXMLLoader.load(getClass().getResource("MonthView.fxml"));
+            mainPanel.setSidePane(MonthView);
             mainPanel.setDefaultDrawerSize(-30);
 
 

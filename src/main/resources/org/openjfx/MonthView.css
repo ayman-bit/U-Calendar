@@ -1,0 +1,19 @@
+.label{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #0A0A0A;
+    -fx-text-alignment: center;
+    -fx-font-weight: 900;
+    -fx-font-size: large;
+
+}
+
+.label:hover{
+    -fx-background-color: #00C853;
+}
+
+#mainPanel{
+    -fx-text-alignment: center;
+    -fx-font-weight: 900;
+    -fx-font-size: large;
+}
+

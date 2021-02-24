@@ -1,12 +1,16 @@
 package org.openjfx;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class WeekView_Controller {
 
@@ -17,24 +21,28 @@ public class WeekView_Controller {
     private URL location;
 
     @FXML
-    private Label hoursPanel;
+    private GridPane hoursPanel;
 
     @FXML
     private GridPane mainPanel;
 
     @FXML
     void Today(MouseEvent event) {
-        Date now = new Date();
-        System.out.println(now);
+        Calendar calendar = Calendar.getInstance();
+        currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+        CreateGrid ();
     }
 
     @FXML
     void backwardButton(MouseEvent event) {
-
+        currentWeek--;
+        CreateGrid ();
     }
 
     @FXML
     void forwardButton(MouseEvent event) {
+        currentWeek++;
+        CreateGrid ();
 
     }
 
@@ -42,6 +50,41 @@ public class WeekView_Controller {
     void initialize() {
         assert hoursPanel != null : "fx:id=\"hoursPanel\" was not injected: check your FXML file 'WeekView.fxml'.";
         assert mainPanel != null : "fx:id=\"Grid\" was not injected: check your FXML file 'WeekView.fxml'.";
+        Calendar calendar = Calendar.getInstance();
+        currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+        today = new SimpleDateFormat("ddMMYYYY").format(calendar.getTime());
+        CreateGrid ();
+    }
 
+    int currentWeek;
+    @FXML
+    private Label Month_Year;
+    String today;
+
+    @FXML
+    void CreateGrid (){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.WEEK_OF_YEAR, currentWeek);
+
+        Month_Year.setText(new SimpleDateFormat("MMMM, YYYY").format(calendar.getTime()));
+
+        int rows = 24;
+        int cols = 7;
+
+        mainPanel.getChildren().clear();
+        // Add it to the grid
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
+                Text Data = new Text(String.valueOf(i));
+                // Add it to the grid
+                mainPanel.add(Data,j,i );
+                Calendar current = Calendar.getInstance();
+
+                if ((current.get(Calendar.DAY_OF_WEEK)) == (j + 1) && current.get(Calendar.HOUR_OF_DAY) == i && currentWeek==current.get(Calendar.WEEK_OF_YEAR)) {
+                    Data.setFill(Color.RED);
+                }
+
+            }
+        }
     }
 }
