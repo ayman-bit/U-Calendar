@@ -20,7 +20,7 @@
             <Insets left="3.0" top="15.0" />
          </VBox.margin>
       </ImageView>
-      <JFXButton prefHeight="76.0" prefWidth="155.0" text="Add Class">
+      <JFXButton onMouseClicked="#AddClass" prefHeight="76.0" prefWidth="155.0" text="Add Class">
          <VBox.margin>
             <Insets top="15.0" />
          </VBox.margin></JFXButton>

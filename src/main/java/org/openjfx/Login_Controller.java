@@ -45,7 +45,7 @@ public class Login_Controller implements Initializable {
     void handleLogin(ActionEvent event) throws IOException {
 
         System.out.println(username.getText());
-        System.out.println( password.getText());
+        System.out.println(password.getText());
 
         if(username.getText().equals("root") && password.getText().equals("toor"))
         {
