@@ -18,6 +18,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
+
 /*
 @Author Ayman Abu Awad
  */
@@ -36,7 +43,10 @@ public class Controller implements Initializable {
     private JFXDrawer sidepanel;
 
     @FXML
-    private JFXDrawer mainPanel;
+    private JFXDrawer MonthView;
+
+    @FXML
+    private JFXDrawer WeekView;
 
     @FXML
     private JFXHamburger options;
@@ -48,25 +58,29 @@ public class Controller implements Initializable {
         try {
             VBox box = FXMLLoader.load(getClass().getResource("SidePanel.fxml"));
             sidepanel.setSidePane(box);
-            sidepanel.setDefaultDrawerSize(150);
+            sidepanel.setDefaultDrawerSize(-30);
 
-            AnchorPane MonthView = FXMLLoader.load(getClass().getResource("MonthView.fxml"));
-            mainPanel.setSidePane(MonthView);
-            mainPanel.setDefaultDrawerSize(-30);
+            AnchorPane MonView = FXMLLoader.load(getClass().getResource("MonthView.fxml"));
+            MonthView.setSidePane(MonView);
+            MonthView.setDefaultDrawerSize(-30);
+
+            AnchorPane WkView = FXMLLoader.load(getClass().getResource("WeekView.fxml"));
+            WeekView.setSidePane(WkView);
+            WeekView.setDefaultDrawerSize(-30);
 
 
-            HamburgerBasicCloseTransition menu = new HamburgerBasicCloseTransition(options);
-            menu.setRate(-1);
-            options.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event event) -> {
-                menu.setRate(menu.getRate() * -1);
-                menu.play();
-
-                if (sidepanel.isOpened()) {
-                    sidepanel.close();
-                } else {
-                    sidepanel.open();
-                }
-            });
+//            HamburgerBasicCloseTransition menu = new HamburgerBasicCloseTransition(options);
+//            menu.setRate(-1);
+//            options.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event event) -> {
+//                menu.setRate(menu.getRate() * -1);
+//                menu.play();
+//
+//                if (sidepanel.isOpened()) {
+//                    sidepanel.close();
+//                } else {
+//                    sidepanel.open();
+//                }
+//            });
         } catch (IOException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }

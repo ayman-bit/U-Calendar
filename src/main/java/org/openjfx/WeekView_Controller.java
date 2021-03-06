@@ -6,8 +6,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -75,13 +77,14 @@ public class WeekView_Controller {
         // Add it to the grid
         for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++){
-                Text Data = new Text(String.valueOf(i));
+                Label Data = new Label(String.valueOf(i));
                 // Add it to the grid
                 mainPanel.add(Data,j,i );
+                mainPanel.setAlignment(Pos.TOP_RIGHT);
                 Calendar current = Calendar.getInstance();
 
                 if ((current.get(Calendar.DAY_OF_WEEK)) == (j + 1) && current.get(Calendar.HOUR_OF_DAY) == i && currentWeek==current.get(Calendar.WEEK_OF_YEAR)) {
-                    Data.setFill(Color.RED);
+                    Data.setTextFill(Color.RED);
                 }
 
             }
