@@ -1,5 +1,8 @@
 package org.openjfx;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -8,21 +11,18 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-/*
-@Author Ayman Abu Awad
- */
-public class SidePanel_Conroller {
-
+public class AddEvent_Controller {
 
 
     @FXML
-    void AddClass(MouseEvent event) throws IOException {
-        Parent AddEvent = FXMLLoader.load(getClass().getResource("AddEvent.fxml"));
-        Scene mainScene = new Scene(AddEvent);
+    void Done(MouseEvent event) {
+
+    }
+
+    @FXML
+    void Cancel(MouseEvent event) throws IOException {
+        Parent MainApp = FXMLLoader.load(getClass().getResource("Application.fxml"));
+        Scene mainScene = new Scene(MainApp);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setTitle("Add Class");
         window.setScene(mainScene);
@@ -30,12 +30,7 @@ public class SidePanel_Conroller {
     }
 
     @FXML
-    void Quit(MouseEvent event) { System.exit(0);}
-
-
-    @FXML
     void initialize() {
 
     }
-
 }

@@ -2,10 +2,12 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -14,28 +16,55 @@
 @Author Mohammed Shahwan
  -->
 
-<AnchorPane prefHeight="597.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.AddEventController">
-    <children>
-        <Pane prefHeight="597.0" prefWidth="293.0" style="-fx-background-color: #1B6CD7;" />
-        <Label layoutX="335.0" layoutY="14.0" prefHeight="35.0" prefWidth="160.0" text="Add Event">
-            <font>
-                <Font name="System Bold" size="24.0" />
-            </font>
-        </Label>
-        <Label layoutX="329.0" layoutY="49.0" text="Select new date for your event" />
-        <Label layoutX="329.0" layoutY="113.0" text="Select start time for your event" />
-        <Separator layoutX="323.0" layoutY="491.0" prefHeight="5.0" prefWidth="364.0" />
-        <JFXButton layoutX="528.0" layoutY="526.0" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" />
-        <JFXButton layoutX="350.0" layoutY="526.0" onMouseClicked="#Quit" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
-      <JFXTimePicker layoutX="332.0" layoutY="130.0" />
-      <JFXDatePicker layoutX="330.0" layoutY="75.0" />
-      <Pane layoutX="303.0" layoutY="237.0" prefHeight="41.0" prefWidth="396.0">
-         <children>
-            <JFXTextField layoutX="105.0" layoutY="11.0" />
-            <Label layoutX="31.0" layoutY="23.0" prefHeight="17.0" prefWidth="63.0" text="Event Title:" />
-         </children>
-      </Pane>
-      <Label layoutX="331.0" layoutY="166.0" text="Select end time for your event" />
-      <JFXTimePicker layoutX="334.0" layoutY="183.0" />
-    </children>
+<AnchorPane prefHeight="597.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.AddEvent_Controller">
+  <children>
+    <Pane prefHeight="597.0" prefWidth="173.0" style="-fx-background-color: #1B6CD7;" />
+      <JFXTabPane layoutX="145.0" prefHeight="597.0" prefWidth="598.0" side="LEFT">
+         <tabs>
+            <Tab text="Class Info">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#Done" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="45.0" layoutY="24.0" prefHeight="35.0" prefWidth="160.0" text="Add Event">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="44.0" layoutY="59.0" text="Select new date for your event" />
+                        <Label layoutX="44.0" layoutY="122.0" text="Select new time for your event" />
+                        <Separator layoutX="100.0" layoutY="501.0" prefHeight="5.0" prefWidth="400.0" />
+                        <JFXButton layoutX="300.0" layoutY="536.0" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE" />
+                        <JFXButton layoutX="120.0" layoutY="536.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
+                        <JFXDatePicker layoutX="44.0" layoutY="76.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker layoutX="44.0" layoutY="139.0" prefHeight="29.0" prefWidth="350.0" />
+                        <Label layoutX="44.0" layoutY="185.0" text="Select new time for your event" />
+                        <JFXTimePicker layoutX="44.0" layoutY="202.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTextField layoutX="45.0" layoutY="259.0" prefHeight="27.0" prefWidth="311.0" promptText="Class Name" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+            <Tab text="Untitled Tab">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+  </children>
 </AnchorPane>

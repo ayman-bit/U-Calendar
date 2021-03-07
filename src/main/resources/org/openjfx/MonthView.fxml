@@ -54,6 +54,6 @@
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sat" textAlignment="CENTER" GridPane.columnIndex="6" />
          </children>
       </GridPane>
-      <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" prefHeight="27.0" prefWidth="210.0" stylesheets="@MonthView.css" text="Month, Year" />
+      <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" prefHeight="40.0" prefWidth="210.0" stylesheets="@MonthView.css" text="Month, Year" />
    </children>
 </AnchorPane>
