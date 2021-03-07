@@ -6,16 +6,18 @@
 
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/15.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
 
     <children>
-      <JFXDrawer fx:id="sidepanel" layoutY="40.0" prefHeight="560.0" prefWidth="150.0" />
-      <HBox prefHeight="40.0" prefWidth="700.0" styleClass="hbox">
+      <JFXDrawer fx:id="sidepanel" layoutY="40.0" />
+      <HBox prefHeight="40.0" prefWidth="900.0" styleClass="hbox">
          <children>
             <JFXHamburger fx:id="options">
                <padding>
@@ -27,7 +29,27 @@
             <Cursor fx:constant="H_RESIZE" />
          </cursor>
       </HBox>
-      <JFXDrawer fx:id="mainPanel" layoutX="150.0" layoutY="40.0" prefHeight="560.0" prefWidth="550.0" />
-      <JFXDrawer layoutX="-293.0" layoutY="-111.0" />
+      <JFXTabPane layoutX="150.0" layoutY="40.0">
+         <tabs>
+            <Tab text="Week View">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <JFXDrawer fx:id="WeekView" prefHeight="560.0" prefWidth="550.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Month View">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <JFXDrawer fx:id="MonthView" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
    </children>
 </AnchorPane>

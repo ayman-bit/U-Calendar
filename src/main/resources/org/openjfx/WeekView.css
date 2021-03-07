@@ -1,3 +1,28 @@
 #mainPanel{
-    -fx-font-family: verdana;
+    -fx-text-alignment: center;
+    -fx-font-size: 24px;
+    -fx-font-weight: bolder;
+    -fx-font-alignment:CENTER;
+    -fx-hpos:right;
+    -fx-legend-side:right;
+    -fx-title-side:right;
+    -fx-alignment: CENTER;
+    -fx-text-fill: red;
+    align-self: center;
+    -fx-min-height: 30 ;
+    -fx-gridLinesVisible: ture;
 }
+
+
+#Month_Year{
+
+    -fx-font-weight: bolder;
+    -fx-font-style: italic;
+    -fx-font-size: 20px;
+    -fx-background-color: transparent;
+}
+#anchorPane{
+
+    -fx-background-color: transparent;
+}
+

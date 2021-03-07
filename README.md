@@ -47,12 +47,18 @@ If you run on Windows, follow these steps:
 
 ### TODO List
 
-Ayman : Create Task task view
-        Create Week view
-        Create month view 
-        Create Grid
+Ayman :
+- Main Application
+- Login Screen
+- SidePanel
+- Task View 
+- Week View
+- Month View 
+- Add Event
+- Create Grid
+- Edit / Delete events
 
-Moe : Create Add / Edit / Delete events
+Moe : Edited Add Event (adding the new tables)
 
 Kamel : Create The Calculator 
 

@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="560.0" prefWidth="550.0" stylesheets="@MonthView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.MonthView_Controller">
+<AnchorPane stylesheets="@MonthView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.MonthView_Controller">
    <children>
-      <GridPane fx:id="mainPanel" alignment="CENTER" layoutY="84.0" prefHeight="475.0" prefWidth="550.0" stylesheets="@MonthView.css">
+      <GridPane fx:id="mainPanel" alignment="TOP_RIGHT" layoutY="84.0" prefHeight="482.0" prefWidth="750.0" stylesheets="@MonthView.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -28,10 +28,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <JFXButton layoutX="463.0" layoutY="14.0" onMouseClicked="#Today" stylesheets="@MonthView.css" text="Today" />
-      <JFXButton layoutX="518.0" layoutY="14.0" onMouseClicked="#forwardButton" stylesheets="@MonthView.css" text="&gt;" />
-      <JFXButton layoutX="437.0" layoutY="14.0" onMouseClicked="#backwardButton" stylesheets="@MonthView.css" text="&lt;" />
-      <GridPane alignment="CENTER" layoutY="56.0" prefHeight="27.0" prefWidth="550.0">
+      <JFXButton layoutX="655.0" layoutY="6.0" onMouseClicked="#Today" stylesheets="@MonthView.css" text="Today" />
+      <JFXButton layoutX="710.0" layoutY="6.0" onMouseClicked="#forwardButton" stylesheets="@MonthView.css" text="&gt;" />
+      <JFXButton layoutX="629.0" layoutY="6.0" onMouseClicked="#backwardButton" stylesheets="@MonthView.css" text="&lt;" />
+      <GridPane alignment="CENTER" layoutY="56.0" prefHeight="27.0" prefWidth="750.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -45,15 +45,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="131.0" stylesheets="@MonthView.css" text="Sun" textAlignment="CENTER" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="124.0" stylesheets="@MonthView.css" text="Mon" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <Label id="Top" alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="104.0" text="Tues" textAlignment="CENTER" GridPane.columnIndex="2" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="100.0" stylesheets="@MonthView.css" text="Wed" textAlignment="CENTER" GridPane.columnIndex="3" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="51.0" prefWidth="101.0" stylesheets="@MonthView.css" text="Thu" textAlignment="CENTER" GridPane.columnIndex="4" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sun" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="110.0" stylesheets="@MonthView.css" text="Mon" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label id="Top" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="111.0" stylesheets="@MonthView.css" text="Tues" textAlignment="CENTER" GridPane.columnIndex="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="114.0" stylesheets="@MonthView.css" text="Wed" textAlignment="CENTER" GridPane.columnIndex="3" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Thu" textAlignment="CENTER" GridPane.columnIndex="4" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="160.0" stylesheets="@MonthView.css" text="Fri" textAlignment="CENTER" GridPane.columnIndex="5" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="103.0" stylesheets="@MonthView.css" text="Sat" textAlignment="CENTER" GridPane.columnIndex="6" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sat" textAlignment="CENTER" GridPane.columnIndex="6" />
          </children>
       </GridPane>
-      <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" prefHeight="27.0" prefWidth="210.0" text="Month, Year" />
+      <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" prefHeight="40.0" prefWidth="210.0" stylesheets="@MonthView.css" text="Month, Year" />
    </children>
 </AnchorPane>
