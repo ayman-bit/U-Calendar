@@ -24,7 +24,6 @@ public class AddEvent_Controller {
         Parent MainApp = FXMLLoader.load(getClass().getResource("Application.fxml"));
         Scene mainScene = new Scene(MainApp);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setTitle("Add Class");
         window.setScene(mainScene);
         window.show();
     }
