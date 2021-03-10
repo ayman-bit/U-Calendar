@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Calculator_Controller">
+    <children>
+        <TabPane layoutX="215.0" layoutY="78.0" prefHeight="422.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab text="Class 1">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView layoutX="100.0" layoutY="42.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+                                    <columns>
+                                        <TableColumn fx:id="subeventColumn" prefWidth="75.0" text="Sub-event" />
+                                        <TableColumn prefWidth="75.0" text="Grade">
+                                            <columns>
+                                                <TableColumn fx:id="gradeColumn" prefWidth="75.0" text="Points" />
+                                                <TableColumn fx:id="outOfColumn" prefWidth="75.0" text="Out of" />
+                                            </columns>
+                                        </TableColumn>
+                                        <TableColumn fx:id="weightColumn" prefWidth="75.0" text="Weight" />
+                                        <TableColumn fx:id="achievedColumn" prefWidth="107.199951171875" text="Achieved weight" />
+                                    </columns>
+                                </TableView>
+
+                                <TextField fx:id="subeventTextField" layoutX="82.0" layoutY="244.0" prefHeight="26.0" prefWidth="64.0" />
+                                <Label layoutX="23.0" layoutY="249.0" text="Sub-event:" />
+
+                                <TextField fx:id="gradeTextField" layoutX="200.0" layoutY="244.0" prefHeight="26.0" prefWidth="64.0" />
+                                <Label layoutX="160.0" layoutY="249.0" text="Grade:" />
+
+                                <TextField fx:id="outOfTextField" layoutX="323.0" layoutY="244.0" prefHeight="26.0" prefWidth="64.0" />
+                                <Label layoutX="283.0" layoutY="248.0" text="Out of:" />
+
+                                <TextField fx:id="weightTextField" layoutX="445.0" layoutY="243.0" prefHeight="26.0" prefWidth="64.0" />
+                                <Label layoutX="397.0" layoutY="248.0" text="Weight:" />
+
+                                <TextField fx:id="desiredTextField" layoutX="150.0" layoutY="288.0" prefHeight="26.0" prefWidth="64.0" />
+                                <Label layoutX="23.0" layoutY="293.0" text="Desired Overall Grade:" />
+
+                                <Label fx:id="totalLabel" layoutX="108.0" layoutY="334.0" />
+                                <Label layoutX="23.0" layoutY="338.0" text="Current Total:" />
+
+                                <Button fx:id="calculateNeeded" layoutX="248.0" layoutY="289.0" mnemonicParsing="false" onAction="#calculateNeeded" text="Calculate needed grade" />
+                                <Button fx:id="addToTable" layoutX="536.0" layoutY="245.0" mnemonicParsing="false" onAction="#addToTableClicked" text="Add" />
+
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Class 2">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
