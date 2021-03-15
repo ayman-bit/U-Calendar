@@ -19,7 +19,9 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:13" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:mac:13" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.derby:derbyclient:10.15.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.derby:derbyshared:10.15.2.0" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.23" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
+    <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.34.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jinahya:database-metadata-bind:0.6" level="project" />
   </component>
 </module>

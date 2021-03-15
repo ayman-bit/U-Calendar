@@ -12,9 +12,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-/*
-@Author Ayman Abu Awad
+/**
+ * @author Ayman Abu Awad
  */
+
 public class SidePanel_Conroller {
 
 
