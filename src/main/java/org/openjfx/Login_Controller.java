@@ -172,7 +172,7 @@ public class Login_Controller implements Initializable {
             return;
         }
 
-        String qu = "INSERT INTO loginInfo(username,password) VALUES ("
+        String qu = "INSERT INTO loginInfo (username,password) VALUES ("
                 + "'" + id + "',"
                 + "'" + psw + "'"
                 + ")";

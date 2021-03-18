@@ -48,7 +48,7 @@ public class DatabaseHandler {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
+                System.out.println("A database is connected!.");
             }
 
         } catch (SQLException ex) {
@@ -144,4 +144,7 @@ public class DatabaseHandler {
         finally {
         }
     }
+
+
+
 }
