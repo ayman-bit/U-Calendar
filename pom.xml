@@ -25,11 +25,21 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
+        <!-- SQlite -->
         <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyclient</artifactId>
-            <version>10.15.2.0</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.34.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jinahya</groupId>
+            <artifactId>database-metadata-bind</artifactId>
+            <version>0.6</version>
         </dependency>
     </dependencies>
 

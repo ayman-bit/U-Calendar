@@ -14,6 +14,7 @@
 
 <!--
 @Author Mohammed Shahwan
+@Editor Ayman Abu Awad
  -->
 
 <AnchorPane prefHeight="597.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.AddEvent_Controller">
@@ -30,16 +31,16 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="44.0" layoutY="59.0" text="Select new date for your event" />
-                        <Label layoutX="44.0" layoutY="122.0" text="Select new time for your event" />
+                        <Label layoutX="44.0" layoutY="59.0" text="Select a date for your event" />
+                        <Label layoutX="44.0" layoutY="122.0" text="Start TIme" />
                         <Separator layoutX="100.0" layoutY="501.0" prefHeight="5.0" prefWidth="400.0" />
-                        <JFXButton layoutX="300.0" layoutY="536.0" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE" />
+                        <JFXButton layoutX="300.0" layoutY="536.0" onAction="#Done" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE" />
                         <JFXButton layoutX="120.0" layoutY="536.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
-                        <JFXDatePicker layoutX="44.0" layoutY="76.0" prefHeight="29.0" prefWidth="350.0" />
-                        <JFXTimePicker layoutX="44.0" layoutY="139.0" prefHeight="29.0" prefWidth="350.0" />
-                        <Label layoutX="44.0" layoutY="185.0" text="Select new time for your event" />
-                        <JFXTimePicker layoutX="44.0" layoutY="202.0" prefHeight="29.0" prefWidth="350.0" />
-                        <JFXTextField layoutX="45.0" layoutY="259.0" prefHeight="27.0" prefWidth="311.0" promptText="Class Name" />
+                        <JFXDatePicker fx:id="date" layoutX="44.0" layoutY="76.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker fx:id="startTime" layoutX="44.0" layoutY="139.0" prefHeight="29.0" prefWidth="350.0" />
+                        <Label layoutX="44.0" layoutY="185.0" text="End Time" />
+                        <JFXTimePicker fx:id="endTime" layoutX="44.0" layoutY="202.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTextField fx:id="className" layoutX="45.0" layoutY="259.0" prefHeight="27.0" prefWidth="311.0" promptText="Class Name" />
                      </children>
                   </AnchorPane>
               </content>

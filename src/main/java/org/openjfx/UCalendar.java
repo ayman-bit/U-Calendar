@@ -10,10 +10,12 @@ import javafx.stage.StageStyle;
 import java.util.Calendar;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-/*
-@Author Ayman Abu Awad
-@Mohammed Shahwan
+/**
+ * @author Ayman Abu Awad
+ * @Mohammed Shahwan
  */
 public class UCalendar extends Application {
 
@@ -30,6 +32,7 @@ public class UCalendar extends Application {
     }
 
     public static void main(String[] args) {
+        new DatabaseHandler();
         launch(args);
     }
 }
