@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 /**
  * @author Ayman Abu Awad
+ * Kamal Ali
  */
 
 public class SidePanel_Conroller {
@@ -26,6 +27,16 @@ public class SidePanel_Conroller {
         Scene mainScene = new Scene(AddEvent);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setTitle("Add Class");
+        window.setScene(mainScene);
+        window.show();
+    }
+
+    @FXML
+    void OpenCalculator(MouseEvent event) throws IOException{
+        Parent AddEvent = FXMLLoader.load(getClass().getResource("Calculator.fxml"));
+        Scene mainScene = new Scene(AddEvent);
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setTitle("Calculator");
         window.setScene(mainScene);
         window.show();
     }
