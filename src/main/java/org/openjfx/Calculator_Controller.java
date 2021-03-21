@@ -20,8 +20,10 @@ import org.openjfx.tableEntry;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /*
@@ -167,9 +169,17 @@ public class Calculator_Controller implements Initializable {
 
     //TODO: loadClasses should read classes from database
     void loadClasses(){
-        choices.getItems().add("ECE 5010");
+       /* choices.getItems().add("ECE 5010");
         choices.getItems().add("ECE 5100");
-        choices.getItems().add("ECE 5500");
+        choices.getItems().add("ECE 5500");*/
+
+        List<Map<String, Object>> classList = DatabaseHandler.execQuery("SELECT eventName FROM userData WHERE user_id = " + Login_Controller.uid);
+        for (Map<String, Object> i : classList) {
+            for (Map.Entry<String, Object> me : i.entrySet()) {
+                choices.getItems().add(me.getValue().toString());
+            }
+        }
+
     }
 
     @FXML
