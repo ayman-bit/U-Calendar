@@ -16,11 +16,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
-/*
-@Author Ayman Abu Awad
+/**
+ * @author Ayman Abu Awad
  */
+
 public class Controller implements Initializable {
 
     @FXML
@@ -35,10 +34,8 @@ public class Controller implements Initializable {
     @FXML
     private JFXDrawer WeekView;
 
-    @FXML
-    private JFXHamburger options;
-
-
+//    @FXML
+//    private JFXHamburger options;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,7 +51,6 @@ public class Controller implements Initializable {
             AnchorPane WkView = FXMLLoader.load(getClass().getResource("WeekView.fxml"));
             WeekView.setSidePane(WkView);
             WeekView.setDefaultDrawerSize(-30);
-
 
 //            HamburgerBasicCloseTransition menu = new HamburgerBasicCloseTransition(options);
 //            menu.setRate(-1);

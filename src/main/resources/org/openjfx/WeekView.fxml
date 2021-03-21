@@ -7,6 +7,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<!--
+@Author Ayman Abu Awad
+ -->
 
 <AnchorPane fx:id="anchorPane" stylesheets="@WeekView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
    <children>

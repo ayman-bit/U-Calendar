@@ -18,6 +18,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+/**
+ * @author Ayman Abu Awad
+ */
 
 public class MonthView_Controller {
     int currentMonth;
