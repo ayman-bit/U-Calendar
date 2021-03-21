@@ -7,9 +7,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import org.openjfx.tableEntry;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class Calculator_Controller implements Initializable {
 
     @FXML
     private TableView<tableEntry> table;
+
+    @FXML
+    private ChoiceBox<String> choices;
 
     @FXML
     private TableColumn<tableEntry, String> subeventColumn;
@@ -71,6 +76,8 @@ public class Calculator_Controller implements Initializable {
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle){
 
+        loadClasses(); // loads the classes to the choice box
+
         subeventColumn.setCellValueFactory(
                 new PropertyValueFactory<tableEntry,String>("subevent")
         );
@@ -78,7 +85,7 @@ public class Calculator_Controller implements Initializable {
                 new PropertyValueFactory<tableEntry,Double>("grade")
         );
         outOfColumn.setCellValueFactory(
-                new PropertyValueFactory<tableEntry,Double>("out of")
+                new PropertyValueFactory<tableEntry,Double>("outOf")
         );
         weightColumn.setCellValueFactory(
                 new PropertyValueFactory<tableEntry,Double>("weight")
@@ -94,7 +101,7 @@ public class Calculator_Controller implements Initializable {
 
         // Load the dummy data to table
         table.setItems(getEntries());
-
+        //table.getColumns().addAll(subeventColumn, gradeColumn, outOfColumn, weightColumn, achievedColumn);
         calculateTotal();
 
         // TODO
@@ -107,18 +114,19 @@ public class Calculator_Controller implements Initializable {
         */
     }
 
-    // Reads the data. TODO: This should be reading from the database in the future
+    // Reads the data. TODO: This should be reading from the database in the future depending on selection
     public ObservableList<tableEntry>  getEntries()
     {
         ObservableList<tableEntry> entries = FXCollections.observableArrayList();
-        entries.add(new tableEntry("Assign1", 70, 100, 5));
-        entries.add(new tableEntry("Assign2", 100, 100, 10));
-        entries.add(new tableEntry("Midterm", 70, 100, 25));
-        entries.add(new tableEntry("Project", 70, 100, 50));
+        entries.add(new tableEntry("Assign1", 85, 100, 5));
+        entries.add(new tableEntry("Assign2", 30, 30, 10));
+        entries.add(new tableEntry("Midterm", 90, 100, 25));
+        entries.add(new tableEntry("Project", 50, 50, 60));
 
         return entries;
     }
 
+    //TODO: addToTableClicked should add the new item to the database.
     @FXML
     void addToTableClicked(ActionEvent event) {
 
@@ -151,18 +159,10 @@ public class Calculator_Controller implements Initializable {
 
     }
 
-    //TODO
-    void getClasses(){
-        /* Create an ArrayList of classes by searching through the database
-        * Option 1: Every one of the parameters would be a list. e.g. a list
-        * of tables, a list of subeventColumns, etc.
-        *
-        * Option 2:
-        * - Make a class/struct of the calculator layout, and instantiate an object for each class.
-        * - Store the objects in a list of Tabs
-        * - Figure out mechanism of knowing in which tab the user is
-        * - use something like Tabs[currentTab].calculateTotal
-         */
-
+    //TODO: loadClasses should read classes from database
+    void loadClasses(){
+        choices.getItems().add("ECE 5010");
+        choices.getItems().add("ECE 5100");
+        choices.getItems().add("ECE 5500");
     }
 }
