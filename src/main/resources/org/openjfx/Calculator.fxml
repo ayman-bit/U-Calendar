@@ -51,6 +51,7 @@
                 <Font name="Open Sans" size="16.0" />
             </font>
         </Label>
+      <Button fx:id="exitCalc" layoutX="644.0" layoutY="510.0" mnemonicParsing="false" onAction="#exitCalc" text="Exit Calculator" />
 
     </children>
 </AnchorPane>
