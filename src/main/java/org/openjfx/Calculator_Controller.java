@@ -43,42 +43,14 @@ public class Calculator_Controller implements Initializable {
     private TableColumn<tableEntry, String> subeventColumn;
 
     @FXML
-    private TableColumn<tableEntry, Double> gradeColumn;
+    private TableColumn<tableEntry, Double> gradeColumn, outOfColumn, weightColumn, achievedColumn;
 
     @FXML
-    private TableColumn<tableEntry, Double> outOfColumn;
-
-    @FXML
-    private TableColumn<tableEntry, Double> weightColumn;
-
-    @FXML
-    private TableColumn<tableEntry, Double> achievedColumn;
-
-    @FXML
-    private TextField subeventTextField;
-
-    @FXML
-    private TextField gradeTextField;
-
-    @FXML
-    private TextField outOfTextField;
-
-    @FXML
-    private TextField weightTextField;
+    private TextField subeventTextField, gradeTextField, outOfTextField, weightTextField, desiredTextField;
 
     @FXML
     private Label totalLabel;
 
-    @FXML
-    private TextField desiredTextField;
-
-    @FXML
-    private Button calculateNeeded;
-
-    @FXML
-    private Button addToTable;
-
-    private int index;
     private String currentEvent;
 
 
@@ -206,7 +178,6 @@ public class Calculator_Controller implements Initializable {
         totalLabel.setText(totalValueLabel); // Set the value of the label to the total
     }
 
-    // TODO
     @FXML
     void calculateNeeded(ActionEvent event) {
         double remaining, desired, totalWeight,totalAchieved, neededPoints, neededPercent, max;
@@ -259,7 +230,7 @@ public class Calculator_Controller implements Initializable {
         weightTextField.setText("");
     }
 
-    // TODO
+    // TODO:
     public void changeSubeventName(CellEditEvent edittedCell) {
           /*tableEntry cell =  table.getSelectionModel().getSelectedItem();
         cell.setSubevent(edittedCell.getNewValue().toString());*/
