@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * @author Ayman Abu Awad
- * @Mohammed Shahwan
+ * @Mohammed Shahwan (edited void start function)
  */
 public class UCalendar extends Application {
 
