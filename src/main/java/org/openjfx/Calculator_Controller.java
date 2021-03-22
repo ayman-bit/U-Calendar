@@ -115,20 +115,6 @@ public class Calculator_Controller implements Initializable {
 
         // Not sure if necessary
         table.setEditable(true);
-
-        // Load the dummy data to table
-        table.setItems(getEntries());
-        //table.getColumns().addAll(subeventColumn, gradeColumn, outOfColumn, weightColumn, achievedColumn);
-        calculateTotal();
-
-        // TODO
-        /*
-        public void changeSubeventName(CellEditEvent edittedCell)
-        {
-            tableEntry cell =  table.getSelectionModel().getSelectedItem();
-            cell.setSubevent(edittedCell.getNewValue().toString());
-        }
-        */
     }
 
     void loadClasses(){
@@ -142,9 +128,7 @@ public class Calculator_Controller implements Initializable {
 
     }
 
-    // Reads the data.
-    public ObservableList<tableEntry>  getEntries()
-    {
+    public ObservableList<tableEntry> getEntries() {
         ObservableList<tableEntry> entries = FXCollections.observableArrayList();
 
         // Load the table in a variable
@@ -167,7 +151,6 @@ public class Calculator_Controller implements Initializable {
 
         return entries;
     }
-
 
     @FXML
     void addToTableClicked(ActionEvent event) {
@@ -201,21 +184,28 @@ public class Calculator_Controller implements Initializable {
 
         // Update the total
         calculateTotal();
+
+        clearTextBoxes();
     }
 
-
     public void calculateTotal(){
-        double total = 0;
+        double total, totalPossible, lost, percentage;
+        total=totalPossible=percentage=0;
 
         for (tableEntry row : table.getItems()) {
             total += achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
+            totalPossible += weightColumn.getCellObservableValue(row).getValue();
         }
+        lost = totalPossible - total;
+        if(totalPossible!=0){percentage = total/totalPossible * 100;}
 
-        String totalValueLabel = String.valueOf(total); // Cast total to String
+        String totalValueLabel = "Achieved " + total + " out of a possible " + totalPossible
+                                  + " points\nand lost " + lost + " points. Current percentage: "
+                                  + percentage + "%";
         totalLabel.setText(totalValueLabel); // Set the value of the label to the total
     }
 
-    //TODO
+    // TODO
     @FXML
     void calculateNeeded(ActionEvent event) {
 
@@ -229,4 +219,18 @@ public class Calculator_Controller implements Initializable {
         window.setScene(mainScene);
         window.show();
     }
+
+    void clearTextBoxes(){
+        subeventTextField.setText("");
+        gradeTextField.setText("");
+        outOfTextField.setText("");
+        weightTextField.setText("");
+    }
+
+    // TODO
+    public void changeSubeventName(CellEditEvent edittedCell) {
+          /*tableEntry cell =  table.getSelectionModel().getSelectedItem();
+        cell.setSubevent(edittedCell.getNewValue().toString());*/
+    }
+
 }
