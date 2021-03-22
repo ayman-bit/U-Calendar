@@ -54,7 +54,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="numbAssign" layoutX="56.0" layoutY="75.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Assignments" />
+                        <JFXTextField fx:id="numAssign" layoutX="56.0" layoutY="75.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Assignments" />
                         <Separator layoutX="81.0" layoutY="476.0" prefHeight="5.0" prefWidth="400.0" />
                         <JFXButton layoutX="306.0" layoutY="505.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
                         <JFXButton layoutX="96.0" layoutY="505.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />

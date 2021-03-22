@@ -80,64 +80,71 @@ public class AddEvent_Controller {
 
     @FXML
     void Done(ActionEvent event) throws IOException {
-        String startD= date.getValue().toString();
-        String startT= startTime.getValue().toString();
-        String endT= endTime.getValue().toString();
-        String name= className.getText();
+        try {
+            String startD= date.getValue().toString();
+            String startT= startTime.getValue().toString();
+            String endT= endTime.getValue().toString();
+            String name= className.getText();
+            String assignNum = numAssign.getText();
+            String quizNum = numTests.getText();
+            String labNum = numLabs.getText();
+            String DateFinal= FinalDate.getValue().toString();
+            String startFT= FinalStartTime.getValue().toString();
+            String endFT= FinalEndTime.getValue().toString();
 
-        String assignNum = numAssign.getText();
-        String quizNum = numTests.getText();
-        String labNum = numLabs.getText();
+            System.out.println(Login_Controller.uname);
 
-        String DateFinal= FinalDate.getValue().toString();
-        String startFT= FinalStartTime.getValue().toString();
-        String endFT= FinalEndTime.getValue().toString();
+            if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty() || assignNum.isEmpty()
+                    || quizNum.isEmpty() || labNum.isEmpty() || DateFinal.isEmpty() || startFT.isEmpty() || endFT.isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all infomartion");
+                alert.showAndWait();
+                return;
+            }
 
-        System.out.println(Login_Controller.uname);
+            String qu = "INSERT INTO userData(eventName,date,startTime,endTime,numAssign,numTest,numLabs,finalDate,finalStartTime,finalEndTime,user_id) VALUES ("
+                    + "'" + name + "',"
+                    + "'" + startD + "',"
+                    + "'" + startT + "',"
+                    + "'" + endT + "',"
+                    + "'" + assignNum + "',"
+                    + "'" + quizNum + "',"
+                    + "'" + labNum + "',"
+                    + "'" + DateFinal + "',"
+                    + "'" + startFT + "',"
+                    + "'" + endFT + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+            System.out.println(qu);
 
-        if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty() || assignNum.isEmpty()
-        || quizNum.isEmpty() || labNum.isEmpty() || DateFinal.isEmpty() || startFT.isEmpty() || endFT.isEmpty()){
+            if(DatabaseHandler.execAction(qu)){ //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+                Parent MainApp1 = FXMLLoader.load(getClass().getResource("Application.fxml"));
+                Scene mainScene = new Scene(MainApp1);
+                Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                window.setTitle("U-Calendar");
+                window.setScene(mainScene);
+                window.show();
+            }
+            else{ // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This Data Already Exists");
+                alert.showAndWait();
+            }
+
+            }
+        catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Please fill in all infomartion");
             alert.showAndWait();
             return;
         }
-
-        String qu = "INSERT INTO userData(eventName,date,startTime,endTime,numAssign,numTest,numLabs,finalDate,finalStartTime,finalEndTime,user_id) VALUES ("
-                + "'" + name + "',"
-                + "'" + startD + "',"
-                + "'" + startT + "',"
-                + "'" + endT + "',"
-                + "'" + assignNum + "',"
-                + "'" + quizNum + "',"
-                + "'" + labNum + "',"
-                + "'" + DateFinal + "',"
-                + "'" + startFT + "',"
-                + "'" + endFT + "',"
-                + "'" + Login_Controller.uid + "'"
-                + ")";
-        System.out.println(qu);
-
-        if(DatabaseHandler.execAction(qu)){ //Success
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Success");
-            alert.showAndWait();
-            Parent MainApp1 = FXMLLoader.load(getClass().getResource("Application.fxml"));
-            Scene mainScene = new Scene(MainApp1);
-            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            window.setTitle("U-Calendar");
-            window.setScene(mainScene);
-            window.show();
-        }
-        else{ // Error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("This Data Already Exists");
-            alert.showAndWait();
-        }
-
 
     }
 
