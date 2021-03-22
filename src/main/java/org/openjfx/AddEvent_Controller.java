@@ -21,6 +21,7 @@ import com.jfoenix.controls.JFXTextField;
 
 /**
  * @author Ayman Abu Awad
+ * @author Mohammed Shahwan
  */
 
 public class AddEvent_Controller {
