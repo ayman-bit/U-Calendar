@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-/*
-@Author: Kamal Ali
+ /**
+* @author: Kamal Ali
  */
 
 public class Calculator_Controller implements Initializable {
@@ -78,6 +78,7 @@ public class Calculator_Controller implements Initializable {
     private Button addToTable;
 
     private int index;
+    private String currentEvent;
 
 
 
@@ -85,6 +86,14 @@ public class Calculator_Controller implements Initializable {
     public void initialize (URL url, ResourceBundle resourceBundle){
 
         loadClasses(); // loads the classes to the choice box
+
+        // Listen for changes in selection and update currentEvent
+        choices.getSelectionModel().selectedItemProperty().addListener(
+                (v, oldValue, newValue) -> {
+                                             currentEvent = newValue;
+                                             table.setItems(getEntries());
+                                             calculateTotal();}
+                );
 
         subeventColumn.setCellValueFactory(
                 new PropertyValueFactory<tableEntry,String>("subevent")
@@ -122,19 +131,44 @@ public class Calculator_Controller implements Initializable {
         */
     }
 
-    // Reads the data. TODO: This should be reading from the database in the future depending on selection
+    void loadClasses(){
+
+        List<Map<String, Object>> classList = DatabaseHandler.execQuery("SELECT eventName FROM userData WHERE user_id = " + Login_Controller.uid);
+        for (Map<String, Object> i : classList) {
+            for (Map.Entry<String, Object> me : i.entrySet()) {
+                choices.getItems().add(me.getValue().toString());
+            }
+        }
+
+    }
+
+    // Reads the data.
     public ObservableList<tableEntry>  getEntries()
     {
         ObservableList<tableEntry> entries = FXCollections.observableArrayList();
-        entries.add(new tableEntry("Assign1", 85, 100, 5));
-        entries.add(new tableEntry("Assign2", 30, 30, 10));
-        entries.add(new tableEntry("Midterm", 90, 100, 25));
-        entries.add(new tableEntry("Project", 50, 50, 60));
+
+        // Load the table in a variable
+        List<Map<String, Object>> grades = DatabaseHandler.execQuery("SELECT * FROM grades WHERE (user_id = " + Login_Controller.uid
+                                                                    + " AND eventName = '" + currentEvent + "')");
+
+        // For each row
+        for(Map<String, Object> row : grades){
+            // reading the row from table and converting to string
+            String subevent = row.get("subevent").toString();
+            String grade = row.get("grade").toString();
+            String outOf = row.get("outOf").toString();
+            String weight = row.get("weight").toString();
+
+            entries.add(new tableEntry(subevent,
+                        Double.parseDouble(grade),
+                        Double.parseDouble(outOf),
+                        Double.parseDouble(weight)));
+        }
 
         return entries;
     }
 
-    //TODO: addToTableClicked should add the new item to the database.
+
     @FXML
     void addToTableClicked(ActionEvent event) {
 
@@ -144,8 +178,28 @@ public class Calculator_Controller implements Initializable {
         double outOf = Double.parseDouble(outOfTextField.getText());
         double weight = Double.parseDouble(weightTextField.getText());
 
-        tableEntry entry = new tableEntry(subevent, grade, outOf, weight);
-        table.getItems().add(entry);
+        String qu = "INSERT INTO grades(eventName,subevent,grade,outOf,weight,user_id) VALUES ("
+                + "'" + currentEvent + "',"
+                + "'" + subevent + "',"
+                + "'" + grade + "',"
+                + "'" + outOf + "',"
+                + "'" + weight + "',"
+                + "'" + Login_Controller.uid + "'"
+                + ")";
+        if (currentEvent != null){
+            boolean q = DatabaseHandler.execAction(qu);
+            if(!q){ //Success
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Error");
+                alert.showAndWait();
+            }
+        }
+
+        // Update the displayed entries
+        table.setItems(getEntries());
+
+        // Update the total
         calculateTotal();
     }
 
@@ -164,21 +218,6 @@ public class Calculator_Controller implements Initializable {
     //TODO
     @FXML
     void calculateNeeded(ActionEvent event) {
-
-    }
-
-    //TODO: loadClasses should read classes from database
-    void loadClasses(){
-       /* choices.getItems().add("ECE 5010");
-        choices.getItems().add("ECE 5100");
-        choices.getItems().add("ECE 5500");*/
-
-        List<Map<String, Object>> classList = DatabaseHandler.execQuery("SELECT eventName FROM userData WHERE user_id = " + Login_Controller.uid);
-        for (Map<String, Object> i : classList) {
-            for (Map.Entry<String, Object> me : i.entrySet()) {
-                choices.getItems().add(me.getValue().toString());
-            }
-        }
 
     }
 
