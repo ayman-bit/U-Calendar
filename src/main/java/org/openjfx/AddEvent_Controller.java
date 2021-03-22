@@ -1,7 +1,8 @@
 package org.openjfx;
 
 import com.jfoenix.controls.JFXDatePicker;
-        import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXTextField;
         import com.jfoenix.controls.JFXTimePicker;
         import java.io.IOException;
         import java.net.URL;
@@ -37,23 +38,65 @@ public class AddEvent_Controller {
     private JFXTextField className;
 
     @FXML
+    private JFXTabPane tabPane;
+
+    @FXML
+    private JFXTextField numAssign;
+
+    @FXML
+    private JFXTextField numLabs;
+
+    @FXML
+    private JFXTextField numTests;
+
+    @FXML
+    private JFXDatePicker FinalDate;
+
+    @FXML
+    private JFXTimePicker FinalStartTime;
+
+    @FXML
+    private JFXTimePicker FinalEndTime;
+
+    @FXML
+    void Next(MouseEvent e) throws IOException{
+        tabPane.getSelectionModel().selectNext();
+    }
+
+    @FXML
+    void Back(MouseEvent e) throws IOException{
+        tabPane.getSelectionModel().selectPrevious();
+    }
+
+    @FXML
     void Cancel(MouseEvent event) throws IOException {
         Parent MainApp = FXMLLoader.load(getClass().getResource("Application.fxml"));
         Scene mainScene = new Scene(MainApp);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setTitle("UCalendar");
         window.setScene(mainScene);
         window.show();
     }
 
     @FXML
-    void Done(ActionEvent event) {
+    void Done(ActionEvent event) throws IOException {
         String startD= date.getValue().toString();
         String startT= startTime.getValue().toString();
         String endT= endTime.getValue().toString();
         String name= className.getText();
+
+        String assignNum = numAssign.getText();
+        String quizNum = numTests.getText();
+        String labNum = numLabs.getText();
+
+        String DateFinal= FinalDate.getValue().toString();
+        String startFT= FinalStartTime.getValue().toString();
+        String endFT= FinalEndTime.getValue().toString();
+
         System.out.println(Login_Controller.uname);
 
-        if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty()){
+        if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty() || assignNum.isEmpty()
+        || quizNum.isEmpty() || labNum.isEmpty() || DateFinal.isEmpty() || startFT.isEmpty() || endFT.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Please fill in all infomartion");
@@ -61,11 +104,17 @@ public class AddEvent_Controller {
             return;
         }
 
-        String qu = "INSERT INTO userData(eventName,date,startTime,endTime, user_id) VALUES ("
+        String qu = "INSERT INTO userData(eventName,date,startTime,endTime,numAssign,numTest,numLabs,finalDate,finalStartTime,finalEndTime,user_id) VALUES ("
                 + "'" + name + "',"
                 + "'" + startD + "',"
                 + "'" + startT + "',"
                 + "'" + endT + "',"
+                + "'" + assignNum + "',"
+                + "'" + quizNum + "',"
+                + "'" + labNum + "',"
+                + "'" + DateFinal + "',"
+                + "'" + startFT + "',"
+                + "'" + endFT + "',"
                 + "'" + Login_Controller.uid + "'"
                 + ")";
         System.out.println(qu);
@@ -75,6 +124,12 @@ public class AddEvent_Controller {
             alert.setHeaderText(null);
             alert.setContentText("Success");
             alert.showAndWait();
+            Parent MainApp1 = FXMLLoader.load(getClass().getResource("Application.fxml"));
+            Scene mainScene = new Scene(MainApp1);
+            Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            window.setTitle("U-Calendar");
+            window.setScene(mainScene);
+            window.show();
         }
         else{ // Error
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -82,6 +137,8 @@ public class AddEvent_Controller {
             alert.setContentText("This Data Already Exists");
             alert.showAndWait();
         }
+
+
     }
 
     @FXML

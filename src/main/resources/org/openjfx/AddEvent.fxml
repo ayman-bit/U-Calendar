@@ -20,11 +20,11 @@
 <AnchorPane prefHeight="597.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.AddEvent_Controller">
   <children>
     <Pane prefHeight="597.0" prefWidth="173.0" style="-fx-background-color: #1B6CD7;" />
-      <JFXTabPane layoutX="145.0" prefHeight="597.0" prefWidth="598.0" side="LEFT">
+      <JFXTabPane fx:id="tabPane" layoutX="145.0" prefHeight="597.0" prefWidth="598.0" side="LEFT">
          <tabs>
             <Tab text="Class Info">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#Done" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane fx:id="ClassInfoTab" minHeight="0.0" minWidth="0.0" onMouseClicked="#Done" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="45.0" layoutY="24.0" prefHeight="35.0" prefWidth="160.0" text="Add Event">
                            <font>
@@ -32,10 +32,10 @@
                            </font>
                         </Label>
                         <Label layoutX="44.0" layoutY="59.0" text="Select a date for your event" />
-                        <Label layoutX="44.0" layoutY="122.0" text="Start TIme" />
+                        <Label layoutX="44.0" layoutY="122.0" text="Start Time" />
                         <Separator layoutX="100.0" layoutY="501.0" prefHeight="5.0" prefWidth="400.0" />
-                        <JFXButton layoutX="300.0" layoutY="536.0" onAction="#Done" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE" />
-                        <JFXButton layoutX="120.0" layoutY="536.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
+                        <JFXButton layoutX="311.0" layoutY="516.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="133.0" layoutY="516.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
                         <JFXDatePicker fx:id="date" layoutX="44.0" layoutY="76.0" prefHeight="29.0" prefWidth="350.0" />
                         <JFXTimePicker fx:id="startTime" layoutX="44.0" layoutY="139.0" prefHeight="29.0" prefWidth="350.0" />
                         <Label layoutX="44.0" layoutY="185.0" text="End Time" />
@@ -45,24 +45,74 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab fx:id="AssignTab" text="Assignments">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="56.0" layoutY="34.0" prefHeight="35.0" prefWidth="215.0" text="Assignments">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="numbAssign" layoutX="56.0" layoutY="75.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Assignments" />
+                        <Separator layoutX="81.0" layoutY="476.0" prefHeight="5.0" prefWidth="400.0" />
+                        <JFXButton layoutX="306.0" layoutY="505.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="96.0" layoutY="505.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children>
+                  </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab fx:id="LabsTab" text="Labs">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="22.0" layoutY="40.0" prefHeight="35.0" prefWidth="215.0" text="Labs">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="numLabs" layoutX="22.0" layoutY="81.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Labs" />
+                        <Separator layoutX="81.0" layoutY="492.0" prefHeight="5.0" prefWidth="400.0" />
+                        <JFXButton layoutX="333.0" layoutY="513.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="110.0" layoutY="513.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab fx:id="TestTab" text="Quizzes and Tests">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="33.0" prefHeight="35.0" prefWidth="215.0" text="Quizzes and Tests">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="numTests" layoutX="14.0" layoutY="68.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Quizzes and Tests" />
+                        <Separator layoutX="81.0" layoutY="492.0" prefHeight="5.0" prefWidth="400.0" />
+                        <JFXButton layoutX="325.0" layoutY="503.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="102.0" layoutY="503.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children></AnchorPane>
               </content>
             </Tab>
-            <Tab text="Untitled Tab">
+            <Tab fx:id="FinalTab" text="Final">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="20.0" prefHeight="35.0" prefWidth="215.0" text="Final">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="72.0" text="Select a date for your final if known" />
+                        <JFXDatePicker fx:id="FinalDate" layoutX="26.0" layoutY="105.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker fx:id="FinalEndTime" layoutX="26.0" layoutY="253.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker fx:id="FinalStartTime" layoutX="26.0" layoutY="175.0" prefHeight="29.0" prefWidth="350.0" />
+                        <Label layoutX="26.0" layoutY="152.0" text="Start Time" />
+                        <Label layoutX="28.0" layoutY="230.0" text="End Time" />
+                        <JFXButton layoutX="302.0" layoutY="509.0" onAction="#Done" onMouseClicked="#Done" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE" />
+                        <Separator layoutX="72.0" layoutY="497.0" prefHeight="5.0" prefWidth="400.0" />
+                        <JFXButton layoutX="94.0" layoutY="509.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children></AnchorPane>
               </content>
             </Tab>
          </tabs>
