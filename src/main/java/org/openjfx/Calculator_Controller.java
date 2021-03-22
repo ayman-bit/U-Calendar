@@ -15,6 +15,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.openjfx.tableEntry;
 
@@ -208,7 +209,38 @@ public class Calculator_Controller implements Initializable {
     // TODO
     @FXML
     void calculateNeeded(ActionEvent event) {
+        double remaining, desired, totalWeight,totalAchieved, neededPoints, neededPercent, max;
+        desired = Double.parseDouble(desiredTextField.getText());
+        totalWeight=totalAchieved=0;
 
+        for (tableEntry row : table.getItems()) {
+            totalAchieved += achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
+            totalWeight += weightColumn.getCellObservableValue(row).getValue();
+        }
+
+        remaining = 100 - totalWeight; //TODO ensure totalWeight is not >100 and desired is > totalAchieved
+        neededPoints = desired - totalAchieved;
+        neededPercent = neededPoints/remaining * 100;
+        max = totalAchieved + remaining;
+
+
+        //alert.setHeaderText(null);
+
+        if(neededPoints>remaining){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setContentText("You cannot achieve the desired total. Maximum you can achieve is: " + max + "%");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setContentText("You need to achieve " + neededPoints + " out of " + remaining + " points, "
+                    + "or " + neededPercent +"% in the remaining points, to achieve " + desired + "% overall."
+            +" Maximum you can achieve is: " + max + "%");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        }
+       desiredTextField.setText("");
     }
 
     @FXML
