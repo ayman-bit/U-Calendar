@@ -20,8 +20,10 @@ import javafx.stage.Stage;
 import org.openjfx.tableEntry;
 
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,10 +42,10 @@ public class Calculator_Controller implements Initializable {
     private ChoiceBox<String> choices;
 
     @FXML
-    private TableColumn<tableEntry, String> subeventColumn;
+    private TableColumn<tableEntry, String> subeventColumn, achievedColumn;
 
     @FXML
-    private TableColumn<tableEntry, Double> gradeColumn, outOfColumn, weightColumn, achievedColumn;
+    private TableColumn<tableEntry, Double> gradeColumn, outOfColumn, weightColumn; // Double should be DecimalFormat
 
     @FXML
     private TextField subeventTextField, gradeTextField, outOfTextField, weightTextField, desiredTextField;
@@ -83,7 +85,7 @@ public class Calculator_Controller implements Initializable {
 
         //TODO: check this works
         achievedColumn.setCellValueFactory(
-                new PropertyValueFactory<tableEntry,Double>("achieved")
+                new PropertyValueFactory<>("achieved")
         );
 
         // Not sure if necessary
@@ -112,14 +114,16 @@ public class Calculator_Controller implements Initializable {
         for(Map<String, Object> row : grades){
             // reading the row from table and converting to string
             String subevent = row.get("subevent").toString();
-            String grade = row.get("grade").toString();
-            String outOf = row.get("outOf").toString();
-            String weight = row.get("weight").toString();
+            String gradeS = row.get("grade").toString();
+            String outOfS = row.get("outOf").toString();
+            String weightS = row.get("weight").toString();
 
-            entries.add(new tableEntry(subevent,
-                        Double.parseDouble(grade),
-                        Double.parseDouble(outOf),
-                        Double.parseDouble(weight)));
+
+
+            entries.add( new tableEntry(subevent,
+                        Double.parseDouble(gradeS),
+                        Double.parseDouble(outOfS),
+                        Double.parseDouble(weightS)) );
         }
 
         return entries;
@@ -162,30 +166,41 @@ public class Calculator_Controller implements Initializable {
     }
 
     public void calculateTotal(){
+        String totalString, percentageS ="";
         double total, totalPossible, lost, percentage;
         total=totalPossible=percentage=0;
 
         for (tableEntry row : table.getItems()) {
-            total += achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
+            totalString = achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
+            total+= Double.parseDouble(totalString);
             totalPossible += weightColumn.getCellObservableValue(row).getValue();
         }
         lost = totalPossible - total;
-        if(totalPossible!=0){percentage = total/totalPossible * 100;}
+
+
+        if(totalPossible!=0){
+            percentage = total/totalPossible * 100;
+            DecimalFormat df = new DecimalFormat("#.##");
+            percentageS = df.format(percentage);
+        }
+
 
         String totalValueLabel = "Achieved " + total + " out of a possible " + totalPossible
                                   + " points\nand lost " + lost + " points. Current percentage: "
-                                  + percentage + "%";
+                                  + percentageS + "%";
         totalLabel.setText(totalValueLabel); // Set the value of the label to the total
     }
 
     @FXML
     void calculateNeeded(ActionEvent event) {
+        String totalString;
         double remaining, desired, totalWeight,totalAchieved, neededPoints, neededPercent, max;
         desired = Double.parseDouble(desiredTextField.getText());
         totalWeight=totalAchieved=0;
 
         for (tableEntry row : table.getItems()) {
-            totalAchieved += achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
+            totalString = achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
+            totalAchieved+= Double.parseDouble(totalString);
             totalWeight += weightColumn.getCellObservableValue(row).getValue();
         }
 

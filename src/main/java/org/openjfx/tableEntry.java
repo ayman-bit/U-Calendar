@@ -1,19 +1,22 @@
 package org.openjfx;
 
+import java.text.DecimalFormat;
+
 public class tableEntry {
     String subevent;
     double grade;
     double outOf;
     double weight;
-    double achieved;
+    String achieved;
 
     public tableEntry(String subevent, double grade, double outOf, double weight){
         this.subevent=subevent;
-        this.grade=grade;
+        this.grade= grade;
         this.outOf=outOf;
         this.weight=weight;
 
-        achieved= (grade/outOf)*weight;
+        DecimalFormat df = new DecimalFormat("#.##");
+        achieved= df.format(grade/outOf*weight);
     }
 
     public String getSubevent() {
@@ -48,7 +51,9 @@ public class tableEntry {
         this.weight = weight;
     }
 
-    public double getAchieved() {
+    public String getAchieved() {
         return achieved;
     }
+
+    public void setAchieved(String achieved) { this.achieved = achieved; }
 }
