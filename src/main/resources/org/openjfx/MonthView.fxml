@@ -49,13 +49,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sun" textAlignment="CENTER" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="110.0" stylesheets="@MonthView.css" text="Mon" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <Label id="Top" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="111.0" stylesheets="@MonthView.css" text="Tues" textAlignment="CENTER" GridPane.columnIndex="2" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="114.0" stylesheets="@MonthView.css" text="Wed" textAlignment="CENTER" GridPane.columnIndex="3" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Thu" textAlignment="CENTER" GridPane.columnIndex="4" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="160.0" stylesheets="@MonthView.css" text="Fri" textAlignment="CENTER" GridPane.columnIndex="5" />
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sat" textAlignment="CENTER" GridPane.columnIndex="6" />
+            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sun" textAlignment="CENTER" />
+            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="110.0" stylesheets="@MonthView.css" text="Mon" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label id="Top" alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="111.0" stylesheets="@MonthView.css" text="Tues" textAlignment="CENTER" GridPane.columnIndex="2" />
+            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="114.0" stylesheets="@MonthView.css" text="Wed" textAlignment="CENTER" GridPane.columnIndex="3" />
+            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Thu" textAlignment="CENTER" GridPane.columnIndex="4" />
+            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="78.0" prefWidth="160.0" stylesheets="@MonthView.css" text="Fri" textAlignment="CENTER" GridPane.columnIndex="5" />
+            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sat" textAlignment="CENTER" GridPane.columnIndex="6" />
          </children>
       </GridPane>
       <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" prefHeight="40.0" prefWidth="210.0" stylesheets="@MonthView.css" text="Month, Year" />

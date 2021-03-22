@@ -22,16 +22,13 @@ public class SidePanel_Conroller {
 
     @FXML
     void AddClass(MouseEvent event) throws IOException {
-        Parent AddEvent = FXMLLoader.load(getClass().getResource("AddEvent.fxml"));
-        Scene mainScene = new Scene(AddEvent);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setTitle("Add Class");
-        window.setScene(mainScene);
-        window.show();
+        Controller.start("AddEvent.fxml",event);
     }
 
     @FXML
-    void Quit(MouseEvent event) { System.exit(0);}
+    void Quit(MouseEvent event) throws IOException {
+        Controller.start("Login.fxml",event);
+    }
 
 
     @FXML

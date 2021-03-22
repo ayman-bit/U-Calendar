@@ -26,6 +26,6 @@
     -fx-text-fill: red;
     align-self: center;
     -fx-min-height: 30 ;
-    -fx-gridLinesVisible: ture;
+    -fx-gridLinesVisible: true;
 }
 

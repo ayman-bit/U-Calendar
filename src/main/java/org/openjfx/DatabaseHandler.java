@@ -43,6 +43,7 @@ public class DatabaseHandler {
         userData.put("finalEndTime", "TEXT");
         userData.put("user_id", "INTEGER");
 
+
         DatabaseHandler.createTable(login, loginUnique);
 //        If creating a second table that does not need a unique identifier, You will need to include the following syntax as shown
         DatabaseHandler.createTable(userData, Collections.<String>emptyList());
@@ -135,22 +136,5 @@ public class DatabaseHandler {
         finally {
         }
     }
-
-//      STILL WORKING ON IT
-    public static boolean execDelete(String qu) {
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             Statement stmt = conn.createStatement()){
-            stmt.executeQuery(qu);
-            return true;
-        }
-        catch (SQLException ex) {
-            System.out.println("Exception at executeQuery:dataHandler" + ex.getLocalizedMessage());
-            return false;
-        }
-        finally {
-        }
-    }
-
-
 
 }
