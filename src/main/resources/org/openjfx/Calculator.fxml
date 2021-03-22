@@ -42,7 +42,7 @@
         <Label layoutX="24.0" layoutY="442.0" text="Desired Overall Grade:" AnchorPane.topAnchor="442.0" />
 
         <Label fx:id="totalLabel" layoutX="114.0" layoutY="492.0" AnchorPane.topAnchor="482.0" />
-        <Label layoutX="29.0" layoutY="474.0" text="Current Total:" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="482.0" />
+        <Label layoutX="29.0" layoutY="474.0" text="Current Total:" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="485.0" />
 
         <Button fx:id="calculateNeeded" layoutX="249.0" layoutY="442.0" mnemonicParsing="false" onAction="#calculateNeeded" text="Calculate needed grade" AnchorPane.topAnchor="442.0" />
         <Button fx:id="addToTable" layoutX="619.0" layoutY="402.0" mnemonicParsing="false" onAction="#addToTableClicked" text="Add" AnchorPane.topAnchor="402.0" />
@@ -51,7 +51,7 @@
                 <Font name="Open Sans" size="16.0" />
             </font>
         </Label>
-      <Button layoutX="19.0" layoutY="510.0" mnemonicParsing="false" onAction="#exitCalc" text="Exit Calculator" AnchorPane.topAnchor="522.0" />
+      <Button layoutX="19.0" layoutY="542.0" mnemonicParsing="false" onAction="#exitCalc" prefHeight="44.0" prefWidth="91.0" text="Exit Calculator" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="550.0" />
 
     </children>
 </AnchorPane>
