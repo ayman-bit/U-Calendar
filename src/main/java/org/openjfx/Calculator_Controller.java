@@ -146,12 +146,19 @@ public class Calculator_Controller implements Initializable {
                 + "'" + weight + "',"
                 + "'" + Login_Controller.uid + "'"
                 + ")";
+
+        if(grade>outOf){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Warning: 'Grade' is greater than 'Out of'");
+            alert.showAndWait();
+        }
         if (currentEvent != null){
             boolean q = DatabaseHandler.execAction(qu);
             if(!q){ //Success
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setContentText("Error");
+                alert.setContentText("Error in inserting to database");
                 alert.showAndWait();
             }
         }
