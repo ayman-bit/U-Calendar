@@ -10,8 +10,12 @@
 
 .button{
     -fx-background-color: #ffffff;
+    -fx-border-color: gray;
+    -fx-border-width: .5 .5 .5 .5;
+    -fx-border-radius: 3%;
 }
 
 .vbox{
     -fx-background-color: #2A2E37;
+
 }

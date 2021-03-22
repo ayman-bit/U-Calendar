@@ -4,12 +4,19 @@ import com.jfoenix.controls.JFXDrawer;
 
 import com.jfoenix.controls.JFXHamburger;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,9 +30,6 @@ import java.util.logging.Logger;
 public class Controller implements Initializable {
 
     @FXML
-    private AnchorPane anchorPane;
-
-    @FXML
     private JFXDrawer sidepanel;
 
     @FXML
@@ -37,6 +41,15 @@ public class Controller implements Initializable {
 //    @FXML
 //    private JFXHamburger options;
 
+    public static void start(String url, MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Controller.class.getResource(url));
+        Scene scene = new Scene(root);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setTitle("U-Calendar");
+        window.setScene(scene);
+        window.show();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {

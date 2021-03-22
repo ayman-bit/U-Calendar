@@ -3,19 +3,14 @@ package org.openjfx;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -33,7 +28,7 @@ public class Login_Controller implements Initializable {
     private JFXPasswordField password;
 
     @FXML
-    void handleLogin(ActionEvent event) throws SQLException, IOException {
+    private void handleLogin(MouseEvent event) throws IOException {
 
 //        QU checks the information entered in the user text box and verifies in the database that it exists, It's also a checks the password and make sure that the password is the same as entered if the user exists.
         List<Map<String, Object>> QU = DatabaseHandler.execQuery("SELECT * FROM loginInfo WHERE (username = '" + username.getText() + "' AND password = '" + password.getText() + "')");
@@ -72,12 +67,7 @@ public class Login_Controller implements Initializable {
             alert.showAndWait();
             return;
         } else if ((uname != null && !uname.isEmpty()) && (pass != null && !pass.isEmpty())) {
-            Parent mainApp = FXMLLoader.load(getClass().getResource("Application.fxml"));
-            Scene mainScene = new Scene(mainApp);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setTitle("UCalendar");
-            window.setScene(mainScene);
-            window.show();
+            Controller.start("Application.fxml",event);
         } else if ((unameCheck != null && !unameCheck.isEmpty())) { // Error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -93,7 +83,7 @@ public class Login_Controller implements Initializable {
     }
 
     @FXML
-    void handleDelete(ActionEvent event) {
+    void handleDelete(MouseEvent event) {
 
         String id= username.getText();
         String psw= password.getText();
@@ -106,12 +96,9 @@ public class Login_Controller implements Initializable {
             return;
         }
 
-        String qu = "DELETE FROM loginInfo(username,password) VALUES ("
-                + "'" + id + "',"
-                + "'" + psw + "'"
-                + ")";
+        String qu = "DELETE FROM loginInfo WHERE (username = '" + id + "' AND password = '" + psw + "')";
 
-        if(DatabaseHandler.execDelete(qu)){ //Success
+        if(DatabaseHandler.execAction(qu)){ //Success
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("Success");
@@ -120,7 +107,7 @@ public class Login_Controller implements Initializable {
         else{ // Error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("This Username Already Exists\nPlease Try a Different Username");
+            alert.setContentText("This account has already been deleted\nPlease Try a Different Username");
             alert.showAndWait();
         }
     }
@@ -131,9 +118,10 @@ public class Login_Controller implements Initializable {
     }
 
     @FXML
-    private void handleMin (ActionEvent event){
+    private void handleMin (MouseEvent event){
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setIconified(true);
+
         /*
         Trying to implement the minimize full screen and close button using Node..
         For some reason it does not seem to work on Mac  >.>
@@ -143,7 +131,7 @@ public class Login_Controller implements Initializable {
     }
 
     @FXML
-    private void handleSignup (ActionEvent event){
+    private void handleSignup (MouseEvent event){
 
         String id= username.getText();
         String psw= password.getText();
