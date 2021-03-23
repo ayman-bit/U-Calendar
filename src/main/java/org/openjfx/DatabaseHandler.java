@@ -5,6 +5,7 @@ import java.util.*;
 
 /**
  * @author Ayman Abu Awad
+ * Kamal Ali (edited constructor, added grades table)
  */
 
 public class DatabaseHandler {
