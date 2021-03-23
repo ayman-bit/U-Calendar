@@ -85,6 +85,12 @@ public class Login_Controller implements Initializable {
     @FXML
     void handleDelete(MouseEvent event) {
 
+        List<Map<String, Object>> QUCheck = DatabaseHandler.execQuery("SELECT * FROM loginInfo WHERE (username = '" + username.getText() + "')");
+        String unameCheck = null;
+        for (Map<String, Object> set : QUCheck) {
+            unameCheck = (String) set.get("username");
+            uid = (int) set.get("id");
+        }
         String id= username.getText();
         String psw= password.getText();
 
@@ -97,18 +103,26 @@ public class Login_Controller implements Initializable {
         }
 
         String qu = "DELETE FROM loginInfo WHERE (username = '" + id + "' AND password = '" + psw + "')";
-
-        if(DatabaseHandler.execAction(qu)){ //Success
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Success");
-            alert.showAndWait();
-        }
-        else{ // Error
+        System.out.println(unameCheck);
+        if((unameCheck == null && !id.isEmpty())) { // Error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("This account has already been deleted\nPlease Try a Different Username");
+            alert.setContentText("This account doesn't exist!");
             alert.showAndWait();
+        }
+        else {
+            if (DatabaseHandler.execAction(qu)) { //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+
+            } else { // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This account has already been deleted\nPlease Try a Different Username");
+                alert.showAndWait();
+            }
         }
     }
 
