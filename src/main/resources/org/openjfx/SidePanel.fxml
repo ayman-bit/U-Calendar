@@ -26,7 +26,7 @@
          </VBox.margin></JFXButton>
       <JFXButton prefHeight="76.0" prefWidth="155.0" text="Change Event" />
       <JFXButton prefHeight="76.0" prefWidth="155.0" text="Delete" />
-      <JFXButton prefHeight="76.0" prefWidth="155.0" text="Tasks" />
+      <JFXButton onMouseClicked="#Tasks" prefHeight="76.0" prefWidth="155.0" text="Tasks" />
       <JFXButton prefHeight="76.0" prefWidth="155.0" text="Calculator" />
       <JFXButton accessibleText="Quit" onMouseClicked="#Quit" prefHeight="76.0" prefWidth="155.0" text="Logout" />
    </children>
