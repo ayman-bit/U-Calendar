@@ -46,7 +46,6 @@ public class Login_Controller implements Initializable {
             unameCheck = (String) set.get("username");
             uid = (int) set.get("id");
         }
-        System.out.println(unameCheck);
 //        This if statement check info and verifies if credentials are correct
         if (username.getText().isEmpty()&&!password.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
