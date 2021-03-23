@@ -8,10 +8,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.*;
 
 /**
@@ -19,7 +17,7 @@ import java.util.*;
  */
 
 public class Tasks_Controller implements Initializable {
-    
+
     @FXML
     private TableView<Events> table;
 
