@@ -161,14 +161,18 @@ public class Calculator_Controller implements Initializable {
                 alert.setContentText("Error in inserting to database");
                 alert.showAndWait();
             }
-            // Update the displayed entries
-            table.setItems(getEntries());
 
-            // Update the total
+            table.setItems(getEntries()); // Update the displayed entries
             calculateTotal();
+            clearTextBoxes();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please choose a class from the list above first to start adding");
+            alert.showAndWait();
         }
 
-        clearTextBoxes();
     }
 
     public void calculateTotal(){
