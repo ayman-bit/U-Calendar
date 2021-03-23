@@ -24,6 +24,12 @@ public class SidePanel_Conroller {
     void AddClass(MouseEvent event) throws IOException {
         Controller.start("AddEvent.fxml",event);
     }
+
+    @FXML
+    void OpenCalculator(MouseEvent event) throws IOException{
+        Controller.start("Calculator.fxml", event);
+    }
+
     @FXML
     void Tasks(MouseEvent event) throws IOException {
         Controller.start("Tasks.fxml",event);
