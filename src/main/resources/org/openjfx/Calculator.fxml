@@ -7,12 +7,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Calculator_Controller">
     <children>
-        <ChoiceBox fx:id="choices" layoutX="16.0" layoutY="32.0" prefHeight="26.0" prefWidth="142.0" />
-        <TableView fx:id="table" layoutX="100.0" layoutY="42.0" prefHeight="309.0" prefWidth="880.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+      <Pane prefHeight="638.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
+        <ChoiceBox fx:id="choices" layoutX="154.0" layoutY="31.0" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 5em;" />
+        <TableView fx:id="table" layoutX="152.0" layoutY="42.0" prefHeight="310.0" prefWidth="738.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
             <columns>
                 <TableColumn fx:id="subeventColumn" prefWidth="145.60000038146973" text="Sub-event" />
                 <TableColumn prefWidth="156.00006103515625" text="Grade">
@@ -26,32 +28,32 @@
             </columns>
         </TableView>
 
-        <TextField fx:id="subeventTextField" layoutX="83.0" layoutY="402.0" prefHeight="26.0" prefWidth="142.0" AnchorPane.topAnchor="402.0" />
-        <Label layoutX="24.0" layoutY="402.0" text="Sub-event:" AnchorPane.topAnchor="402.0" />
+        <TextField fx:id="subeventTextField" layoutX="211.0" layoutY="400.0" prefHeight="26.0" prefWidth="142.0" AnchorPane.topAnchor="400.0" />
+        <Label layoutX="152.0" layoutY="400.0" text="Sub-event:" AnchorPane.topAnchor="400.0" />
 
-        <TextField fx:id="gradeTextField" layoutX="283.0" layoutY="402.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="402.0" />
-        <Label layoutX="243.0" layoutY="402.0" text="Grade:" AnchorPane.topAnchor="402.0" />
+        <TextField fx:id="gradeTextField" layoutX="411.0" layoutY="400.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="400.0" />
+        <Label layoutX="371.0" layoutY="400.0" text="Grade:" AnchorPane.topAnchor="400.0" />
 
-        <TextField fx:id="outOfTextField" layoutX="406.0" layoutY="402.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="402.0" />
-        <Label layoutX="366.0" layoutY="402.0" text="Out of:" AnchorPane.topAnchor="402.0" />
+        <TextField fx:id="outOfTextField" layoutX="534.0" layoutY="400.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="400.0" />
+        <Label layoutX="494.0" layoutY="400.0" text="Out of:" AnchorPane.topAnchor="400.0" />
 
-        <TextField fx:id="weightTextField" layoutX="528.0" layoutY="402.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="402.0" />
-        <Label layoutX="480.0" layoutY="402.0" text="Weight:" AnchorPane.topAnchor="402.0" />
+        <TextField fx:id="weightTextField" layoutX="656.0" layoutY="400.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="400.0" />
+        <Label layoutX="608.0" layoutY="400.0" text="Weight:" AnchorPane.topAnchor="400.0" />
 
-        <TextField fx:id="desiredTextField" layoutX="151.0" layoutY="442.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="442.0" />
-        <Label layoutX="24.0" layoutY="442.0" text="Desired Overall Grade:" AnchorPane.topAnchor="442.0" />
+        <TextField fx:id="desiredTextField" layoutX="279.0" layoutY="440.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="440.0" />
+        <Label layoutX="152.0" layoutY="440.0" text="Desired Overall Grade:" AnchorPane.topAnchor="440.0" />
 
         <Label fx:id="totalLabel" layoutX="114.0" layoutY="492.0" AnchorPane.topAnchor="482.0" />
-        <Label layoutX="29.0" layoutY="474.0" text="Current Total:" AnchorPane.leftAnchor="24.0" AnchorPane.topAnchor="485.0" />
+        <Label layoutX="152.0" layoutY="483.0" text="Current Total:" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="483.0" />
 
-        <Button fx:id="calculateNeeded" layoutX="249.0" layoutY="442.0" mnemonicParsing="false" onAction="#calculateNeeded" text="Calculate needed grade" AnchorPane.topAnchor="442.0" />
-        <Button fx:id="addToTable" layoutX="619.0" layoutY="402.0" mnemonicParsing="false" onAction="#addToTableClicked" text="Add" AnchorPane.topAnchor="402.0" />
-        <Label layoutX="16.0" layoutY="6.0" text="Calculator">
+        <Button fx:id="calculateNeeded" layoutX="377.0" layoutY="440.0" mnemonicParsing="false" onAction="#calculateNeeded" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Calculate needed grade" textFill="#1b6cd7" AnchorPane.topAnchor="440.0" />
+        <Button fx:id="addToTable" layoutX="747.0" layoutY="400.0" mnemonicParsing="false" onAction="#addToTableClicked" prefHeight="27.0" prefWidth="57.0" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Add" textFill="#1b6cd7" AnchorPane.topAnchor="400.0" />
+        <Label layoutX="154.0" layoutY="1.0" text="Calculator">
             <font>
                 <Font name="Open Sans" size="16.0" />
             </font>
         </Label>
-        <Button layoutX="19.0" layoutY="542.0" mnemonicParsing="false" onAction="#exitCalc" prefHeight="44.0" prefWidth="91.0" text="Exit Calculator" AnchorPane.leftAnchor="19.0" AnchorPane.topAnchor="550.0" />
+        <Button layoutX="438.0" layoutY="580.0" mnemonicParsing="false" onAction="#exitCalc" prefHeight="44.0" prefWidth="112.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em; -fx-background-color: transparent;" text="Exit Calculator" textFill="#1b6cd7" AnchorPane.leftAnchor="438.0" AnchorPane.topAnchor="580.0" />
 
     </children>
 </AnchorPane>
