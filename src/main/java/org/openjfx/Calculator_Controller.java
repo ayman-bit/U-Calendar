@@ -50,9 +50,6 @@ public class Calculator_Controller implements Initializable {
     @FXML
     private TextField subeventTextField, gradeTextField, outOfTextField, weightTextField, desiredTextField;
 
-    @FXML
-    private Label totalLabel;
-
     private String currentEvent;
 
 
@@ -67,20 +64,20 @@ public class Calculator_Controller implements Initializable {
                 (v, oldValue, newValue) -> {
                     currentEvent = newValue;
                     table.setItems(getEntries());
-                    calculateTotal();}
+                    }
         );
 
         subeventColumn.setCellValueFactory(
-                new PropertyValueFactory<tableEntry,String>("subevent")
+                new PropertyValueFactory<>("subevent")
         );
         gradeColumn.setCellValueFactory(
-                new PropertyValueFactory<tableEntry,Double>("grade")
+                new PropertyValueFactory<>("grade")
         );
         outOfColumn.setCellValueFactory(
-                new PropertyValueFactory<tableEntry,Double>("outOf")
+                new PropertyValueFactory<>("outOf")
         );
         weightColumn.setCellValueFactory(
-                new PropertyValueFactory<tableEntry,Double>("weight")
+                new PropertyValueFactory<>("weight")
         );
 
         //TODO: check this works
@@ -161,17 +158,21 @@ public class Calculator_Controller implements Initializable {
                 alert.setContentText("Error in inserting to database");
                 alert.showAndWait();
             }
-            // Update the displayed entries
-            table.setItems(getEntries());
 
-            // Update the total
-            calculateTotal();
+            table.setItems(getEntries()); // Update the displayed entries
+            clearTextBoxes();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please choose a class from the list above first to start adding");
+            alert.showAndWait();
         }
 
-        clearTextBoxes();
     }
 
-    public void calculateTotal(){
+    @FXML
+    void calculateTotal(ActionEvent event){
         String totalString, percentageS ="";
         double total, totalPossible, lost, percentage;
         total=totalPossible=percentage=0;
@@ -194,15 +195,20 @@ public class Calculator_Controller implements Initializable {
         String totalValueLabel = "Achieved " + total + " out of a possible " + totalPossible
                 + " points\nand lost " + lost + " points. Current percentage: "
                 + percentageS + "%";
-        totalLabel.setText(totalValueLabel); // Set the value of the label to the total
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(totalValueLabel);
+        alert.showAndWait();
+
     }
 
     @FXML
     void calculateNeeded(ActionEvent event) {
-        String totalString;
-        double remaining, desired, totalWeight,totalAchieved, neededPoints, neededPercent, max;
+        String totalString, neededPercent;
+        double remaining, desired, totalWeight,totalAchieved, neededPoints, max;
         desired = Double.parseDouble(desiredTextField.getText());
         totalWeight=totalAchieved=0;
+        DecimalFormat df = new DecimalFormat("#.##");
 
         for (tableEntry row : table.getItems()) {
             totalString = achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
@@ -212,13 +218,16 @@ public class Calculator_Controller implements Initializable {
 
         remaining = 100 - totalWeight; //TODO ensure totalWeight is not >100 and desired is > totalAchieved
         neededPoints = desired - totalAchieved;
-        neededPercent = neededPoints/remaining * 100;
+        neededPercent = df.format(neededPoints/remaining * 100);
         max = totalAchieved + remaining;
 
-
-        //alert.setHeaderText(null);
-
-        if(neededPoints>remaining){
+        if (desired<totalAchieved){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setContentText("Your desired total is less than your current total");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        }
+        else if(neededPoints>remaining){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
             alert.setContentText("You cannot achieve the desired total. Maximum you can achieve is: " + max + "%");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
