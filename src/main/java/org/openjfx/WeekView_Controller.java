@@ -87,7 +87,6 @@ public class WeekView_Controller {
                 Calendar current = Calendar.getInstance();
 
                 if ((current.get(Calendar.DAY_OF_WEEK)) == (j + 1) && current.get(Calendar.HOUR_OF_DAY) == i && currentWeek==current.get(Calendar.WEEK_OF_YEAR)) {
-                    mainPanel.add(Data,j,i );
                     Data.setTextFill(Color.RED);
                 }
 
