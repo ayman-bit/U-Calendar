@@ -52,6 +52,7 @@ public class Calculator_Controller implements Initializable {
 
     private String currentEvent;
 
+    private tableEntry selectedRow;
 
 
     @Override
@@ -152,7 +153,7 @@ public class Calculator_Controller implements Initializable {
         }
         if (currentEvent != null){
             boolean q = DatabaseHandler.execAction(qu);
-            if(!q){ //Success
+            if(!q){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setContentText("Error in inserting to database");
@@ -245,12 +246,35 @@ public class Calculator_Controller implements Initializable {
     }
 
     @FXML
-    void exitCalc(ActionEvent event) throws IOException {
-        Parent MainApp = FXMLLoader.load(getClass().getResource("Application.fxml"));
-        Scene mainScene = new Scene(MainApp);
-        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        window.setScene(mainScene);
-        window.show();
+    void getSelectedRow(MouseEvent event){
+        selectedRow = table.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    void deleteRow(ActionEvent event){
+        if (selectedRow != null){
+            String subevent = selectedRow.getSubevent();
+            String qu = "DELETE FROM grades WHERE (user_id = '" + Login_Controller.uid + "' AND eventName = '" + currentEvent + "' AND subevent = '" + subevent +"')";
+            boolean q = DatabaseHandler.execAction(qu);
+
+            if(q){
+                table.setItems(getEntries());
+            }
+            else{
+                //what to do when q is false
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a row first from the table above");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void exitCalc(MouseEvent event) throws IOException {
+        Controller.start("Application.fxml", event);
     }
 
     void clearTextBoxes(){

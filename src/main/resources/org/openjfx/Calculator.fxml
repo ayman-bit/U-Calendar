@@ -14,7 +14,7 @@
     <children>
       <Pane prefHeight="638.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
         <ChoiceBox fx:id="choices" layoutX="254.0" layoutY="27.0" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 5em;" />
-        <TableView fx:id="table" layoutX="152.0" layoutY="42.0" prefHeight="310.0" prefWidth="738.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+        <TableView fx:id="table" layoutX="152.0" layoutY="42.0" onMouseClicked="#getSelectedRow" prefHeight="310.0" prefWidth="738.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
             <columns>
                 <TableColumn fx:id="subeventColumn" prefWidth="145.60000038146973" text="Sub-event" />
                 <TableColumn prefWidth="156.00006103515625" text="Grade">
@@ -50,8 +50,9 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button layoutX="438.0" layoutY="580.0" mnemonicParsing="false" onAction="#exitCalc" prefHeight="44.0" prefWidth="112.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em; -fx-background-color: transparent;" text="Exit Calculator" textFill="#1b6cd7" AnchorPane.leftAnchor="438.0" AnchorPane.topAnchor="580.0" />
+        <Button layoutX="438.0" layoutY="580.0" mnemonicParsing="false" onMouseClicked="#exitCalc" prefHeight="44.0" prefWidth="112.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em; -fx-background-color: transparent;" text="Exit Calculator" textFill="#1b6cd7" AnchorPane.leftAnchor="438.0" AnchorPane.topAnchor="580.0" />
       <Button fx:id="calculateTotal" layoutX="152.0" layoutY="476.0" mnemonicParsing="false" onAction="#calculateTotal" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Calculate current total" textFill="#1b6cd7" />
+      <Button layoutX="148.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteRow" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Delete current selection" textFill="#1b6cd7" />
 
     </children>
 </AnchorPane>
