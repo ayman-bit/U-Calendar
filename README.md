@@ -46,3 +46,19 @@ If you run on Windows, follow these steps:
     target\UCalendar\bin\launcher
 
 
+### TODO List
+
+Ayman :
+- Main Application
+- Login Screen
+- SidePanel
+- Task View 
+- Week View
+- Month View 
+- Add Event
+- Create Grid
+- Edit / Delete events
+
+Moe : Edited Add Event (adding the new tables)
+
+Kamel : Create The Calculator 
