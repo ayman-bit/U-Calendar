@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 /**
  * @author Ayman Abu Awad
+ * @
  */
 
 public class SidePanel_Conroller {
@@ -38,6 +39,16 @@ public class SidePanel_Conroller {
     @FXML
     void Quit(MouseEvent event) throws IOException {
         Controller.start("Login.fxml",event);
+    }
+
+    @FXML
+    void EditEvent(MouseEvent event) throws IOException {
+        Controller.start("EditEvent.fxml", event);
+    }
+
+    @FXML
+    void DeleteEvent(MouseEvent event) throws IOException {
+        Controller.start("DeleteEvent.fxml", event);
     }
 
 

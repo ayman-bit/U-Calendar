@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+
 <!--
 @Author Ayman Abu Awad
  -->
@@ -50,14 +51,14 @@
                      <children>
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="12 AM" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="1 AM" GridPane.rowIndex="1" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="2 AM" GridPane.rowIndex="3" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="3 AM" GridPane.rowIndex="2" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="3 AM" GridPane.rowIndex="3" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="2 AM" GridPane.rowIndex="2" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="4 AM" GridPane.rowIndex="4" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="5 AM" GridPane.rowIndex="5" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="6 AM" GridPane.rowIndex="6" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="7 AM" GridPane.rowIndex="7" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="8 AM" GridPane.rowIndex="9" />
-                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="9 AM" GridPane.rowIndex="8" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="9 AM" GridPane.rowIndex="9" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="8 AM" GridPane.rowIndex="8" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="10 AM" GridPane.rowIndex="10" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="11 AM" GridPane.rowIndex="11" />
                         <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="69.0" text="Noon" GridPane.rowIndex="12" />

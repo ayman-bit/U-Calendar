@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Tasks_Controller">
+<AnchorPane prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Tasks_Controller">
    <children>
       <Label layoutX="133.0" layoutY="23.0" lineSpacing="2.0" prefHeight="39.0" prefWidth="179.0" text="Up Coming Tasks:">
          <font>
@@ -21,9 +21,9 @@
          </font>
       </Label>
       <JFXNodesList layoutX="147.0" layoutY="159.0" prefHeight="7.0" prefWidth="0.0" />
-      <JFXButton layoutX="305.0" layoutY="359.0" onMouseClicked="#back" prefHeight="27.0" prefWidth="74.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
-      <Pane prefHeight="400.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
-      <TableView fx:id="table" layoutX="133.0" layoutY="84.0" prefHeight="254.0" prefWidth="449.0">
+      <JFXButton layoutX="450.0" layoutY="574.0" onMouseClicked="#back" prefHeight="27.0" prefWidth="74.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+      <Pane prefHeight="638.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
+      <TableView fx:id="table" layoutX="128.0" layoutY="84.0" prefHeight="461.0" prefWidth="772.0">
         <columns>
           <TableColumn fx:id="IdCol" prefWidth="75.0" text="id" />
           <TableColumn fx:id="nameCol" prefWidth="75.0" text="name" />
