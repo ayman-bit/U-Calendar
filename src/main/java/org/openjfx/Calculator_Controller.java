@@ -221,8 +221,13 @@ public class Calculator_Controller implements Initializable {
         neededPercent = df.format(neededPoints/remaining * 100);
         max = totalAchieved + remaining;
 
-
-        if(neededPoints>remaining){
+        if (desired<totalAchieved){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+            alert.setContentText("Your desired total is less than your current total");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        }
+        else if(neededPoints>remaining){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
             alert.setContentText("You cannot achieve the desired total. Maximum you can achieve is: " + max + "%");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
