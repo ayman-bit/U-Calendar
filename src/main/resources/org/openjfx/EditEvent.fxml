@@ -41,7 +41,7 @@
             </Tab>
             <Tab text="Class Info">
                <content>
-                  <AnchorPane fx:id="ClassInfoTab" minHeight="0.0" minWidth="0.0" onMouseClicked="#Done" prefHeight="638.0" prefWidth="703.0">
+                  <AnchorPane fx:id="ClassInfoTab" minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="703.0">
                      <children>
                         <Label layoutX="45.0" layoutY="24.0" prefHeight="35.0" prefWidth="160.0" text="Event Info">
                            <font>
