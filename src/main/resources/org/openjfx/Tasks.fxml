@@ -21,7 +21,6 @@
          </font>
       </Label>
       <JFXNodesList layoutX="147.0" layoutY="159.0" prefHeight="7.0" prefWidth="0.0" />
-      <JFXButton layoutX="450.0" layoutY="574.0" onMouseClicked="#back" prefHeight="27.0" prefWidth="74.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
       <Pane prefHeight="638.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
       <TableView fx:id="table" layoutX="128.0" layoutY="84.0" prefHeight="461.0" prefWidth="772.0">
         <columns>
@@ -31,5 +30,6 @@
             <TableColumn fx:id="timeCol" prefWidth="75.0" text="time" />
         </columns>
       </TableView>
+      <JFXButton layoutX="447.0" layoutY="564.0" onMouseClicked="#back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
    </children>
 </AnchorPane>

@@ -92,7 +92,7 @@ public class AddEvent_Controller {
                     || quizNum.isEmpty() || labNum.isEmpty() || DateFinal.isEmpty() || startFT.isEmpty() || endFT.isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setContentText("Please fill in all infomartion");
+                alert.setContentText("Some information was not entered");
                 alert.showAndWait();
                 return;
             }
