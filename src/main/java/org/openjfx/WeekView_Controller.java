@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
  * @author Ayman Abu Awad
  */
 
-public class WeekView_Controller {
+public class WeekView_Controller extends DatabaseHandler {
 
     @FXML
     private ResourceBundle resources;

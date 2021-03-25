@@ -1,6 +1,9 @@
 package org.openjfx;
 
 import java.text.DecimalFormat;
+/**
+ * @author Kamal Ali
+ */
 
 public class tableEntry {
     String subevent;

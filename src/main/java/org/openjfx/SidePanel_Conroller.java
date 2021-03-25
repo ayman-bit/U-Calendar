@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 
 /**
  * @author Ayman Abu Awad
- * @
  */
 
 public class SidePanel_Conroller {

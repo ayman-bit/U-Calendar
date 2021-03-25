@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
  * @author Ayman Abu Awad
  */
 
-public class MonthView_Controller {
+public class MonthView_Controller extends DatabaseHandler {
     int currentMonth;
 
     String today;
