@@ -4,30 +4,21 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.util.Calendar;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- * @author Ayman Abu Awad
- * @Mohammed Shahwan (edited void start function)
- */
 public class UCalendar extends Application {
-
-    private static Scene scene;
-
+    public static Stage stage = null;
     @Override
-    public void start(Stage primaryStage) throws IOException{
+    public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        primaryStage.initStyle(StageStyle.UNDECORATED);
         Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("U-Calendar");
+        this.stage = stage;
+        stage.show();
     }
 
     public static void main(String[] args) {

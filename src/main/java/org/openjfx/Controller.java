@@ -4,11 +4,9 @@ import com.jfoenix.controls.JFXDrawer;
 
 import com.jfoenix.controls.JFXHamburger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +25,9 @@ import java.util.logging.Logger;
  */
 
 public class Controller implements Initializable {
+
+    @FXML
+    private AnchorPane parent;
 
     @FXML
     private JFXDrawer sidepanel;
@@ -49,9 +49,40 @@ public class Controller implements Initializable {
         window.setScene(scene);
         window.show();
     }
-    
+
+    private double xOffSet = 0;
+    private double yOffSet = 0;
+    private void makeStageDragable() {
+        parent.setOnMousePressed((event) -> {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        });
+        parent.setOnMouseDragged((event) -> {
+            UCalendar.stage.setX(event.getScreenX() - xOffSet);
+            UCalendar.stage.setY(event.getScreenY() - yOffSet);
+            UCalendar.stage.setOpacity(0.8f);
+        });
+        parent.setOnDragDone((event) -> {
+            UCalendar.stage.setOpacity(1.0f);
+        });
+        parent.setOnMouseReleased((event) -> {
+            UCalendar.stage.setOpacity(1.0f);
+        });
+    }
+
+    @FXML
+    private void minimize_stage(MouseEvent event) {
+        UCalendar.stage.setIconified(true);
+    }
+
+    @FXML
+    private void close_app(MouseEvent event) {
+        System.exit(0);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        makeStageDragable();
         try {
             VBox box = FXMLLoader.load(getClass().getResource("SidePanel.fxml"));
             sidepanel.setSidePane(box);

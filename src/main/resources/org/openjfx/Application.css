@@ -13,3 +13,16 @@
     -fx-border-color: #2e8b57;
 }
 
+.close-btn{
+    -fx-background-color: transparent;
+}
+.close-btn:hover{
+    -fx-background-color: #E81123;
+}
+
+.min-btn{
+    -fx-background-color: transparent;
+}
+.min-btn:hover{
+    -fx-background-color: #7F7F7F;
+}

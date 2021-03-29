@@ -21,7 +21,7 @@ import com.jfoenix.controls.JFXTextField;
 
 /**
  * @author Ayman Abu Awad
- * @edited Mohammed Shahwan Done()
+ * @edited Mohammed Shahwan created the Done() function.
  */
 
 public class AddEvent_Controller {

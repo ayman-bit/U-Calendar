@@ -9,11 +9,13 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/15.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
 
     <children>
       <JFXDrawer fx:id="sidepanel" layoutY="40.0" />
@@ -24,6 +26,21 @@
                   <Insets left="10.0" top="5.0" />
                </padding>
             </JFXHamburger>
+            <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="800.0">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" onMouseClicked="#minimize_stage" prefHeight="40.0" prefWidth="30.0" styleClass="min-btn" text="-">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" onMouseClicked="#close_app" prefHeight="40.0" prefWidth="30.0" styleClass="close-btn" text="X">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
          </children>
          <cursor>
             <Cursor fx:constant="H_RESIZE" />

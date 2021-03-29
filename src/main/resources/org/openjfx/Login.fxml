@@ -45,7 +45,13 @@
         </Label>
         <Label layoutX="28.0" layoutY="231.0" text="Everything you need to keep you on track" textFill="#c3b7b7" />
         <JFXButton layoutX="28.0" layoutY="285.0" onMouseClicked="#handleSignup" prefHeight="35.0" prefWidth="107.0" style="-fx-background-color: #E45652#E45652;" text="Sign-Up" textFill="#cdcdcd" />
-        <Label layoutX="876.0" layoutY="6.0" onMouseClicked="#handleClose" text="X" textFill="#c3b7b7" />
-        <Label layoutX="861.0" layoutY="6.0" onMouseClicked="#handleMin" text="-" textFill="#c3b7b7" />
+        <Label layoutX="875.0" layoutY="4.0" onMouseClicked="#handleClose" text="X" textFill="#c3b7b7">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+        <Label layoutX="858.0" layoutY="-3.0" onMouseClicked="#handleMin" text="-" textFill="#c3b7b7">
+         <font>
+            <Font size="28.0" />
+         </font></Label>
     </children>
 </AnchorPane>

@@ -5,7 +5,8 @@ import java.util.*;
 
 /**
  * @author Ayman Abu Awad
- * Kamal Ali (edited constructor, added grades table)
+ * Kamal Ali (edited constructor to add new table for Calculator class)
+ * Mohammed Shahwan (edited constructor to add new colmns to userData table for AddEvent class)
  */
 
 public class DatabaseHandler {
