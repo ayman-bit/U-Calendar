@@ -31,14 +31,14 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" onMouseClicked="#minimize_stage" prefHeight="40.0" prefWidth="30.0" styleClass="min-btn" text="-">
+            <Label alignment="CENTER" onMouseClicked="#minimize_stage" prefHeight="26.0" prefWidth="28.0" styleClass="min-btn" text="-">
                <font>
-                  <Font size="32.0" />
+                  <Font size="30.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" onMouseClicked="#close_app" prefHeight="40.0" prefWidth="30.0" styleClass="close-btn" text="X">
+            <Label alignment="CENTER" onMouseClicked="#close_app" prefHeight="26.0" prefWidth="29.0" styleClass="close-btn" text="x">
                <font>
-                  <Font size="21.0" />
+                  <Font size="30.0" />
                </font>
             </Label>
          </children>
