@@ -26,19 +26,19 @@
                   <Insets left="10.0" top="5.0" />
                </padding>
             </JFXHamburger>
-            <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="803.0">
+            <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="803.0">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Label>
             <Label alignment="CENTER" onMouseClicked="#minimize_stage" prefHeight="26.0" prefWidth="28.0" styleClass="min-btn" text="-">
                <font>
-                  <Font size="32.0" />
+                  <Font size="33.0" />
                </font>
             </Label>
             <Label alignment="CENTER" onMouseClicked="#close_app" prefHeight="26.0" prefWidth="29.0" styleClass="close-btn" text="x">
                <font>
-                  <Font size="32.0" />
+                  <Font size="33.0" />
                </font>
             </Label>
          </children>
