@@ -1,5 +1,6 @@
 /**
  * @author Ayman Abu Awad
+ * Kamal Ali (added text-field styling)
  */
 
 .label{
@@ -13,6 +14,11 @@
 
 .label:hover{
     -fx-background-color: #00C853;
+}
+
+.text-field{
+    -fx-background-color: transparent;
+    -fx-font-size: 11px;
 }
 
 #mainPanel{

@@ -5,13 +5,13 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Month;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -72,42 +72,75 @@ public class MonthView_Controller extends DatabaseHandler {
           for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++){
                 if (calendar.get(Calendar.DAY_OF_WEEK)==(rows*i + j+1) && !found) {
-//                    System.out.println(j);
-                    // Add VBox and style it
+
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
                     Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+                    VBox vbox = new VBox(Data);
+
+                    addEventToBox(vbox, calendar);
+                    /*
+                    */
+
                     // Add it to the grid
-                    mainPanel.add(Data,j,i );
+                    mainPanel.add(vbox,j,i );
                     found = true;
-                } else if (found) {
+                }
+                else if (found) {
                     date++;
                     calendar.set(Calendar.DAY_OF_MONTH, date);
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
                     Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+
+                    if (today.equals(new SimpleDateFormat("ddMMYYYY").format(calendar.getTime()))) {
+                        Data.setFill(Color.RED);
+                    }
+                    VBox vbox = new VBox(Data);
+
+                    addEventToBox(vbox, calendar);
+
+                    TextField textField =  new TextField("Class 1");
+                    textField.setEditable(false);
+
+
                     // Add it to the grid
-                    mainPanel.add(Data, j, i);
-                } else {
+                    mainPanel.add(vbox,j,i );
+                }
+                else {
                     previous.set(Calendar.DAY_OF_MONTH, prev);
                     Text prevData = new Text(String.valueOf(previous.get(Calendar.DATE)));
                     prevData.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 11));
+
+                    VBox vbox = new VBox(prevData);
+                    addEventToBox(vbox, calendar);
                     // Add it to the grid
-                    mainPanel.add(prevData, j, i);
+                    mainPanel.add(vbox,j,i );
                     prev++;
                 }
-                //TODO: Make next month EXTRA_LIGHT
-
+                //TODO: Make next month EXTRA_LIGHT. Plan: Create a bool that is set to true in this if block
                 if (date == end) {
                     date = 0;
-                } if (today.equals(new SimpleDateFormat("ddMMYYYY").format(calendar.getTime()))) {
+                }
+            }
+        }
+    }
 
-                    Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
-                    Data.setFill(Color.RED);
-                    Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+    private void addEventToBox(VBox vbox, Calendar calendar) {
+        Date datee = calendar.getTime();
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = format1.format(datee);
 
-                    // Add it to the grid
-                    mainPanel.add(Data, j, i);
-
-
+        // Extract the events for this day from the database
+        List<Map<String, Object>> classList = DatabaseHandler.execQuery(
+                "SELECT eventName FROM userData WHERE " +
+                        "user_id = " + Login_Controller.uid +
+                        " AND date = '" + dateString + "'");
+        if (classList != null){
+            System.out.println("size" + classList.size());
+            for (Map<String, Object> c : classList) {
+                for (Map.Entry<String, Object> me : c.entrySet()) {
+                    TextField textField =  new TextField(me.getValue().toString());
+                    textField.setEditable(false);
+                    vbox.getChildren().add(textField);
                 }
             }
         }
