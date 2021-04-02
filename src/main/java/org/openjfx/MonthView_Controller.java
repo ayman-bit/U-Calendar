@@ -17,9 +17,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 /**
  * @author Ayman Abu Awad
+ * Kamal Ali (edited create grid loop to change font size of numbers)
  */
 
 public class MonthView_Controller extends DatabaseHandler {
@@ -61,6 +65,7 @@ public class MonthView_Controller extends DatabaseHandler {
         int rows = 6;
         int cols = 7;
         boolean found = false;
+        boolean nextMonth = false;
 
         mainPanel.getChildren().clear();
         // Add it to the grid
@@ -70,6 +75,7 @@ public class MonthView_Controller extends DatabaseHandler {
 //                    System.out.println(j);
                     // Add VBox and style it
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
+                    Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
                     // Add it to the grid
                     mainPanel.add(Data,j,i );
                     found = true;
@@ -77,15 +83,18 @@ public class MonthView_Controller extends DatabaseHandler {
                     date++;
                     calendar.set(Calendar.DAY_OF_MONTH, date);
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
+                    Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
                     // Add it to the grid
                     mainPanel.add(Data, j, i);
                 } else {
                     previous.set(Calendar.DAY_OF_MONTH, prev);
                     Text prevData = new Text(String.valueOf(previous.get(Calendar.DATE)));
+                    prevData.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 11));
                     // Add it to the grid
                     mainPanel.add(prevData, j, i);
                     prev++;
                 }
+                //TODO: Make next month EXTRA_LIGHT
 
                 if (date == end) {
                     date = 0;
@@ -93,6 +102,7 @@ public class MonthView_Controller extends DatabaseHandler {
 
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
                     Data.setFill(Color.RED);
+                    Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
 
                     // Add it to the grid
                     mainPanel.add(Data, j, i);
