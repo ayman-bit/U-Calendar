@@ -56,16 +56,20 @@ public class MonthView_Controller extends DatabaseHandler {
         int end = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         Calendar previous = Calendar.getInstance();
-        previous.add(Calendar.MONTH, -1);
+        previous.set(Calendar.MONTH, currentMonth-1);
+        //previous.add(Calendar.MONTH, -1);
         int prevEnd = previous.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         int prev = prevEnd - calendar.get(Calendar.DAY_OF_WEEK)+2;
+
+        Calendar nextMonth = Calendar.getInstance();
+        nextMonth.set(Calendar.MONTH, currentMonth+1);
 
 
         int rows = 6;
         int cols = 7;
         boolean found = false;
-        boolean nextMonth = false;
+        boolean nextM = false;
 
         mainPanel.getChildren().clear();
         // Add it to the grid
@@ -82,10 +86,10 @@ public class MonthView_Controller extends DatabaseHandler {
                     */
 
                     // Add it to the grid
-                    mainPanel.add(vbox,j,i );
+                    mainPanel.add(vbox,j,i);
                     found = true;
                 }
-                else if (found) {
+                else if (found && !nextM) {
                     date++;
                     calendar.set(Calendar.DAY_OF_MONTH, date);
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
@@ -105,20 +109,31 @@ public class MonthView_Controller extends DatabaseHandler {
                     // Add it to the grid
                     mainPanel.add(vbox,j,i );
                 }
+                else if (nextM){
+                    date++;
+                    nextMonth.set(Calendar.DAY_OF_MONTH, date);
+                    Text Data = new Text(String.valueOf(nextMonth.get(Calendar.DATE)));
+                    Data.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 11));
+                    VBox vbox = new VBox(Data);
+
+                    addEventToBox(vbox, nextMonth);
+                    mainPanel.add(vbox,j,i);
+                }
                 else {
                     previous.set(Calendar.DAY_OF_MONTH, prev);
                     Text prevData = new Text(String.valueOf(previous.get(Calendar.DATE)));
                     prevData.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 11));
 
                     VBox vbox = new VBox(prevData);
-                    addEventToBox(vbox, calendar);
+                    addEventToBox(vbox, previous);
                     // Add it to the grid
-                    mainPanel.add(vbox,j,i );
+                    mainPanel.add(vbox,j,i);
                     prev++;
                 }
                 //TODO: Make next month EXTRA_LIGHT. Plan: Create a bool that is set to true in this if block
                 if (date == end) {
                     date = 0;
+                    nextM = true;
                 }
             }
         }
@@ -128,6 +143,7 @@ public class MonthView_Controller extends DatabaseHandler {
         Date datee = calendar.getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = format1.format(datee);
+        System.out.println(dateString);
 
         // Extract the events for this day from the database
         List<Map<String, Object>> classList = DatabaseHandler.execQuery(
