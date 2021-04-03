@@ -134,9 +134,7 @@ public class MonthView_Controller extends DatabaseHandler {
     }
 
     private void addEventToBox(VBox vbox, Calendar calendar) {
-        List<LocalTime> times =  new ArrayList<>();
-        List<LocalTime> unsortedTimes =  new ArrayList<>();
-        List<String> events =  new ArrayList<>();
+
         Date datee = calendar.getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = format1.format(datee);
@@ -146,71 +144,68 @@ public class MonthView_Controller extends DatabaseHandler {
                 "SELECT eventName, startTime FROM userData WHERE " +
                         "user_id = " + Login_Controller.uid +
                         " AND date = '" + dateString + "'");
-        String[] ymdS = dateString.split("-"); //year-month-day
-        /*Integer[] ymd = new Integer[3];
-        ymd = convertToIntArray(ymdS)*/; //not needed now but may use later
 
+        // Get events and their time from db and add them to lists for size>=3
         if (classList.size()<=3){
-            for (Map<String, Object> c : classList) {
-                for (Map.Entry<String, Object> me : c.entrySet()) {
-
-                    System.out.println(me.getValue().toString()); System.out.println("");
-                    TextField textField =  new TextField(me.getValue().toString());
-                    textField.setEditable(false);
-                    vbox.getChildren().add(textField);
-
-
-                }
-            }
+            sortAndAddEvents(vbox, classList, true);
         }
 
-        if (classList.size()>3){
+        // Get events and their time from db and add them to lists
+        else if (classList.size()>3){
             int diff = classList.size()-3;
-            int i=0;
-
-            // Get events and their time from db and add them to lists
-            for (Map<String, Object> c : classList) {
-
-                String eventName = c.get("eventName").toString(); //get event name and add it to list
-                events.add(eventName);
-
-                String[] timeS = c.get("startTime").toString().split(":"); //get event time and add it to list
-                Integer[] time = convertToIntArray(timeS);
-                LocalTime t = LocalTime.of(time[0], time[1], 0);
-                times.add(t);
-            }
-
-            // copy the current times array into a new array for use later
-            for (LocalTime lt : times) {
-                unsortedTimes.add(lt);
-            }
-
-            // sort the original array
-            times.sort(LocalTime::compareTo);
-
-            LocalTime lt;
-            // Add events to vbox according to their time chronologically
-            for (int x = 0; x<3; x++) {
-                for (int y = 0; y< times.size(); y++) {
-                    if(times.get(x) == unsortedTimes.get(y)) {
-                        TextField textField =  new TextField(events.get(y));
-                        textField.setEditable(false);
-                        // Another textField for times.get(y)
-                        vbox.getChildren().add(textField);
-                        //unsortedTimes.remove(y);
-                        //times.remove(x);
-                        break;
-                    }
-                }
-            }
-
+            sortAndAddEvents(vbox, classList, false);
             TextField textField =  new TextField("and " + diff + " more");
             textField.setEditable(false);
             vbox.getChildren().add(textField);
-            }
-
         }
 
+    }
+
+    private void sortAndAddEvents(VBox vbox, List<Map<String, Object>> classList, boolean isLessThanThree){
+        List<LocalTime> times =  new ArrayList<>();
+        List<LocalTime> unsortedTimes =  new ArrayList<>();
+        List<String> events =  new ArrayList<>();
+        for (Map<String, Object> c : classList) {
+
+            String eventName = c.get("eventName").toString(); //get event name and add it to list
+            events.add(eventName);
+
+            String[] timeS = c.get("startTime").toString().split(":"); //get event time and add it to list
+            Integer[] time = convertToIntArray(timeS);
+            LocalTime t = LocalTime.of(time[0], time[1], 0);
+            times.add(t);
+        }
+
+        // copy the current times array into a new array for use later
+        for (LocalTime lt : times) {
+            unsortedTimes.add(lt);
+        }
+
+        // sort the original array
+        times.sort(LocalTime::compareTo);
+
+
+        LocalTime lt;
+        int size = 3;
+        if(isLessThanThree){
+            size = times.size();
+        }
+        // Add events to vbox according to their time chronologically
+        for (int x = 0; x<size; x++) {
+            for (int y = 0; y< times.size(); y++) {
+                if(times.get(x) == unsortedTimes.get(y)) {
+                    TextField textField =  new TextField(events.get(y));
+                    textField.setEditable(false);
+                    // Another textField for times.get(y)
+                    vbox.getChildren().add(textField);
+                    //unsortedTimes.remove(y);
+                    //times.remove(x);
+                    break;
+                }
+            }
+        }
+
+    }
 
     private void print(List<LocalTime> times) {
         for (int i=0; i<times.size(); i++){
