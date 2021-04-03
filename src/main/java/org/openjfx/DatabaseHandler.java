@@ -37,9 +37,6 @@ public class DatabaseHandler {
         userData.put("date", "TEXT");
         userData.put("startTime", "TEXT");
         userData.put("endTime", "TEXT");
-        userData.put("numAssign", "TEXT");
-        userData.put("numTest", "TEXT");
-        userData.put("numLabs", "TEXT");
         userData.put("finalDate", "TEXT");
         userData.put("finalStartTime", "TEXT");
         userData.put("finalEndTime", "TEXT");
