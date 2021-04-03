@@ -16,9 +16,12 @@
     -fx-background-color: #00C853;
 }
 
+
 .text-field{
     -fx-background-color: transparent;
     -fx-font-size: 11px;
+    -fx-padding: 0px;
+    -fx-max-width: 70;
 }
 
 #mainPanel{
