@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.*;
 
@@ -47,8 +49,8 @@ public class MonthView_Controller extends DatabaseHandler {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, currentMonth);
 
-        Month_Year.setText(new SimpleDateFormat("MMMM, YYYY").format(calendar.getTime()));
-
+        Month_Year.setText(new SimpleDateFormat("MMMM, YYYY", Locale.US ).format(calendar.getTime())); // Locale.US ensures language is english
+        //Month_Year.setText(new SimpleDateFormat("MMMM, YYYY", new Locale("ar") ).format(calendar.getTime()));
         int date = 1;
         calendar.set(Calendar.DAY_OF_MONTH, date);
         int end = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -132,28 +134,32 @@ public class MonthView_Controller extends DatabaseHandler {
     }
 
     private void addEventToBox(VBox vbox, Calendar calendar) {
+        List<LocalTime> times =  new ArrayList<>();
+        List<LocalTime> unsortedTimes =  new ArrayList<>();
+        List<String> events =  new ArrayList<>();
         Date datee = calendar.getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = format1.format(datee);
 
         // Extract the events for this day from the database
         List<Map<String, Object>> classList = DatabaseHandler.execQuery(
-                "SELECT eventName FROM userData WHERE " +
+                "SELECT eventName, startTime FROM userData WHERE " +
                         "user_id = " + Login_Controller.uid +
                         " AND date = '" + dateString + "'");
+        String[] ymdS = dateString.split("-"); //year-month-day
+        /*Integer[] ymd = new Integer[3];
+        ymd = convertToIntArray(ymdS)*/; //not needed now but may use later
+
         if (classList.size()<=3){
             for (Map<String, Object> c : classList) {
                 for (Map.Entry<String, Object> me : c.entrySet()) {
 
-
+                    System.out.println(me.getValue().toString()); System.out.println("");
                     TextField textField =  new TextField(me.getValue().toString());
                     textField.setEditable(false);
-
-                    /*Label label = new Label(me.getValue().toString());
-                    label.getStyleClass().add("event");
-                    label.setMaxWidth(100);
-                    VBox.setVgrow(label, Priority.ALWAYS);*/
                     vbox.getChildren().add(textField);
+
+
                 }
             }
         }
@@ -161,23 +167,63 @@ public class MonthView_Controller extends DatabaseHandler {
         if (classList.size()>3){
             int diff = classList.size()-3;
             int i=0;
-            // TODO: sort
+
+            // Get events and their time from db and add them to lists
             for (Map<String, Object> c : classList) {
-                for (Map.Entry<String, Object> me : c.entrySet()) {
-                    TextField textField =  new TextField(me.getValue().toString());
-                    textField.setEditable(false);
-                    vbox.getChildren().add(textField);
-                    i++;
-                    System.out.println(i);
-                }
-                if (i==3){
-                    break;
+
+                String eventName = c.get("eventName").toString(); //get event name and add it to list
+                events.add(eventName);
+
+                String[] timeS = c.get("startTime").toString().split(":"); //get event time and add it to list
+                Integer[] time = convertToIntArray(timeS);
+                LocalTime t = LocalTime.of(time[0], time[1], 0);
+                times.add(t);
+            }
+
+            // copy the current times array into a new array for use later
+            for (LocalTime lt : times) {
+                unsortedTimes.add(lt);
+            }
+
+            // sort the original array
+            times.sort(LocalTime::compareTo);
+
+            LocalTime lt;
+            // Add events to vbox according to their time chronologically
+            for (int x = 0; x<3; x++) {
+                for (int y = 0; y< times.size(); y++) {
+                    if(times.get(x) == unsortedTimes.get(y)) {
+                        TextField textField =  new TextField(events.get(y));
+                        textField.setEditable(false);
+                        // Another textField for times.get(y)
+                        vbox.getChildren().add(textField);
+                        //unsortedTimes.remove(y);
+                        //times.remove(x);
+                        break;
+                    }
                 }
             }
+
             TextField textField =  new TextField("and " + diff + " more");
             textField.setEditable(false);
             vbox.getChildren().add(textField);
+            }
+
         }
+
+
+    private void print(List<LocalTime> times) {
+        for (int i=0; i<times.size(); i++){
+            System.out.println(times.get(i));
+        }
+    }
+
+    private Integer[] convertToIntArray(String[] ymdS) {
+        Integer ymd[] = new Integer[ymdS.length];
+        for(int i=0; i<ymdS.length; i++){
+            ymd[i] = Integer.parseInt(ymdS[i]);
+        }
+        return ymd;
     }
 
     @FXML
@@ -213,4 +259,5 @@ public class MonthView_Controller extends DatabaseHandler {
         today = new SimpleDateFormat("ddMMYYYY").format(calendar.getTime());
         CreateGrid ();
     }
+
 }
