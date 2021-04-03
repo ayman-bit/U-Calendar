@@ -55,11 +55,20 @@ public class DatabaseHandler {
         grades.put("weight", "REAL");
         grades.put("achieved", "REAL");
 
+        Map<String, String> subEvents = new HashMap<>();
+        subEvents.put("table", "subEvents");
+        subEvents.put("user_id", "INTEGER");
+        subEvents.put("eventName", "TEXT");
+        subEvents.put("subeventName", "TEXT");
+        subEvents.put("subeventWeight", "REAL");
+        subEvents.put("subeventDate", "TEXT");
+
 
         DatabaseHandler.createTable(login, loginUnique);
-//        If creating a second table that does not need a unique identifier, You will need to include the following syntax as shown
+        //If creating a second table that does not need a unique identifier, You will need to include the following syntax as shown
         DatabaseHandler.createTable(userData, Collections.<String>emptyList());
         DatabaseHandler.createTable(grades, Collections.<String>emptyList());
+        DatabaseHandler.createTable(subEvents,Collections.<String>emptyList());
     }
 
     public static void createConnection() {

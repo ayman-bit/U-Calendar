@@ -46,13 +46,13 @@
             <Cursor fx:constant="H_RESIZE" />
          </cursor>
       </HBox>
-      <JFXTabPane layoutX="150.0" layoutY="40.0">
+      <JFXTabPane layoutX="160.0" layoutY="47.0">
          <tabs>
             <Tab text="Week View">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
-                        <JFXDrawer fx:id="WeekView" prefHeight="560.0" prefWidth="550.0" />
+                        <JFXDrawer fx:id="WeekView" />
                      </children>
                   </AnchorPane>
                </content>
