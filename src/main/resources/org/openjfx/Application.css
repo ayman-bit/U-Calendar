@@ -3,6 +3,7 @@
  */
 .hbox {
     -fx-background-color: #CCCCCC;
+    -fx-cursor: default;
 
 }
 .pane {
@@ -15,14 +16,18 @@
 
 .close-btn{
     -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 .close-btn:hover{
     -fx-background-color: #E81123;
+    -fx-cursor: hand;
 }
 
 .min-btn{
     -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 .min-btn:hover{
     -fx-background-color: #7F7F7F;
+    -fx-cursor: hand;
 }
