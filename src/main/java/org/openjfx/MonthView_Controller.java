@@ -207,18 +207,18 @@ public class MonthView_Controller extends DatabaseHandler {
 
     }
 
-    private void print(List<LocalTime> times) {
-        for (int i=0; i<times.size(); i++){
-            System.out.println(times.get(i));
-        }
-    }
-
     private Integer[] convertToIntArray(String[] ymdS) {
         Integer ymd[] = new Integer[ymdS.length];
         for(int i=0; i<ymdS.length; i++){
             ymd[i] = Integer.parseInt(ymdS[i]);
         }
         return ymd;
+    }
+
+    private void print(List<LocalTime> times) {
+        for (int i=0; i<times.size(); i++){
+            System.out.println(times.get(i));
+        }
     }
 
     @FXML
@@ -243,7 +243,6 @@ public class MonthView_Controller extends DatabaseHandler {
         CreateGrid ();
 
     }
-
 
     @FXML
     void initialize() {
