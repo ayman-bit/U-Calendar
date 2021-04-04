@@ -40,6 +40,9 @@ public class  AddEvent_Controller {
     private JFXTextField className;
 
     @FXML
+    private JFXTextField finalWeight;
+
+    @FXML
     private JFXTabPane tabPane;
 
     @FXML
@@ -230,15 +233,12 @@ public class  AddEvent_Controller {
                 return;
             }
 
-            String qu = "INSERT INTO userData(eventName,date,startTime,endTime,reoccur,finalDate,finalStartTime,finalEndTime,user_id) VALUES ("
+            String qu = "INSERT INTO userData(eventName,date,startTime,endTime,reoccur,user_id) VALUES ("
                     + "'" + name + "',"
                     + "'" + startD + "',"
                     + "'" + startT + "',"
                     + "'" + endT + "',"
                     + "'" + recourrence + "',"
-                    + "'" + DateFinal + "',"
-                    + "'" + startFT + "',"
-                    + "'" + endFT + "',"
                     + "'" + Login_Controller.uid + "'"
                     + ")";
             System.out.println(qu);
@@ -257,6 +257,48 @@ public class  AddEvent_Controller {
                 alert.showAndWait();
             }
 
+            if(haveFinal.isSelected() && (DateFinal.isEmpty()||startFT.isEmpty()||endFT.isEmpty())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Some required information was not entered");
+                alert.showAndWait();
+                return;
+            }
+            else{
+                String eventName = className.getText();
+                String subeventDate= FinalDate.getValue().toString();
+                String subEventName= "Final";
+                String subeventWeight = finalWeight.getText();
+                String subStartTime = FinalStartTime.getValue().toString();
+                String subEndTime = FinalEndTime.getValue().toString();
+
+
+
+
+                 qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
+                        + "'" + eventName + "',"
+                        + "'" + subEventName + "',"
+                        + "'" + subeventWeight + "',"
+                        + "'" + subeventDate + "',"
+                        + "'" + subStartTime + "',"
+                        + "'" + subEndTime + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
+
+                if(DatabaseHandler.execAction(qu)){ //Success
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Success");
+                    alert.showAndWait();
+                    Controller.start("Application.fxml", event);
+                }
+                else{ // Error
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("This Data Already Exists");
+                    alert.showAndWait();
+                }
+            }
             }
         catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -265,6 +307,7 @@ public class  AddEvent_Controller {
             alert.showAndWait();
             return;
         }
+
 
     }
 

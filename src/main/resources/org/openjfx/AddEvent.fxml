@@ -124,6 +124,7 @@
                         <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
                         <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
                         <CheckBox fx:id="haveFinal" layoutX="26.0" layoutY="65.0" mnemonicParsing="false" onMouseClicked="#hasFinal" prefHeight="17.0" prefWidth="289.0" text="Does this course have a final" />
+                        <JFXTextField fx:id="finalWeight" layoutX="28.0" layoutY="307.0" prefHeight="25.0" prefWidth="313.0" promptText="Final Weight" />
                      </children></AnchorPane>
               </content>
             </Tab>

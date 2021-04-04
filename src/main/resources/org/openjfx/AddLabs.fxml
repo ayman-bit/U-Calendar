@@ -3,11 +3,12 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.AddLabs_Controller">
     <children>
@@ -17,12 +18,17 @@
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="labNumber" layoutX="256.0" layoutY="237.0" prefHeight="27.0" prefWidth="311.0" promptText="Lab Name" />
-        <JFXDatePicker fx:id="labDate" layoutX="258.0" layoutY="178.0" prefHeight="29.0" prefWidth="350.0" />
-        <Label layoutX="256.0" layoutY="140.0" text="Select a date for your Lab" />
-        <JFXTextField fx:id="labWeight" layoutX="256.0" layoutY="276.0" prefHeight="27.0" prefWidth="311.0" promptText="Lab Weight" />
+        <JFXTextField fx:id="labNumber" layoutX="256.0" layoutY="158.0" prefHeight="27.0" prefWidth="311.0" promptText="Lab Name" />
+        <JFXDatePicker fx:id="labDate" layoutX="256.0" layoutY="109.0" prefHeight="29.0" prefWidth="350.0" />
+        <Label layoutX="258.0" layoutY="84.0" text="Select a date for your Lab" />
+        <JFXTextField fx:id="labWeight" layoutX="256.0" layoutY="199.0" prefHeight="27.0" prefWidth="311.0" promptText="Lab Weight" />
         <JFXButton fx:id="addLab" layoutX="500.0" layoutY="430.0" onMouseClicked="#AddLab" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" />
-        <Label fx:id="className" layoutX="256.0" layoutY="84.0" prefHeight="17.0" prefWidth="232.0" />
         <JFXButton fx:id="Cancel" layoutX="259.0" layoutY="430.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-radius: 5em; -fx-border-color: #1B6CD7;" text="Back" textFill="#1b6cd7" />
+      <JFXTimePicker fx:id="labStartTime" layoutX="256.0" layoutY="267.0" prefHeight="29.0" prefWidth="350.0" />
+      <Label layoutX="256.0" layoutY="250.0" text="Start Time" />
+      <Label layoutX="256.0" layoutY="316.0" text="End Time" />
+      <JFXTimePicker fx:id="labEndTime" layoutX="256.0" layoutY="333.0" prefHeight="29.0" prefWidth="350.0" />
+      <Separator layoutX="240.0" layoutY="409.0" prefHeight="11.0" prefWidth="407.0" />
+        <Label fx:id="className" layoutX="452.0" layoutY="41.0" prefHeight="17.0" prefWidth="232.0" />
     </children>
 </AnchorPane>
