@@ -35,14 +35,10 @@ public class DatabaseHandler {
         userData.put("table", "userData");
         userData.put("eventName", "VARCHAR");
         userData.put("date", "TEXT");
+        userData.put("endDate", "TEXT");
         userData.put("startTime", "TEXT");
         userData.put("endTime", "TEXT");
-        userData.put("numAssign", "TEXT");
-        userData.put("numTest", "TEXT");
-        userData.put("numLabs", "TEXT");
-        userData.put("finalDate", "TEXT");
-        userData.put("finalStartTime", "TEXT");
-        userData.put("finalEndTime", "TEXT");
+        userData.put("reoccur","TEXT");
         userData.put("user_id", "INTEGER");
 
         Map<String, String> grades = new HashMap<>();
@@ -55,11 +51,22 @@ public class DatabaseHandler {
         grades.put("weight", "REAL");
         grades.put("achieved", "REAL");
 
+        Map<String, String> subEvents = new HashMap<>();
+        subEvents.put("table", "subEvents");
+        subEvents.put("user_id", "INTEGER");
+        subEvents.put("eventName", "TEXT");
+        subEvents.put("subeventName", "TEXT");
+        subEvents.put("subeventWeight", "REAL");
+        subEvents.put("subeventDate", "TEXT");
+        subEvents.put("subStartTime", "TEXT");
+        subEvents.put("subEndTime", "TEXT");
+
 
         DatabaseHandler.createTable(login, loginUnique);
-//        If creating a second table that does not need a unique identifier, You will need to include the following syntax as shown
+        //If creating a second table that does not need a unique identifier, You will need to include the following syntax as shown
         DatabaseHandler.createTable(userData, Collections.<String>emptyList());
         DatabaseHandler.createTable(grades, Collections.<String>emptyList());
+        DatabaseHandler.createTable(subEvents,Collections.<String>emptyList());
     }
 
     public static void createConnection() {
