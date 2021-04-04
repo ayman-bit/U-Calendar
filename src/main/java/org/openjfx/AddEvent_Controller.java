@@ -192,6 +192,8 @@ public class  AddEvent_Controller {
         fxmlLoader.setLocation(getClass().getResource("AddTests.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
+        AddTests_Controller testController = fxmlLoader.getController();
+        testController.setClassName(className.getText());
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Add Tests");
         stage.setScene(scene);
