@@ -82,6 +82,21 @@ public class  AddEvent_Controller {
     private Label finalEndLabel;
 
     @FXML
+    private JFXRadioButton monday;
+
+    @FXML
+    private JFXRadioButton tuesday;
+
+    @FXML
+    private JFXRadioButton wednesday;
+
+    @FXML
+    private JFXRadioButton thursday;
+
+    @FXML
+    private JFXRadioButton friday;
+
+    @FXML
     void Next(MouseEvent e) throws IOException{
         tabPane.getSelectionModel().selectNext();
     }
@@ -200,6 +215,7 @@ public class  AddEvent_Controller {
             String startT= startTime.getValue().toString();
             String endT= endTime.getValue().toString();
             String name= className.getText();
+            String recourrence = getReoccurence();
             String DateFinal= FinalDate.getValue().toString();
             String startFT= FinalStartTime.getValue().toString();
             String endFT= FinalEndTime.getValue().toString();
@@ -212,11 +228,12 @@ public class  AddEvent_Controller {
                 return;
             }
 
-            String qu = "INSERT INTO userData(eventName,date,startTime,endTime,finalDate,finalStartTime,finalEndTime,user_id) VALUES ("
+            String qu = "INSERT INTO userData(eventName,date,startTime,endTime,reoccur,finalDate,finalStartTime,finalEndTime,user_id) VALUES ("
                     + "'" + name + "',"
                     + "'" + startD + "',"
                     + "'" + startT + "',"
                     + "'" + endT + "',"
+                    + "'" + recourrence + "',"
                     + "'" + DateFinal + "',"
                     + "'" + startFT + "',"
                     + "'" + endFT + "',"
@@ -247,6 +264,27 @@ public class  AddEvent_Controller {
             return;
         }
 
+    }
+
+    String getReoccurence(){
+        String re = "";
+        if (monday.isSelected()){
+            re +="M";
+        }
+        if (tuesday.isSelected()){
+            re +="T";
+        }
+        if (wednesday.isSelected()){
+            re +="W";
+        }
+        if(thursday.isSelected()){
+            re+="R";
+        }
+        if (friday.isSelected()){
+            re +="F";
+        }
+
+        return re;
     }
 
     @FXML

@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
@@ -42,6 +43,12 @@
                         <Label layoutX="44.0" layoutY="185.0" text="End Time" />
                         <JFXTimePicker fx:id="endTime" layoutX="44.0" layoutY="202.0" prefHeight="29.0" prefWidth="350.0" />
                         <JFXTextField fx:id="className" layoutX="45.0" layoutY="259.0" prefHeight="27.0" prefWidth="311.0" promptText="Class Name" />
+                        <Label layoutX="45.0" layoutY="302.0" prefHeight="17.0" prefWidth="107.0" text="Reoccurences:" />
+                        <JFXRadioButton fx:id="tuesday" layoutX="154.0" layoutY="329.0" text="Tuesday" />
+                        <JFXRadioButton fx:id="monday" layoutX="43.0" layoutY="329.0" text="Monday" />
+                        <JFXRadioButton fx:id="wednesday" layoutX="268.0" layoutY="329.0" text="Wednesday" />
+                        <JFXRadioButton fx:id="thursday" layoutX="43.0" layoutY="359.0" text="Thursday" />
+                        <JFXRadioButton fx:id="friday" layoutX="154.0" layoutY="359.0" text="Friday" />
                      </children>
                   </AnchorPane>
               </content>

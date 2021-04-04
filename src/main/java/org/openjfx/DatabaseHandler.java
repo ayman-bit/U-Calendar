@@ -37,6 +37,7 @@ public class DatabaseHandler {
         userData.put("date", "TEXT");
         userData.put("startTime", "TEXT");
         userData.put("endTime", "TEXT");
+        userData.put("reoccur","TEXT");
         userData.put("finalDate", "TEXT");
         userData.put("finalStartTime", "TEXT");
         userData.put("finalEndTime", "TEXT");

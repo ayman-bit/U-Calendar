@@ -23,7 +23,7 @@
          <children>
             <JFXHamburger fx:id="options">
                <padding>
-                  <Insets left="10.0" top="5.0" />
+                  <Insets left="4.0" top="5.0" />
                </padding>
             </JFXHamburger>
             <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="803.0">
@@ -46,7 +46,7 @@
             <Cursor fx:constant="H_RESIZE" />
          </cursor>
       </HBox>
-      <JFXTabPane layoutX="160.0" layoutY="47.0">
+      <JFXTabPane layoutX="150.0" layoutY="49.0">
          <tabs>
             <Tab text="Week View">
                <content>
