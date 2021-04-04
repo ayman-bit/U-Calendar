@@ -31,6 +31,9 @@ public class  AddEvent_Controller {
     private JFXDatePicker date;
 
     @FXML
+    private JFXDatePicker endDate;
+
+    @FXML
     private JFXTimePicker startTime;
 
     @FXML
@@ -148,6 +151,7 @@ public class  AddEvent_Controller {
             finalLabel.setVisible(true);
             finalStartLabel.setVisible(true);
             finalEndLabel.setVisible(true);
+            finalWeight.setVisible(true);
         }
         else{
             FinalDate.setVisible(false);
@@ -156,6 +160,7 @@ public class  AddEvent_Controller {
             finalLabel.setVisible(false);
             finalStartLabel.setVisible(false);
             finalEndLabel.setVisible(false);
+            finalWeight.setVisible(false);
         }
 
 
@@ -217,54 +222,21 @@ public class  AddEvent_Controller {
     void Done(MouseEvent event) throws IOException {
         try {
             String startD= date.getValue().toString();
+            String endD = endDate.getValue().toString();
             String startT= startTime.getValue().toString();
             String endT= endTime.getValue().toString();
             String name= className.getText();
             String recourrence = getReoccurence();
-            String DateFinal= FinalDate.getValue().toString();
-            String startFT= FinalStartTime.getValue().toString();
-            String endFT= FinalEndTime.getValue().toString();
 
-            if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty()){
+
+            if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty() || endD.isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setContentText("Some required information was not entered");
                 alert.showAndWait();
                 return;
             }
-
-            String qu = "INSERT INTO userData(eventName,date,startTime,endTime,reoccur,user_id) VALUES ("
-                    + "'" + name + "',"
-                    + "'" + startD + "',"
-                    + "'" + startT + "',"
-                    + "'" + endT + "',"
-                    + "'" + recourrence + "',"
-                    + "'" + Login_Controller.uid + "'"
-                    + ")";
-            System.out.println(qu);
-
-            if(DatabaseHandler.execAction(qu)){ //Success
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(null);
-                alert.setContentText("Success");
-                alert.showAndWait();
-                Controller.start("Application.fxml", event);
-            }
-            else{ // Error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText("This Data Already Exists");
-                alert.showAndWait();
-            }
-
-            if(haveFinal.isSelected() && (DateFinal.isEmpty()||startFT.isEmpty()||endFT.isEmpty())){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText("Some required information was not entered");
-                alert.showAndWait();
-                return;
-            }
-            else{
+            else if(haveFinal.isSelected() == true && (FinalDate.getValue()!= null||FinalStartTime.getValue()!= null||FinalEndTime.getValue() != null)){
                 String eventName = className.getText();
                 String subeventDate= FinalDate.getValue().toString();
                 String subEventName= "Final";
@@ -275,7 +247,7 @@ public class  AddEvent_Controller {
 
 
 
-                 qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
+                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
                         + "'" + eventName + "',"
                         + "'" + subEventName + "',"
                         + "'" + subeventWeight + "',"
@@ -299,13 +271,43 @@ public class  AddEvent_Controller {
                     alert.showAndWait();
                 }
             }
+            else {
+                String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
+                        + "'" + name + "',"
+                        + "'" + startD + "',"
+                        + "'" + endD + "',"
+                        + "'" + startT + "',"
+                        + "'" + endT + "',"
+                        + "'" + recourrence + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
+                System.out.println(qu);
+
+                if(DatabaseHandler.execAction(qu)){ //Success
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Success");
+                    alert.showAndWait();
+                    Controller.start("Application.fxml", event);
+                }
+                else{ // Error
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("This Data Already Exists");
+                    alert.showAndWait();
+                }
+
+            }
+
+
+
             }
         catch (Exception e){
+            System.out.println(e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Please fill in all infomartion");
             alert.showAndWait();
-            return;
         }
 
 
@@ -349,6 +351,7 @@ public class  AddEvent_Controller {
         finalLabel.setVisible(false);
         finalStartLabel.setVisible(false);
         finalEndLabel.setVisible(false);
+        finalWeight.setVisible(false);
 
 
     }

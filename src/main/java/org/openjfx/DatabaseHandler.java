@@ -35,6 +35,7 @@ public class DatabaseHandler {
         userData.put("table", "userData");
         userData.put("eventName", "VARCHAR");
         userData.put("date", "TEXT");
+        userData.put("endDate", "TEXT");
         userData.put("startTime", "TEXT");
         userData.put("endTime", "TEXT");
         userData.put("reoccur","TEXT");
