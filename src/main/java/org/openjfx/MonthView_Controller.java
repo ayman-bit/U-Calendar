@@ -73,9 +73,6 @@ public class MonthView_Controller extends DatabaseHandler {
 
         reoccurences = new ArrayList<>();
         loadReoccurences();
-        // for reoccurence, make a query to db when addEventToBox is called and get class names and reoccurences
-        // store in a map<String eventName, String reoccur> check if after start date and before end date, and today is M, and (for each event) if its reoccur
-        // contains M, then add it to vbox. check today's day from the calendar passed to addEventToBox
 
         for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++){
@@ -154,17 +151,6 @@ public class MonthView_Controller extends DatabaseHandler {
         }
 
 
-
-       /* for (Map<String, Object> c : classList){
-            System.out.println( "map: " );
-            for (Map.Entry<String, Object> e : c.entrySet()){
-                System.out.println(e.getKey() + ": " + e.getValue());
-            }
-        }*/
-        /*date: 2021-04-22
-        reoccur: WF
-        eventName: yy77*/
-
     }
 
     private void addEventToBox(VBox vbox, Calendar calendar) {
@@ -201,7 +187,7 @@ public class MonthView_Controller extends DatabaseHandler {
 
             // Generate today's date, start date, and end date
             String[] t = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).split("-");
-            LocalDate today = LocalDate.of(Integer.parseInt(t[0]), Integer.parseInt(t[0]), Integer.parseInt(t[0]));
+            LocalDate today = LocalDate.of(Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2]));
             String[] startDateS = r.get("date").toString().split("-");
             LocalDate startDate = LocalDate.of(Integer.parseInt(startDateS[0]), Integer.parseInt(startDateS[1]),Integer.parseInt(startDateS[2]));
             String[] endDateS = r.get("endDate").toString().split("-");
@@ -210,9 +196,9 @@ public class MonthView_Controller extends DatabaseHandler {
             // If today's date falls within the start and end dates of this class
             if (today.compareTo(startDate) >= 0 && today.compareTo(endDate) <= 0){
                 // Get the day of week
-                String currentDay = new SimpleDateFormat("EE").format(calendar.DAY_OF_WEEK);
-                char currentDayChar = currentDay.charAt(0);
-                if (currentDay == "Thursday"){
+                String day = today.getDayOfWeek().name();
+                char currentDayChar = day.charAt(0);
+                if (day == "Thursday"){
                     currentDayChar = 'R';
                 }
 
