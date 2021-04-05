@@ -92,7 +92,7 @@ public class MonthView_Controller extends DatabaseHandler {
                     date++;
                     calendar.set(Calendar.DAY_OF_MONTH, date);
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
-                    Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 10.5));
+                    Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
 
                     if (today.equals(new SimpleDateFormat("ddMMYYYY").format(calendar.getTime()))) {
                         Data.setFill(Color.RED);
@@ -109,7 +109,7 @@ public class MonthView_Controller extends DatabaseHandler {
                     date++;
                     nextMonth.set(Calendar.DAY_OF_MONTH, date);
                     Text Data = new Text(String.valueOf(nextMonth.get(Calendar.DATE)));
-                    Data.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 10.5));
+                    Data.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 11));
                     VBox vbox = new VBox(Data);
 
                     addEventToBox(vbox, nextMonth);
@@ -176,6 +176,7 @@ public class MonthView_Controller extends DatabaseHandler {
             int diff = todaysSubevents.size()-3;
             sortAndAddEvents(vbox, todaysSubevents, false);
             TextField textField =  new TextField("and " + diff + " more");
+            textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
             textField.setEditable(false);
             vbox.getChildren().add(textField);
         }
@@ -249,6 +250,7 @@ public class MonthView_Controller extends DatabaseHandler {
                 if(times.get(x) == unsortedTimes.get(y)) {
                     TextField textField =  new TextField(events.get(y));
                     textField.setEditable(false);
+                    textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
                     // Another textField for times.get(y) //TODO to be done when implementing adding time to the month view
                     vbox.getChildren().add(textField);
                     //unsortedTimes.remove(y); // TODO: this is a bad mechanism for dealing with multiple events with same time ouputting only the first one
