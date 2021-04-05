@@ -4,9 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
+import java.time.*;
 import java.util.*;
 
 import javafx.collections.ObservableList;
@@ -30,6 +28,8 @@ public class MonthView_Controller extends DatabaseHandler {
     int currentMonth;
 
     String today;
+
+    ArrayList<HashMap<String, Object>> reoccurences;
 
     @FXML
     private ResourceBundle resources;
@@ -71,17 +71,23 @@ public class MonthView_Controller extends DatabaseHandler {
 
         mainPanel.getChildren().clear();
 
-          for (int i = 0; i < rows; i++){
+        reoccurences = new ArrayList<>();
+        loadReoccurences();
+        // for reoccurence, make a query to db when addEventToBox is called and get class names and reoccurences
+        // store in a map<String eventName, String reoccur> check if after start date and before end date, and today is M, and (for each event) if its reoccur
+        // contains M, then add it to vbox. check today's day from the calendar passed to addEventToBox
+
+        for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++){
                 if (calendar.get(Calendar.DAY_OF_WEEK)==(rows*i + j+1) && !found) {
 
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
                     Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
-                    VBox vbox = new VBox(Data); // Add today's date to the view
+                    VBox vbox = new VBox(Data); // Add the first day of month to the view
 
-                    addEventToBox(vbox, calendar); // Add today's event to the view
+                    addEventToBox(vbox, calendar); // Add its events to the vbox
 
-                    mainPanel.add(vbox,j,i); // Add it to the grid
+                    mainPanel.add(vbox,j,i); // Add vbox to the view
                     found = true;
                 }
                 else if (found && !nextM) {
@@ -133,27 +139,56 @@ public class MonthView_Controller extends DatabaseHandler {
         }
     }
 
+    private void loadReoccurences() {
+        // TODO: finaldate will be v important here
+        List<Map<String, Object>> classList = DatabaseHandler.execQuery(
+                "SELECT eventName, reoccur, date, endDate, startTime FROM userData WHERE " +
+                        "user_id = " + Login_Controller.uid);
+
+        if(classList != null){
+            // Cast map to hash map using deep copy
+            for (Map<String, Object> c : classList) {
+                HashMap<String, Object> m =  new HashMap<>(c);
+                reoccurences.add(m);
+            }
+        }
+
+
+
+       /* for (Map<String, Object> c : classList){
+            System.out.println( "map: " );
+            for (Map.Entry<String, Object> e : c.entrySet()){
+                System.out.println(e.getKey() + ": " + e.getValue());
+            }
+        }*/
+        /*date: 2021-04-22
+        reoccur: WF
+        eventName: yy77*/
+
+    }
+
     private void addEventToBox(VBox vbox, Calendar calendar) {
 
         Date datee = calendar.getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = format1.format(datee);
 
-        // Extract the events for this day from the database
-        List<Map<String, Object>> classList = DatabaseHandler.execQuery(
-                "SELECT eventName, startTime FROM userData WHERE " +
+        List<Map<String, Object>> todaysSubevents = DatabaseHandler.execQuery(
+                "SELECT subeventName, subStartTime FROM subEvents WHERE " + //do i need to extract the date?
                         "user_id = " + Login_Controller.uid +
-                        " AND date = '" + dateString + "'");
+                        " AND subeventDate = '" + dateString + "' ");
+
+        addReoccurToTodaysEvents(todaysSubevents, calendar);
 
         // Get events and their time from db and add them to lists for size>=3
-        if (classList.size()<=3){
-            sortAndAddEvents(vbox, classList, true);
+        if (todaysSubevents.size()<=3){
+            sortAndAddEvents(vbox, todaysSubevents, true);
         }
 
         // Get events and their time from db and add them to lists
-        else if (classList.size()>3){
-            int diff = classList.size()-3;
-            sortAndAddEvents(vbox, classList, false);
+        else if (todaysSubevents.size()>3){
+            int diff = todaysSubevents.size()-3;
+            sortAndAddEvents(vbox, todaysSubevents, false);
             TextField textField =  new TextField("and " + diff + " more");
             textField.setEditable(false);
             vbox.getChildren().add(textField);
@@ -161,22 +196,55 @@ public class MonthView_Controller extends DatabaseHandler {
 
     }
 
-    private void sortAndAddEvents(VBox vbox, List<Map<String, Object>> classList, boolean isLessThanThree){
+    private void addReoccurToTodaysEvents(List<Map<String, Object>> todaysSubevents, Calendar calendar) {
+        for (Map<String, Object> r: reoccurences){
+
+            // Generate today's date, start date, and end date
+            String[] t = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).split("-");
+            LocalDate today = LocalDate.of(Integer.parseInt(t[0]), Integer.parseInt(t[0]), Integer.parseInt(t[0]));
+            String[] startDateS = r.get("date").toString().split("-");
+            LocalDate startDate = LocalDate.of(Integer.parseInt(startDateS[0]), Integer.parseInt(startDateS[1]),Integer.parseInt(startDateS[2]));
+            String[] endDateS = r.get("endDate").toString().split("-");
+            LocalDate endDate = LocalDate.of(Integer.parseInt(endDateS[0]), Integer.parseInt(endDateS[1]),Integer.parseInt(endDateS[2]));
+
+            // If today's date falls within the start and end dates of this class
+            if (today.compareTo(startDate) >= 0 && today.compareTo(endDate) <= 0){
+                // Get the day of week
+                String currentDay = new SimpleDateFormat("EE").format(calendar.DAY_OF_WEEK);
+                char currentDayChar = currentDay.charAt(0);
+                if (currentDay == "Thursday"){
+                    currentDayChar = 'R';
+                }
+
+                // if this class has a reoccurence in this day of the week, add it to class list: create a map with keys eventName and startTime
+                if (r.get("reoccur").toString().contains(String.valueOf(currentDayChar))){
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("subeventName", r.get("eventName"));
+                    m.put("subStartTime", r.get("startTime"));
+                    todaysSubevents.add(m);
+                }
+            }
+
+        }
+    }
+
+    private void sortAndAddEvents(VBox vbox, List<Map<String, Object>> todaysSubevents, boolean isLessThanThree){
         List<LocalTime> times =  new ArrayList<>();
         List<LocalTime> unsortedTimes =  new ArrayList<>();
         List<String> events =  new ArrayList<>();
-        for (Map<String, Object> c : classList) {
+        for (Map<String, Object> c : todaysSubevents) {
 
-            String eventName = c.get("eventName").toString(); //get event name and add it to list
+            String eventName = c.get("subeventName").toString(); //get event name and add it to list
             events.add(eventName);
+            /*            System.out.println(c.getClass());*/
 
-            String[] timeS = c.get("startTime").toString().split(":"); //get event time and add it to list
+            String[] timeS = c.get("subStartTime").toString().split(":"); //get event time and add it to list
             Integer[] time = convertToIntArray(timeS);
             LocalTime t = LocalTime.of(time[0], time[1], 0);
             times.add(t);
         }
 
-        // copy the current times array into a new array for use later
+        // deep copy the current times array into a new array for use later
         for (LocalTime lt : times) {
             unsortedTimes.add(lt);
         }
@@ -185,7 +253,6 @@ public class MonthView_Controller extends DatabaseHandler {
         times.sort(LocalTime::compareTo);
 
 
-        LocalTime lt;
         int size = 3;
         if(isLessThanThree){
             size = times.size();
@@ -196,9 +263,9 @@ public class MonthView_Controller extends DatabaseHandler {
                 if(times.get(x) == unsortedTimes.get(y)) {
                     TextField textField =  new TextField(events.get(y));
                     textField.setEditable(false);
-                    // Another textField for times.get(y)
+                    // Another textField for times.get(y) //TODO to be done when implementing adding time to the month view
                     vbox.getChildren().add(textField);
-                    //unsortedTimes.remove(y);
+                    //unsortedTimes.remove(y); // TODO: this is a bad mechanism for dealing with multiple events with same time ouputting only the first one
                     //times.remove(x);
                     break;
                 }
