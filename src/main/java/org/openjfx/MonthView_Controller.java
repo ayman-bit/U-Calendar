@@ -225,10 +225,13 @@ public class MonthView_Controller extends DatabaseHandler {
             events.add(eventName);
             /*            System.out.println(c.getClass());*/
 
-            String[] timeS = c.get("subStartTime").toString().split(":"); //get event time and add it to list
-            Integer[] time = convertToIntArray(timeS);
-            LocalTime t = LocalTime.of(time[0], time[1], 0);
-            times.add(t);
+            if(c.get("subStartTime") != null){
+                String[] timeS = c.get("subStartTime").toString().split(":"); //get event time and add it to list
+                Integer[] time = convertToIntArray(timeS);
+                LocalTime t = LocalTime.of(time[0], time[1], 0);
+                times.add(t);
+            }
+
         }
 
         // deep copy the current times array into a new array for use later
