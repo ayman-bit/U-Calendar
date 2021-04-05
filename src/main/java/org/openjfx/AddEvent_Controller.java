@@ -270,6 +270,29 @@ public class  AddEvent_Controller {
                     alert.setContentText("This Data Already Exists");
                     alert.showAndWait();
                 }
+
+                String qu2 = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
+                        + "'" + name + "',"
+                        + "'" + startD + "',"
+                        + "'" + endD + "',"
+                        + "'" + startT + "',"
+                        + "'" + endT + "',"
+                        + "'" + recourrence + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
+                if(DatabaseHandler.execAction(qu2)){ //Success
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Success");
+                    alert.showAndWait();
+                    Controller.start("Application.fxml", event);
+                }
+                else{ // Error
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("This Data Already Exists");
+                    alert.showAndWait();
+                }
             }
             else {
                 String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
