@@ -257,6 +257,18 @@ public class  AddEvent_Controller {
                         + "'" + Login_Controller.uid + "'"
                         + ")";
 
+                DatabaseHandler.execAction(qu);
+
+                qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
+                        + "'" + name + "',"
+                        + "'" + startD + "',"
+                        + "'" + endD + "',"
+                        + "'" + startT + "',"
+                        + "'" + endT + "',"
+                        + "'" + recourrence + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
+
                 if(DatabaseHandler.execAction(qu)){ //Success
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(null);
@@ -270,6 +282,7 @@ public class  AddEvent_Controller {
                     alert.setContentText("This Data Already Exists");
                     alert.showAndWait();
                 }
+
             }
             else {
                 String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
