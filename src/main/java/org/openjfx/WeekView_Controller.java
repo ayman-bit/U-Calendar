@@ -123,7 +123,7 @@ public class WeekView_Controller extends DatabaseHandler {
 
                 //ArrayList<HashMap<String, Object>> eventOfThisHour = new ArrayList<>(); //Make it an arraylist to allow multiple events per hour
                 HashMap<String, Object> eventOfThisHour = new HashMap<>();
-                String subeventName = null;
+                List<String> subeventNames = new ArrayList<>();
 
                 // Find if a subevent occurs in this hour
                 for (Map<String, Object> subevent: todaysSubevents){
@@ -131,8 +131,8 @@ public class WeekView_Controller extends DatabaseHandler {
                         String[] timeOfEvent = subevent.get("subStartTime").toString().split(":");
                         int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
                         if(hourOfEvent == currentHour){
-                            subeventName = subevent.get("subeventName").toString();
-                            break;
+                            subeventNames.add(subevent.get("subeventName").toString());
+                            //break;
                         }
                     }
                     else{
@@ -165,17 +165,9 @@ public class WeekView_Controller extends DatabaseHandler {
                                 String[] timeOfEvent = r.get("startTime").toString().split(":");
                                 int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
                                 if(hourOfEvent == currentHour){
-                                    subeventName = r.get("eventName").toString();
-                                    break;
+                                    subeventNames.add(r.get("eventName").toString());
+                                    //break;
                                 }
-                                else {
-                                    System.out.println("there is reoccurence today, but time not match. Event: " + r.get("eventName") +
-                                            ". Current hour: " + currentHour);
-                                }
-                            }
-                            else{
-                                System.out.println("there is reoccurence today, but time is null. Event: " + r.get("eventName") +
-                                        ". Current hour: " + currentHour);
                             }
                         }
                     }
@@ -196,12 +188,14 @@ public class WeekView_Controller extends DatabaseHandler {
                 }*/
 
                 // If a subevent that starts in this hour exists, add it to the display
-                if(subeventName != null){
-                    AnchorPane a = setUpEventBox(Color.BLUEVIOLET,subeventName);
+                if(subeventNames.size() != 0){
+                    for(String s: subeventNames){
+                        AnchorPane a = setUpEventBox(Color.BLUEVIOLET,s);
 
-                    // Add it to the grid
-                    mainPanel.add(a,i,j);
-                    mainPanel.setAlignment(Pos.TOP_RIGHT);
+                        // Add it to the grid
+                        mainPanel.add(a,i,j);
+                        mainPanel.setAlignment(Pos.TOP_RIGHT);
+                    }
                 }
 
                 Calendar current = Calendar.getInstance();

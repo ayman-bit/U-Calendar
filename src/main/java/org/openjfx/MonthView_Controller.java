@@ -159,6 +159,7 @@ public class MonthView_Controller extends DatabaseHandler {
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = format1.format(datee);
 
+
         List<Map<String, Object>> todaysSubevents = DatabaseHandler.execQuery(
                 "SELECT subeventName, subStartTime FROM subEvents WHERE " + //do i need to extract the date?
                         "user_id = " + Login_Controller.uid +
@@ -166,15 +167,15 @@ public class MonthView_Controller extends DatabaseHandler {
 
         addReoccurToTodaysEvents(todaysSubevents, calendar);
 
-        // Get events and their time from db and add them to lists for size>=3
+        // Get events and their time from db and add them to lists for size<=3
         if (todaysSubevents.size()<=3){
-            sortAndAddEvents(vbox, todaysSubevents, true);
+            sortAndAddEvents(vbox, todaysSubevents, true, dateString);
         }
 
         // Get events and their time from db and add them to lists
         else if (todaysSubevents.size()>3){
             int diff = todaysSubevents.size()-3;
-            sortAndAddEvents(vbox, todaysSubevents, false);
+            sortAndAddEvents(vbox, todaysSubevents, false, dateString);
             TextField textField =  new TextField("and " + diff + " more");
             textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
             textField.setEditable(false);
@@ -215,10 +216,12 @@ public class MonthView_Controller extends DatabaseHandler {
         }
     }
 
-    private void sortAndAddEvents(VBox vbox, List<Map<String, Object>> todaysSubevents, boolean isLessThanThree){
+    private void sortAndAddEvents(VBox vbox, List<Map<String, Object>> todaysSubevents, boolean isLessThanThree, String dateString){
         List<LocalTime> times =  new ArrayList<>();
         List<LocalTime> unsortedTimes =  new ArrayList<>();
         List<String> events =  new ArrayList<>();
+        List<String> eventsNoTime =  new ArrayList<>();
+
         for (Map<String, Object> c : todaysSubevents) {
 
             String eventName = c.get("subeventName").toString(); //get event name and add it to list
@@ -230,6 +233,10 @@ public class MonthView_Controller extends DatabaseHandler {
                 Integer[] time = convertToIntArray(timeS);
                 LocalTime t = LocalTime.of(time[0], time[1], 0);
                 times.add(t);
+            }
+            else{
+                eventsNoTime.add(eventName);
+                events.remove(eventName);
             }
 
         }
@@ -250,7 +257,8 @@ public class MonthView_Controller extends DatabaseHandler {
         // Add events to vbox according to their time chronologically
         for (int x = 0; x<size; x++) {
             for (int y = 0; y< times.size(); y++) {
-                if(times.get(x) == unsortedTimes.get(y)) {
+
+                if(times.get(x).compareTo(unsortedTimes.get(y)) == 0 ) {
                     TextField textField =  new TextField(events.get(y));
                     textField.setEditable(false);
                     textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
@@ -261,6 +269,13 @@ public class MonthView_Controller extends DatabaseHandler {
                     break;
                 }
             }
+        }
+        for (int x=0; x<size; x++){
+            TextField textField =  new TextField(eventsNoTime.get(x));
+            textField.setEditable(false);
+            textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+            // Another textField for times.get(y) //TODO to be done when implementing adding time to the month view
+            vbox.getChildren().add(textField);
         }
 
     }
