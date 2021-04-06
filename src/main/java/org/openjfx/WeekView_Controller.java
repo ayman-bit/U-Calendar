@@ -3,7 +3,9 @@ package org.openjfx;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 import javafx.fxml.FXML;
@@ -103,10 +105,6 @@ public class WeekView_Controller extends DatabaseHandler {
         int cols = 7;
 
         mainPanel.getChildren().clear();
-/*        for (Node n: mainPanel.getChildren()){
-            n.maxHeight(31.26);
-        }*/
-        mainPanel.setGridLinesVisible(true);
 
         reoccurences = new ArrayList<>();
         loadReoccurences();
@@ -117,33 +115,35 @@ public class WeekView_Controller extends DatabaseHandler {
 
             // Find all events that occur on this day
             List<Map<String, Object>> todaysSubevents = DatabaseHandler.execQuery(
-                    "SELECT subeventName, subStartTime FROM subEvents WHERE " + //TODO: subEndTime
+                    "SELECT subeventName, subStartTime, subEndTime FROM subEvents WHERE " +
                             "user_id = " + Login_Controller.uid +
                             " AND subeventDate = '" + todaysDate + "'");
 
             for (int j = 0; j < rows; j++){
                 int currentHour = j;
 
-                if (i==1 && j==2){
-                    int duration=7;
-                    AnchorPane a = setUpCustomEventBox(Color.BLUEVIOLET,"Hour: " + j, duration);
-
-                    // Add it to the grid
-                    mainPanel.add(a,i,j, 1, duration+1);
-                    mainPanel.setAlignment(Pos.TOP_RIGHT);
-                }
-                //ArrayList<HashMap<String, Object>> eventOfThisHour = new ArrayList<>(); //Make it an arraylist to allow multiple events per hour
-                HashMap<String, Object> eventOfThisHour = new HashMap<>();
-                List<String> subeventNames = new ArrayList<>();
-
                 // Find if a subevent occurs in this hour
                 for (Map<String, Object> subevent: todaysSubevents){
                     if(subevent.get("subStartTime") != null){
-                        String[] timeOfEvent = subevent.get("subStartTime").toString().split(":");
-                        int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
-                        if(hourOfEvent == currentHour){
-                            subeventNames.add(subevent.get("subeventName").toString());
-                            //break;
+                        String[] startTimeOfEvent = subevent.get("subStartTime").toString().split(":");
+                        int startHourOfEvent = Integer.parseInt(startTimeOfEvent[0]);
+                        int startMinuteOfEvent = Integer.parseInt(startTimeOfEvent[1]);
+                        startMinuteOfEvent = roundMinutes(startMinuteOfEvent);
+                        LocalTime startTime = LocalTime.of(startHourOfEvent, startMinuteOfEvent);
+
+                        String[] endTimeOfEvent = subevent.get("subEndTime").toString().split(":");
+                        int endHourOfEvent = Integer.parseInt(endTimeOfEvent[0]);
+                        int endMinuteOfEvent = Integer.parseInt(endTimeOfEvent[1]);
+                        endHourOfEvent = roundEndHour(endHourOfEvent,endMinuteOfEvent);
+                        endMinuteOfEvent = roundMinutes(endMinuteOfEvent);
+                        LocalTime endTime = LocalTime.of(endHourOfEvent, endMinuteOfEvent);
+
+                        double durationInMinutes = Duration.between(startTime, endTime).toMinutes();
+
+                        String subeventName = subevent.get("subeventName").toString();
+
+                        if(startHourOfEvent == currentHour){
+                            addToDisplay(subeventName, durationInMinutes, startMinuteOfEvent, i, j);
                         }
                     }
                 }
@@ -171,94 +171,81 @@ public class WeekView_Controller extends DatabaseHandler {
                         // if this class has a reoccurence in this time of the day, add it to class list: create a map with keys eventName and startTime
                         if (r.get("reoccur").toString().contains(String.valueOf(currentDayChar))){
                            if(r.get("startTime") != null){
-                                String[] timeOfEvent = r.get("startTime").toString().split(":");
-                                int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
-                                if(hourOfEvent == currentHour){
-                                    subeventNames.add(r.get("eventName").toString());
-                                    //break;
+                                String[] startTimeOfEvent = r.get("startTime").toString().split(":");
+                                int startHourOfEvent = Integer.parseInt(startTimeOfEvent[0]);
+                                int startMinuteOfEvent = Integer.parseInt(startTimeOfEvent[1]);
+                                startMinuteOfEvent = roundMinutes(startMinuteOfEvent);
+                                LocalTime startTime = LocalTime.of(startHourOfEvent, startMinuteOfEvent);
+
+                                String[] endTimeOfEvent = r.get("endTime").toString().split(":");
+                                int endHourOfEvent = Integer.parseInt(endTimeOfEvent[0]);
+                                int endMinuteOfEvent = Integer.parseInt(endTimeOfEvent[1]);
+                                endHourOfEvent = roundEndHour(endHourOfEvent, endMinuteOfEvent);
+                                endMinuteOfEvent = roundMinutes(endMinuteOfEvent);
+                                LocalTime endTime = LocalTime.of(endHourOfEvent, endMinuteOfEvent);
+
+                               double durationInMinutes = Duration.between(startTime, endTime).toMinutes();
+
+                               String subeventName = r.get("eventName").toString();
+
+
+                                if(startHourOfEvent == currentHour){
+                                    addToDisplay(subeventName, durationInMinutes, startMinuteOfEvent, i, j);
                                 }
                             }
                         }
                     }
-
                 }
-
-
-                //Find the ones that occur this hour
-              /*  for (Map<String, Object> subevent: todaysSubevents){
-                    String[] timeOfEvent = subevent.get("subStartTime").toString().split(":");
-                    int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
-                    if(hourOfEvent == currentHour){
-                        HashMap<String, Object> m = new HashMap<>();
-                        m.put("subeventName", subevent.get("subeventName"));
-                        eventOfThisHour.add(m);
-                        break; // Only because we assume one event per time block
-                    }
-                }*/
-
-                // If a subevent that starts in this hour exists, add it to the display
-                if(subeventNames.size() != 0){
-                    for(String s: subeventNames){
-                        AnchorPane a = setUpEventBox(Color.BLUEVIOLET,s);
-
-                        // Add it to the grid
-                        mainPanel.add(a,i,j);
-                        mainPanel.setAlignment(Pos.TOP_RIGHT);
-                    }
-                }
-
-                Calendar current = Calendar.getInstance();
-                if ((current.get(Calendar.DAY_OF_WEEK)) == (j + 1) && current.get(Calendar.HOUR_OF_DAY) == i && currentWeek==current.get(Calendar.WEEK_OF_YEAR)) {
-                    //eventName.setTextFill(Color.RED);
-                }
-
             }
         }
     }
 
-    private AnchorPane setUpEventBox(Color color, String eventOfThisHour) {
-        AnchorPane a = new AnchorPane();
-        a.prefWidth(97);
-        a.prefHeight(31.25);
-        Rectangle r = new Rectangle();
-        r.setWidth(88); r.setHeight(25);
-        r.setArcWidth(20); r.setArcHeight(20);
-        r.setLayoutY(5);
-        r.setLayoutX(5);
-        r.setFill(color);
-        a.getChildren().add(r);
-
-        Label label = new Label(eventOfThisHour);
-        label.setLayoutY(8);
-        label.setLayoutX(8);
-        label.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
-        a.getChildren().add(label);
-        return a;
-    }
-
-    private AnchorPane setUpCustomEventBox(Color color, String eventOfThisHour, int duration) {
-        AnchorPane a = new AnchorPane();
-        a.prefWidth(97);
-        a.minHeight(31.25 * duration);
-        a.prefHeight(31.25 * duration);
-        a.maxHeight(31.25 * duration);
-        Rectangle r = new Rectangle();
-        if(duration>1){
-            //r.setHeight(26.25 + 31.25*(duration-2) + 30);
-            r.setHeight(31.25 * duration - 6.25);
+    // TODO: event should move to next day if endhour goes from 23 to 24
+    private int roundEndHour(int endHourOfEvent, int endMinuteOfEvent) {
+        if (endMinuteOfEvent>=53 && endMinuteOfEvent<=59){
+            return endHourOfEvent+1;
         }
         else{
-
+            return endHourOfEvent;
         }
-        r.setWidth(88);
-        r.setArcWidth(20); r.setArcHeight(20);
-        r.setLayoutY(5);
+    }
+
+    private int roundMinutes(int minuteOfEvent) {
+        if(minuteOfEvent >= 0 && minuteOfEvent <= 7){
+            minuteOfEvent = 0;
+        }
+        else if(minuteOfEvent >= 8 && minuteOfEvent <= 22){
+            minuteOfEvent = 15;
+        }
+        else if(minuteOfEvent >= 23 && minuteOfEvent <= 37){
+            minuteOfEvent = 30;
+        }
+        else if(minuteOfEvent >= 38 && minuteOfEvent <= 52){
+            minuteOfEvent = 45;
+        }
+        else{
+            minuteOfEvent = 0;
+        }
+        return minuteOfEvent;
+    }
+
+
+    private AnchorPane setUpEventBox(Color color, String eventOfThisHour, double durationInMinutes, double  startMinuteOfEvent) {
+        double ratio = durationInMinutes/60;
+
+        AnchorPane a = new AnchorPane();
+        a.prefWidth(97);
+        a.prefHeight(31.25 * (ratio+1));
+        Rectangle r = new Rectangle();
+        r.setHeight(31.25 * ratio);
+        r.setWidth(88); r.setArcWidth(10); r.setArcHeight(10);
+        r.setLayoutY(startMinuteOfEvent/60 * 31.25);
         r.setLayoutX(5);
         r.setFill(color);
         a.getChildren().add(r);
 
         Label label = new Label(eventOfThisHour);
-        label.setLayoutY(8);
+        label.setLayoutY(startMinuteOfEvent/60 * 31.25 + 3); //startMinuteOfEvent/60 * 31.25 +
         label.setLayoutX(8);
         label.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
         a.getChildren().add(label);
@@ -267,7 +254,7 @@ public class WeekView_Controller extends DatabaseHandler {
 
     private void loadReoccurences() {
         List<Map<String, Object>> classList = DatabaseHandler.execQuery(
-                "SELECT eventName, reoccur, date, endDate, startTime FROM userData WHERE " +
+                "SELECT eventName, reoccur, date, endDate, startTime, endTime FROM userData WHERE " +
                         "user_id = " + Login_Controller.uid);
 
         if (classList != null) {
@@ -279,36 +266,14 @@ public class WeekView_Controller extends DatabaseHandler {
         }
     }
 
-    private void addReoccurToTodaysEvents(List<Map<String, Object>> todaysSubevents, Calendar calendar) {
-       /* for (Map<String, Object> r: reoccurences){
+    private void addToDisplay(String eventName, double duration, double startMinuteOfEvent, int i, int j){
 
-            // Generate today's date, start date, and end date
-            String[] t = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).split("-");
-            LocalDate today = LocalDate.of(Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2]));
-            String[] startDateS = r.get("date").toString().split("-");
-            LocalDate startDate = LocalDate.of(Integer.parseInt(startDateS[0]), Integer.parseInt(startDateS[1]),Integer.parseInt(startDateS[2]));
-            String[] endDateS = r.get("endDate").toString().split("-");
-            LocalDate endDate = LocalDate.of(Integer.parseInt(endDateS[0]), Integer.parseInt(endDateS[1]),Integer.parseInt(endDateS[2]));
+        AnchorPane a = setUpEventBox(Color.BLUEVIOLET, eventName, duration, startMinuteOfEvent);
 
-            // If today's date falls within the start and end dates of this class
-            if (today.compareTo(startDate) >= 0 && today.compareTo(endDate) <= 0){
-                // Get the day of week
-                String day = today.getDayOfWeek().name();
-                char currentDayChar = day.charAt(0);
-                if (day == "Thursday"){
-                    currentDayChar = 'R';
-                }
-
-                // if this class has a reoccurence in this day of the week, add it to class list: create a map with keys eventName and startTime
-                if (r.get("reoccur").toString().contains(String.valueOf(currentDayChar))){
-                    Map<String, Object> m = new HashMap<>();
-                    m.put("subeventName", r.get("eventName"));
-                    m.put("subStartTime", r.get("startTime"));
-                    todaysSubevents.add(m);
-                }
-            }
-
-        }*/
+        int durationInt = (int) duration;
+        int colSpan = 1;
+        mainPanel.add(a,i,j, colSpan, durationInt); // Add it to the grid
+        mainPanel.setAlignment(Pos.TOP_RIGHT);
     }
 
 }
