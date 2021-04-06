@@ -17,7 +17,8 @@ import java.io.IOException;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-        import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
@@ -101,6 +102,11 @@ public class  AddEvent_Controller {
 
     @FXML
     private JFXRadioButton friday;
+
+    @FXML
+    private AnchorPane drag;
+
+
 
     @FXML
     void Next(MouseEvent e) throws IOException{
@@ -349,6 +355,8 @@ public class  AddEvent_Controller {
 
     @FXML
     void initialize() {
+        Controller.makeStageDragable(drag);
+
         assert date != null : "fx:id=\"date\" was not injected: check your FXML file 'AddEvent.fxml'.";
         assert startTime != null : "fx:id=\"startTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
         assert endTime != null : "fx:id=\"endTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
@@ -365,7 +373,5 @@ public class  AddEvent_Controller {
         finalStartLabel.setVisible(false);
         finalEndLabel.setVisible(false);
         finalWeight.setVisible(false);
-
-
     }
 }

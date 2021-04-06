@@ -19,7 +19,7 @@
 @Editor Ayman Abu Awad
  -->
 
-<AnchorPane prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.AddEvent_Controller">
+<AnchorPane prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="drag" fx:controller="org.openjfx.AddEvent_Controller">
   <children>
     <Pane prefHeight="638.0" prefWidth="173.0" style="-fx-background-color: #1B6CD7;" />
       <JFXTabPane fx:id="tabPane" layoutX="142.0" prefHeight="638.0" prefWidth="758.0" side="LEFT">

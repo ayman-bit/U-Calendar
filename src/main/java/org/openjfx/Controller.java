@@ -29,6 +29,8 @@ import java.util.logging.Logger;
 
 public class Controller implements Initializable {
 
+    private static double xOffSet=0;
+    private static double yOffSet=0;
     @FXML
     private AnchorPane parent;
 
@@ -56,9 +58,7 @@ public class Controller implements Initializable {
         window.show();
     }
 
-    private double xOffSet = 0;
-    private double yOffSet = 0;
-    private void makeStageDragable(Node parent) {
+    public static void makeStageDragable(Node parent) {
         parent.setOnMousePressed((event) -> {
             xOffSet = event.getSceneX();
             yOffSet = event.getSceneY();
