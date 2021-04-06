@@ -3,6 +3,7 @@ package org.openjfx;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import javafx.fxml.FXML;
@@ -42,10 +43,12 @@ public class WeekView_Controller extends DatabaseHandler {
     AnchorPane anchorPane;
 
     @FXML
-    Rectangle rectangle;
+    private Label Month_Year;
 
-    @FXML
-    Label eventName = new Label("s");
+    int currentWeek;
+    String today;
+    ArrayList<HashMap<String, Object>> reoccurences;
+
 
     @FXML
     void Today(MouseEvent event) throws IOException {
@@ -77,11 +80,6 @@ public class WeekView_Controller extends DatabaseHandler {
         CreateGrid ();
     }
 
-    int currentWeek;
-    @FXML
-    private Label Month_Year;
-    String today;
-
     @FXML
     void CreateGrid () throws IOException {
         Calendar calendar = Calendar.getInstance();
@@ -91,13 +89,11 @@ public class WeekView_Controller extends DatabaseHandler {
         tempCalendar.set(Calendar.WEEK_OF_YEAR, 2);
         String secondDayOnWeek2 = new SimpleDateFormat("dd").format(tempCalendar.getTime()); // Why does this return the day on Monday?
         int daysInWeek1 = Integer.parseInt(secondDayOnWeek2) - 2;
-        System.out.println(secondDayOnWeek2);
 
-        tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + 1);
+        tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1);
         String beginDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime());
-        tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + 7);
+        tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + 6);
         String endDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime());
-
 
 
         //Month_Year.setText("Week: " + new SimpleDateFormat("WW, MMMM, YYYY").format(calendar.getTime()));
@@ -107,10 +103,12 @@ public class WeekView_Controller extends DatabaseHandler {
         int cols = 7;
 
         mainPanel.getChildren().clear();
-        // Add it to the grid
-        // We might need to switch the two loops
+
+        reoccurences = new ArrayList<>();
+        loadReoccurences();
+
         for (int i = 0; i < cols; i++){
-            calendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + i + 1);
+            calendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + i);
             String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
 
             // Find all events that occur on this day
@@ -118,8 +116,6 @@ public class WeekView_Controller extends DatabaseHandler {
                     "SELECT subeventName, subStartTime FROM subEvents WHERE " + //TODO: subEndTime
                             "user_id = " + Login_Controller.uid +
                             " AND subeventDate = '" + todaysDate + "'");
-
-            System.out.println("Size: " + todaysSubevents.size());
 
             for (int j = 0; j < rows; j++){
                 int currentHour = j;
@@ -129,10 +125,9 @@ public class WeekView_Controller extends DatabaseHandler {
                 HashMap<String, Object> eventOfThisHour = new HashMap<>();
                 String subeventName = null;
 
-                // Find the subevent that occurs in this hour
+                // Find if a subevent occurs in this hour
                 for (Map<String, Object> subevent: todaysSubevents){
                     if(subevent.get("subStartTime") != null){
-                        System.out.println("Not null");
                         String[] timeOfEvent = subevent.get("subStartTime").toString().split(":");
                         int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
                         if(hourOfEvent == currentHour){
@@ -141,9 +136,52 @@ public class WeekView_Controller extends DatabaseHandler {
                         }
                     }
                     else{
-                        System.out.println("Null");
                     }
                 }
+
+                // Find if an event (or a reoccurence) occurs in this hour
+                for (Map<String, Object> r: reoccurences){
+
+                    // Generate today's date, start date, and end date
+                    String[] t = todaysDate.split("-");
+                    LocalDate today = LocalDate.of(Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2]));
+                    String[] startDateS = r.get("date").toString().split("-");
+                    LocalDate startDate = LocalDate.of(Integer.parseInt(startDateS[0]), Integer.parseInt(startDateS[1]),Integer.parseInt(startDateS[2]));
+                    String[] endDateS = r.get("endDate").toString().split("-");
+                    LocalDate endDatee = LocalDate.of(Integer.parseInt(endDateS[0]), Integer.parseInt(endDateS[1]),Integer.parseInt(endDateS[2]));
+
+                    // If today's date falls within the start and end dates of this class
+                    if (today.compareTo(startDate) >= 0 && today.compareTo(endDatee) <= 0){
+                        // Get the day of week
+                        String day = today.getDayOfWeek().name();
+                        char currentDayChar = day.charAt(0);
+                        if (day == "Thursday"){
+                            currentDayChar = 'R';
+                        }
+
+                        // if this class has a reoccurence in this time of the day, add it to class list: create a map with keys eventName and startTime
+                        if (r.get("reoccur").toString().contains(String.valueOf(currentDayChar))){
+                            if(r.get("startTime") != null){
+                                String[] timeOfEvent = r.get("startTime").toString().split(":");
+                                int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
+                                if(hourOfEvent == currentHour){
+                                    subeventName = r.get("eventName").toString();
+                                    break;
+                                }
+                                else {
+                                    System.out.println("there is reoccurence today, but time not match. Event: " + r.get("eventName") +
+                                            ". Current hour: " + currentHour);
+                                }
+                            }
+                            else{
+                                System.out.println("there is reoccurence today, but time is null. Event: " + r.get("eventName") +
+                                        ". Current hour: " + currentHour);
+                            }
+                        }
+                    }
+
+                }
+
 
                 //Find the ones that occur this hour
               /*  for (Map<String, Object> subevent: todaysSubevents){
@@ -193,5 +231,52 @@ public class WeekView_Controller extends DatabaseHandler {
         a.getChildren().add(label);
         return a;
     }
+
+    private void loadReoccurences() {
+        List<Map<String, Object>> classList = DatabaseHandler.execQuery(
+                "SELECT eventName, reoccur, date, endDate, startTime FROM userData WHERE " +
+                        "user_id = " + Login_Controller.uid);
+
+        if (classList != null) {
+            // Cast map to hash map using deep copy
+            for (Map<String, Object> c : classList) {
+                HashMap<String, Object> m = new HashMap<>(c);
+                reoccurences.add(m);
+            }
+        }
+    }
+
+    private void addReoccurToTodaysEvents(List<Map<String, Object>> todaysSubevents, Calendar calendar) {
+       /* for (Map<String, Object> r: reoccurences){
+
+            // Generate today's date, start date, and end date
+            String[] t = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()).split("-");
+            LocalDate today = LocalDate.of(Integer.parseInt(t[0]), Integer.parseInt(t[1]), Integer.parseInt(t[2]));
+            String[] startDateS = r.get("date").toString().split("-");
+            LocalDate startDate = LocalDate.of(Integer.parseInt(startDateS[0]), Integer.parseInt(startDateS[1]),Integer.parseInt(startDateS[2]));
+            String[] endDateS = r.get("endDate").toString().split("-");
+            LocalDate endDate = LocalDate.of(Integer.parseInt(endDateS[0]), Integer.parseInt(endDateS[1]),Integer.parseInt(endDateS[2]));
+
+            // If today's date falls within the start and end dates of this class
+            if (today.compareTo(startDate) >= 0 && today.compareTo(endDate) <= 0){
+                // Get the day of week
+                String day = today.getDayOfWeek().name();
+                char currentDayChar = day.charAt(0);
+                if (day == "Thursday"){
+                    currentDayChar = 'R';
+                }
+
+                // if this class has a reoccurence in this day of the week, add it to class list: create a map with keys eventName and startTime
+                if (r.get("reoccur").toString().contains(String.valueOf(currentDayChar))){
+                    Map<String, Object> m = new HashMap<>();
+                    m.put("subeventName", r.get("eventName"));
+                    m.put("subStartTime", r.get("startTime"));
+                    todaysSubevents.add(m);
+                }
+            }
+
+        }*/
+    }
+
 }
 
