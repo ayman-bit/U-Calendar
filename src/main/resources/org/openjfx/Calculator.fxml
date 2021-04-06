@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -7,57 +10,84 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <!--
-@Author Ayman Abu Awad
 @Author Kamal Ali
  -->
 
-<AnchorPane prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Calculator_Controller">
+<AnchorPane fx:id="parent" prefHeight="637.6" prefWidth="900.0" stylesheets="@Calculator.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Calculator_Controller">
     <children>
+        <HBox prefHeight="40.0" prefWidth="900.0" styleClass="hbox">
+            <children>
+                <JFXHamburger fx:id="options">
+                    <padding>
+                        <Insets left="4.0" top="5.0" />
+                    </padding>
+                </JFXHamburger>
+                <Label alignment="CENTER_RIGHT" maxHeight="45.0" prefHeight="32.0" prefWidth="803.0">
+                    <font>
+                        <Font name="System Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" onMouseClicked="#minimize_stage" prefHeight="26.0" prefWidth="28.0" styleClass="min-btn" text="-">
+                    <font>
+                        <Font size="33.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" onMouseClicked="#close_app" prefHeight="26.0" prefWidth="29.0" styleClass="close-btn" text="x">
+                    <font>
+                        <Font size="33.0" />
+                    </font>
+                </Label>
+            </children>
+            <cursor>
+                <Cursor fx:constant="H_RESIZE" />
+            </cursor>
+        </HBox>
       <Pane prefHeight="638.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
-        <ChoiceBox fx:id="choices" layoutX="254.0" layoutY="27.0" prefHeight="26.0" prefWidth="142.0" style="-fx-background-radius: 5em;" />
-        <TableView fx:id="table" layoutX="152.0" layoutY="42.0" onMouseClicked="#getSelectedRow" prefHeight="310.0" prefWidth="738.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0">
+        <ChoiceBox fx:id="choices" layoutX="258.0" layoutY="51.0" prefHeight="18.0" prefWidth="142.0" style="-fx-background-radius: 5em;" AnchorPane.topAnchor="53.0" />
+        <TableView fx:id="table" layoutX="152.0" layoutY="93.0" onMouseClicked="#getSelectedRow" prefHeight="354.0" prefWidth="571.0" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="177.0" AnchorPane.topAnchor="93.0">
             <columns>
-                <TableColumn fx:id="subeventColumn" prefWidth="145.60000038146973" text="Sub-event" />
-                <TableColumn prefWidth="156.00006103515625" text="Grade">
+                <TableColumn fx:id="subeventColumn" prefWidth="154.39999389648438" text="Sub-event" />
+                <TableColumn prefWidth="143.20001220703125" text="Grade">
                     <columns>
                         <TableColumn fx:id="gradeColumn" prefWidth="75.0" text="Points" />
-                        <TableColumn fx:id="outOfColumn" prefWidth="75.0" text="Out of" />
+                        <TableColumn fx:id="outOfColumn" prefWidth="76.0" text="Out of" />
                     </columns>
                 </TableColumn>
-                <TableColumn fx:id="weightColumn" prefWidth="87.20001220703125" text="Weight" />
-                <TableColumn fx:id="achievedColumn" prefWidth="124.80001831054688" text="Achieved weight" />
+                <TableColumn fx:id="weightColumn" prefWidth="104.00003051757812" text="Weight" />
+                <TableColumn fx:id="achievedColumn" prefWidth="154.79998779296875" text="Achieved weight" />
             </columns>
         </TableView>
 
-        <TextField fx:id="subeventTextField" layoutX="211.0" layoutY="400.0" prefHeight="26.0" prefWidth="142.0" AnchorPane.topAnchor="400.0" />
-        <Label layoutX="152.0" layoutY="400.0" text="Sub-event:" AnchorPane.topAnchor="400.0" />
+        <TextField fx:id="subeventTextField" layoutX="211.0" layoutY="465.0" prefHeight="26.0" prefWidth="142.0" AnchorPane.topAnchor="465.0" />
+        <Label layoutX="147.0" layoutY="469.0" text="Sub-event:" AnchorPane.topAnchor="469.0" />
 
-        <TextField fx:id="gradeTextField" layoutX="411.0" layoutY="400.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="400.0" />
-        <Label layoutX="371.0" layoutY="400.0" text="Grade:" AnchorPane.topAnchor="400.0" />
+        <TextField fx:id="gradeTextField" layoutX="411.0" layoutY="465.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="465.0" />
+        <Label layoutX="366.0" layoutY="469.0" text="Grade:" AnchorPane.topAnchor="469.0" />
 
-        <TextField fx:id="outOfTextField" layoutX="534.0" layoutY="400.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="400.0" />
-        <Label layoutX="494.0" layoutY="400.0" text="Out of:" AnchorPane.topAnchor="400.0" />
+        <TextField fx:id="outOfTextField" layoutX="534.0" layoutY="465.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="465.0" />
+        <Label layoutX="489.0" layoutY="469.0" text="Out of:" AnchorPane.topAnchor="469.0" />
 
-        <TextField fx:id="weightTextField" layoutX="656.0" layoutY="400.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="400.0" />
-        <Label layoutX="608.0" layoutY="400.0" text="Weight:" AnchorPane.topAnchor="400.0" />
+        <TextField fx:id="weightTextField" layoutX="656.0" layoutY="465.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="465.0" />
+        <Label layoutX="603.0" layoutY="469.0" text="Weight:" AnchorPane.topAnchor="469.0" />
 
-        <TextField fx:id="desiredTextField" layoutX="279.0" layoutY="440.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="440.0" />
-        <Label layoutX="152.0" layoutY="440.0" text="Desired Overall Grade:" AnchorPane.topAnchor="440.0" />
+        <TextField fx:id="desiredTextField" layoutX="656.0" layoutY="505.0" prefHeight="26.0" prefWidth="64.0" AnchorPane.topAnchor="505.0" />
+        <Label layoutX="529.0" layoutY="505.0" text="Desired Overall Grade:" AnchorPane.topAnchor="505.0" />
 
-        <Button fx:id="calculateNeeded" layoutX="377.0" layoutY="440.0" mnemonicParsing="false" onAction="#calculateNeeded" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Calculate needed grade" textFill="#1b6cd7" AnchorPane.topAnchor="440.0" />
-        <Button fx:id="addToTable" layoutX="747.0" layoutY="400.0" mnemonicParsing="false" onAction="#addToTableClicked" prefHeight="27.0" prefWidth="57.0" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Add" textFill="#1b6cd7" AnchorPane.topAnchor="400.0" />
-        <Label layoutX="158.0" layoutY="27.0" text="Calculator">
+        <Button fx:id="calculateNeeded" layoutX="742.0" layoutY="505.0" mnemonicParsing="false" onAction="#calculateNeeded" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Calculate desired grade" textFill="#1b6cd7" AnchorPane.topAnchor="505.0" />
+        <Button fx:id="addToTable" layoutX="742.0" layoutY="464.0" mnemonicParsing="false" onAction="#addToTableClicked" prefHeight="27.0" prefWidth="143.2" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Add to table" textFill="#1b6cd7" AnchorPane.topAnchor="464.0" />
+        <Label layoutX="158.0" layoutY="50.0" text="Calculator" AnchorPane.topAnchor="53.0">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
         <Button layoutX="438.0" layoutY="580.0" mnemonicParsing="false" onMouseClicked="#exitCalc" prefHeight="44.0" prefWidth="112.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em; -fx-background-color: transparent;" text="Exit Calculator" textFill="#1b6cd7" AnchorPane.leftAnchor="438.0" AnchorPane.topAnchor="580.0" />
-      <Button fx:id="calculateTotal" layoutX="152.0" layoutY="476.0" mnemonicParsing="false" onAction="#calculateTotal" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Calculate current total" textFill="#1b6cd7" />
-      <Button layoutX="148.0" layoutY="512.0" mnemonicParsing="false" onAction="#deleteRow" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Delete current selection" textFill="#1b6cd7" />
+      <Button fx:id="calculateTotal" layoutX="742.0" layoutY="545.0" mnemonicParsing="false" onAction="#calculateTotal" prefHeight="27.0" prefWidth="143.2" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Calculate current total" textFill="#1b6cd7" />
+      <Button layoutX="741.0" layoutY="250.0" mnemonicParsing="false" onAction="#deleteRow" style="-fx-background-color: transparent; -fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Delete current selection" textFill="#1b6cd7" />
 
     </children>
 </AnchorPane>
