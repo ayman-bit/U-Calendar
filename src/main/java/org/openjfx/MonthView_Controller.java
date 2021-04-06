@@ -270,7 +270,7 @@ public class MonthView_Controller extends DatabaseHandler {
                 }
             }
         }
-        for (int x=0; x<size; x++){
+        for (int x=0; x<eventsNoTime.size(); x++){
             TextField textField =  new TextField(eventsNoTime.get(x));
             textField.setEditable(false);
             textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
