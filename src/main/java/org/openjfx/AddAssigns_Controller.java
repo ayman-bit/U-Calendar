@@ -20,16 +20,10 @@ public class AddAssigns_Controller {
     private JFXDatePicker assignDate;
 
     @FXML
-    private JFXButton addAssign, Cancel;
-
-    @FXML
     private Label className;
 
     @FXML
-    private Pane drag;
-
-    @FXML
-    void AddAssign(MouseEvent event)throws IOException {
+    private void AddAssign(MouseEvent event)throws IOException {
         if(assignDate.getValue() == null||assignNumber.getText() == null||assignWeight.getText()==null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -61,25 +55,10 @@ public class AddAssigns_Controller {
         }
     }
 
-    void setClassName(String text){
-        className.setText(text);
-    }
-
     void clearSelection(){
         assignNumber.setText("");
         assignWeight.setText("");
         assignDate.getEditor().clear();
         assignDate.setValue(null);
-    }
-
-    @FXML
-    void Cancel(MouseEvent e) throws IOException{
-        Stage stage = (Stage) Cancel.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    void initialize() {
-        //Controller.makeStageDragable(drag);
     }
 }

@@ -24,13 +24,7 @@ public class AddLabs_Controller {
     private JFXTimePicker labStartTime,labEndTime;
 
     @FXML
-    private JFXButton addLab, Cancel;
-
-    @FXML
     private Label className;
-
-    @FXML
-    private Pane drag;
 
     @FXML
     void AddLab(MouseEvent event)throws IOException {
@@ -76,10 +70,6 @@ public class AddLabs_Controller {
         }
     }
 
-    void setClassName(String text){
-        className.setText(text);
-    }
-
     void clearSelection(){
         labNumber.setText("");
         labWeight.setText("");
@@ -87,17 +77,6 @@ public class AddLabs_Controller {
         labDate.setValue(null);
         labStartTime.setValue(null);
         labEndTime.setValue(null);
-    }
-
-    @FXML
-    void Cancel(MouseEvent e) throws IOException{
-        Stage stage = (Stage) Cancel.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    void initialize() {
-        //Controller.makeStageDragable(drag);
     }
 }
 

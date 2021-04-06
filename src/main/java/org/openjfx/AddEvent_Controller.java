@@ -3,21 +3,22 @@ package org.openjfx;
 import com.jfoenix.controls.*;
 
 import java.io.IOException;
-        import java.net.URL;
-        import java.time.LocalDate;
-        import java.time.LocalTime;
-        import java.util.ResourceBundle;
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.fxml.FXMLLoader;
-        import javafx.scene.Node;
-        import javafx.scene.Parent;
-        import javafx.scene.Scene;
-        import javafx.scene.control.Alert;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -44,9 +45,6 @@ public class  AddEvent_Controller {
     private CheckBox haveAssigns,haveTests,haveLabs,haveFinal;
 
     @FXML
-    private JFXButton addAssignBtn,addTestBtn,addLabsBtn;
-
-    @FXML
     private Label finalLabel,finalStartLabel, finalEndLabel;
 
     @FXML
@@ -54,6 +52,12 @@ public class  AddEvent_Controller {
 
     @FXML
     private AnchorPane drag;
+
+    @FXML
+    private Pane labPane, testPane;
+    @FXML
+    private AnchorPane assignPane;
+
 
     @FXML
     void Next(MouseEvent e) throws IOException{
@@ -64,10 +68,12 @@ public class  AddEvent_Controller {
     void hasLabs(MouseEvent e) throws IOException{
         if(haveLabs.isSelected())
         {
-            addLabsBtn.setVisible(true);
+            labPane.setVisible(true);
+            Pane aPane = FXMLLoader.load(getClass().getResource("AddLabs.fxml"));
+            labPane.getChildren().add(aPane);
         }
         else{
-            addLabsBtn.setVisible(false);
+            labPane.setVisible(false);
         }
     }
 
@@ -75,10 +81,12 @@ public class  AddEvent_Controller {
     void hasAssigns(MouseEvent e) throws IOException{
         if(haveAssigns.isSelected())
         {
-            addAssignBtn.setVisible(true);
+            assignPane.setVisible(true);
+            Pane aPane = FXMLLoader.load(getClass().getResource("AddAssigns.fxml"));
+            assignPane.getChildren().add(aPane);
         }
         else{
-            addAssignBtn.setVisible(false);
+            assignPane.setVisible(false);
         }
     }
 
@@ -86,10 +94,12 @@ public class  AddEvent_Controller {
     void hasTests(MouseEvent e) throws IOException{
         if(haveTests.isSelected())
         {
-            addTestBtn.setVisible(true);
+            testPane.setVisible(true);
+            Pane aPane = FXMLLoader.load(getClass().getResource("AddTests.fxml"));
+            testPane.getChildren().add(aPane);
         }
         else{
-            addTestBtn.setVisible(false);
+            testPane.setVisible(false);
         }
     }
 
@@ -114,45 +124,6 @@ public class  AddEvent_Controller {
             finalEndLabel.setVisible(false);
             finalWeight.setVisible(false);
         }
-    }
-
-    @FXML
-    void AddAssign(MouseEvent e) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddAssigns.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        AddAssigns_Controller assignController = fxmlLoader.getController();
-        assignController.setClassName(className.getText());
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Add Assignments");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    void AddLabs(MouseEvent e) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddLabs.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        AddLabs_Controller labController = fxmlLoader.getController();
-        labController.setClassName(className.getText());
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    void AddTests(MouseEvent e) throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("AddTests.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        AddTests_Controller testController = fxmlLoader.getController();
-        testController.setClassName(className.getText());
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Add Tests");
-        stage.setScene(scene);
-        stage.show();
     }
 
     @FXML
@@ -312,9 +283,10 @@ public class  AddEvent_Controller {
         assert className != null : "fx:id=\"className\" was not injected: check your FXML file 'AddEvent.fxml'.";
 
 
-        addAssignBtn.setVisible(false);
-        addLabsBtn.setVisible(false);
-        addTestBtn.setVisible(false);
+
+        assignPane.setVisible(false);
+        labPane.setVisible(false);
+        testPane.setVisible(false);
         FinalDate.setVisible(false);
         FinalStartTime.setVisible(false);
         FinalEndTime.setVisible(false);
