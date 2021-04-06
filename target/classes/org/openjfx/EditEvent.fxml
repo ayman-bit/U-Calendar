@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+@Author Mohammed Shahwan
+ -->
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.EditEvent_Controller">
+   <children>
+      <Pane layoutX="-1.0" layoutY="-6.0" prefHeight="645.0" prefWidth="161.0" style="-fx-background-color: #1B6CD7;" />
+      <JFXTabPane fx:id="tabPane" layoutX="128.0" prefHeight="638.0" prefWidth="772.0" side="LEFT">
+         <tabs>
+            <Tab text="Select Event">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="23.0" prefHeight="31.0" prefWidth="222.0" text="Select Existing Event">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="eventMenu" layoutX="14.0" layoutY="67.0" prefWidth="150.0" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#NextPopulate" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Class Info">
+               <content>
+                  <AnchorPane fx:id="ClassInfoTab" minHeight="0.0" minWidth="0.0" prefHeight="638.0" prefWidth="703.0">
+                     <children>
+                        <Label layoutX="45.0" layoutY="24.0" prefHeight="35.0" prefWidth="160.0" text="Event Info">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="44.0" layoutY="59.0" text="Select a date for your event" />
+                        <Label layoutX="44.0" layoutY="122.0" text="Start Time" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                        <JFXDatePicker fx:id="date" layoutX="44.0" layoutY="76.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker fx:id="startTime" layoutX="44.0" layoutY="139.0" prefHeight="29.0" prefWidth="350.0" />
+                        <Label layoutX="44.0" layoutY="185.0" text="End Time" />
+                        <JFXTimePicker fx:id="endTime" layoutX="44.0" layoutY="202.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTextField fx:id="className" layoutX="45.0" layoutY="259.0" prefHeight="27.0" prefWidth="311.0" promptText="Class Name" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="AssignTab" text="Assignments">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="56.0" layoutY="34.0" prefHeight="35.0" prefWidth="215.0" text="Assignments">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="numAssign" layoutX="56.0" layoutY="75.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Assignments" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="LabsTab" text="Labs">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="22.0" layoutY="40.0" prefHeight="35.0" prefWidth="215.0" text="Labs">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="numLabs" layoutX="22.0" layoutY="81.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Labs" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="TestTab" text="Quizzes and Tests">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="33.0" prefHeight="35.0" prefWidth="215.0" text="Quizzes and Tests">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="numTests" layoutX="14.0" layoutY="68.0" prefHeight="27.0" prefWidth="311.0" promptText="Number of Quizzes and Tests" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="FinalTab" text="Final">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="20.0" prefHeight="35.0" prefWidth="215.0" text="Final">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="72.0" text="Select a date for your final if known" />
+                        <JFXDatePicker fx:id="FinalDate" layoutX="26.0" layoutY="105.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker fx:id="FinalEndTime" layoutX="26.0" layoutY="253.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker fx:id="FinalStartTime" layoutX="26.0" layoutY="175.0" prefHeight="29.0" prefWidth="350.0" />
+                        <Label layoutX="26.0" layoutY="152.0" text="Start Time" />
+                        <Label layoutX="28.0" layoutY="230.0" text="End Time" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Done" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>

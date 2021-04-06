@@ -15,6 +15,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.openjfx.tableEntry;
@@ -34,6 +35,9 @@ import java.util.ResourceBundle;
  */
 
 public class Calculator_Controller implements Initializable {
+
+    @FXML
+    private AnchorPane parent;
 
     @FXML
     private TableView<tableEntry> table;
@@ -57,7 +61,7 @@ public class Calculator_Controller implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle){
-
+        makeStageDragable();
         loadClasses(); // loads the classes to the choice box
 
         // Listen for changes in selection and update currentEvent
@@ -146,10 +150,23 @@ public class Calculator_Controller implements Initializable {
             alert.showAndWait();
             return;
         }
+
+        double grade, outOf, weight;
+        grade = outOf = weight = 0;
+
         // Extract the inputs from the TextFields and perform casting if necessary
-        double grade = Double.parseDouble(gradeTextField.getText());
-        double outOf = Double.parseDouble(outOfTextField.getText());
-        double weight = Double.parseDouble(weightTextField.getText());
+        try{
+            grade = Double.parseDouble(gradeTextField.getText());
+            outOf = Double.parseDouble(outOfTextField.getText());
+            weight = Double.parseDouble(weightTextField.getText());
+        }
+        catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please make sure your fields are formatted correctly");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
         String subevent = subeventTextField.getText();
 
         //Make sure nothing is null
@@ -328,10 +345,34 @@ public class Calculator_Controller implements Initializable {
         weightTextField.setText("");
     }
 
-    // TODO:
-    public void changeSubeventName(CellEditEvent edittedCell) {
-          /*tableEntry cell =  table.getSelectionModel().getSelectedItem();
-        cell.setSubevent(edittedCell.getNewValue().toString());*/
+    @FXML
+    private void close_app(MouseEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    private void minimize_stage(MouseEvent event) {
+        UCalendar.stage.setIconified(true);
+    }
+
+    private double xOffSet = 0;
+    private double yOffSet = 0;
+    private void makeStageDragable() {
+        parent.setOnMousePressed((event) -> {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        });
+        parent.setOnMouseDragged((event) -> {
+            UCalendar.stage.setX(event.getScreenX() - xOffSet);
+            UCalendar.stage.setY(event.getScreenY() - yOffSet);
+            UCalendar.stage.setOpacity(0.8f);
+        });
+        parent.setOnDragDone((event) -> {
+            UCalendar.stage.setOpacity(1.0f);
+        });
+        parent.setOnMouseReleased((event) -> {
+            UCalendar.stage.setOpacity(1.0f);
+        });
     }
 
 }

@@ -1,0 +1,40 @@
+/**
+ * @author Ayman Abu Awad
+ * Kamal Ali (added text-field styling)
+ */
+
+.label{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #0A0A0A;
+    -fx-text-alignment: center;
+    -fx-font-weight: 900;
+    -fx-font-size: 24px;
+
+}
+
+.label:hover{
+    -fx-background-color: #00C853;
+}
+
+
+.text-field{
+    -fx-background-color: transparent;
+    -fx-font-size: 11px;
+    -fx-padding: 0px;
+    -fx-max-width: 70;
+}
+
+#mainPanel{
+    -fx-text-alignment: center;
+    -fx-font-size: 20px;
+    -fx-font-alignment:CENTER;
+    -fx-hpos:right;
+    -fx-legend-side:right;
+    -fx-title-side:right;
+    -fx-alignment: CENTER;
+    -fx-text-fill: red;
+    align-self: center;
+    -fx-min-height: 30 ;
+    -fx-gridLinesVisible: true;
+}
+

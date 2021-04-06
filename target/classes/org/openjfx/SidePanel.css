@@ -1,0 +1,21 @@
+/**
+ * @author Ayman Abu Awad
+ */
+
+.button:hover{
+    -fx-background-color: #00C853;
+    -fx-text-fill: #ffffff;
+    -fx-text-alignment: center;
+}
+
+.button{
+    -fx-background-color: #ffffff;
+    -fx-border-color: gray;
+    -fx-border-width: .5 .5 .5 .5;
+    -fx-border-radius: 3%;
+}
+
+.vbox{
+    -fx-background-color: #2A2E37;
+
+}
