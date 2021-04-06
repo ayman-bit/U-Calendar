@@ -27,37 +27,16 @@ public class EditEvent_Controller {
     List<Map<String, Object>> QU = DatabaseHandler.execQuery("SELECT * FROM userData");
 
     @FXML
-    private JFXDatePicker date;
+    private JFXDatePicker date,FinalDate;
 
     @FXML
-    private JFXTimePicker startTime;
-
-    @FXML
-    private JFXTimePicker endTime;
-
-    @FXML
-    private JFXTextField className;
+    private JFXTimePicker startTime,endTime,FinalStartTime, FinalEndTime;
 
     @FXML
     private JFXTabPane tabPane;
 
     @FXML
-    private JFXTextField numAssign;
-
-    @FXML
-    private JFXTextField numLabs;
-
-    @FXML
-    private JFXTextField numTests;
-
-    @FXML
-    private JFXDatePicker FinalDate;
-
-    @FXML
-    private JFXTimePicker FinalStartTime;
-
-    @FXML
-    private JFXTimePicker FinalEndTime;
+    private JFXTextField className, numAssign, numLabs, numTests;
 
     @FXML
     private ChoiceBox<String> eventMenu;

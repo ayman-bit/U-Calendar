@@ -17,7 +17,8 @@ import java.util.Map;
 
 public class DeleteEvent_Controller {
 
-    List<Map<String, Object>> QU = DatabaseHandler.execQuery("SELECT * FROM userData");
+    List<Map<String, Object>> events = DatabaseHandler.execQuery("SELECT * FROM userData");
+    List<Map<String, Object>> subevents= DatabaseHandler.execQuery("SELECT * FROM subEvents");
 
     @FXML
     private ChoiceBox<String> eventMenu;
@@ -30,8 +31,9 @@ public class DeleteEvent_Controller {
 
     @FXML
     void Delete(MouseEvent event) throws IOException {
-        for (Map<String, Object> stringObjectMap : QU) {
+        for (Map<String, Object> stringObjectMap : events) {
             if (stringObjectMap.get("eventName").toString().equals(eventMenu.getValue())) {
+
                 String qu = "DELETE FROM userData WHERE eventName=" + "'" + stringObjectMap.get("eventName").toString() + "'";
                 if (DatabaseHandler.execAction(qu)) { //Success
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -42,9 +44,12 @@ public class DeleteEvent_Controller {
                 } else { // Error
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText(null);
-                    alert.setContentText("This Data Already Deleted");
+                    alert.setContentText("This data is already deleted.");
                     alert.showAndWait();
                 }
+
+                qu = "DELETE FROM subEvents WHERE eventName=" + "'" + stringObjectMap.get("eventName").toString() + "'";
+                DatabaseHandler.execAction(qu);
             }
         }
     }
@@ -52,8 +57,8 @@ public class DeleteEvent_Controller {
     // Find all user events
     void populateChoice(){
         ArrayList<String> dates = new ArrayList<String>();
-        assert QU != null;
-        for (Map<String, Object> stringObjectMap : QU) {
+        assert events != null;
+        for (Map<String, Object> stringObjectMap : events) {
             dates.add(stringObjectMap.get("eventName").toString());
         }
 

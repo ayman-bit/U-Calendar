@@ -8,13 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class AddLabs_Controller {
     @FXML
-    private JFXTextField labNumber;
+    private JFXTextField labNumber,labWeight;
 
     @FXML
     private JFXDatePicker labDate;
@@ -23,17 +24,13 @@ public class AddLabs_Controller {
     private JFXTimePicker labStartTime,labEndTime;
 
     @FXML
-    private JFXTextField labWeight;
-
-    @FXML
-    private JFXButton addLab;
-
-    @FXML
-    private JFXButton Cancel;
-
+    private JFXButton addLab, Cancel;
 
     @FXML
     private Label className;
+
+    @FXML
+    private Pane drag;
 
     @FXML
     void AddLab(MouseEvent event)throws IOException {
@@ -96,6 +93,11 @@ public class AddLabs_Controller {
     void Cancel(MouseEvent e) throws IOException{
         Stage stage = (Stage) Cancel.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void initialize() {
+        //Controller.makeStageDragable(drag);
     }
 }
 

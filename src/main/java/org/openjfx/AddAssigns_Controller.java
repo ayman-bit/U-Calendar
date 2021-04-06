@@ -7,29 +7,26 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class AddAssigns_Controller {
     @FXML
-    private JFXTextField assignNumber;
+    private JFXTextField assignNumber,assignWeight;
 
     @FXML
     private JFXDatePicker assignDate;
 
     @FXML
-    private JFXTextField assignWeight;
-
-    @FXML
-    private JFXButton addAssign;
-
-    @FXML
-    private JFXButton Cancel;
-
+    private JFXButton addAssign, Cancel;
 
     @FXML
     private Label className;
+
+    @FXML
+    private Pane drag;
 
     @FXML
     void AddAssign(MouseEvent event)throws IOException {
@@ -38,23 +35,15 @@ public class AddAssigns_Controller {
             alert.setHeaderText(null);
             alert.setContentText("Required information was not entered");
             alert.showAndWait();
-            return;
         }
         else{
-            String eventName = className.getText();
-            String subeventDate = assignDate.getValue().toString();
-            String subEventName = assignNumber.getText();
-            String subeventWeight = assignWeight.getText();
-
-
             String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,user_id) VALUES ("
-                    + "'" + eventName + "',"
-                    + "'" + subEventName + "',"
-                    + "'" + subeventWeight + "',"
-                    + "'" + subeventDate + "',"
+                    + "'" + className.getText() + "',"
+                    + "'" + assignNumber.getText() + "',"
+                    + "'" + assignWeight.getText() + "',"
+                    + "'" + assignDate.getValue().toString() + "',"
                     + "'" + Login_Controller.uid + "'"
                     + ")";
-
 
             if (DatabaseHandler.execAction(qu)) { //Success
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -89,4 +78,8 @@ public class AddAssigns_Controller {
         stage.close();
     }
 
+    @FXML
+    void initialize() {
+        //Controller.makeStageDragable(drag);
+    }
 }

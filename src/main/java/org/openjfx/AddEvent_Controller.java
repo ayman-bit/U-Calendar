@@ -29,84 +29,31 @@ import javafx.stage.StageStyle;
 public class  AddEvent_Controller {
 
     @FXML
-    private JFXDatePicker date;
+    private JFXDatePicker date,endDate,FinalDate;
 
     @FXML
-    private JFXDatePicker endDate;
+    private JFXTimePicker startTime,endTime,FinalStartTime, FinalEndTime;
 
     @FXML
-    private JFXTimePicker startTime;
-
-    @FXML
-    private JFXTimePicker endTime;
-
-    @FXML
-    private JFXTextField className;
-
-    @FXML
-    private JFXTextField finalWeight;
+    private JFXTextField className,finalWeight;
 
     @FXML
     private JFXTabPane tabPane;
 
     @FXML
-    private JFXDatePicker FinalDate;
+    private CheckBox haveAssigns,haveTests,haveLabs,haveFinal;
 
     @FXML
-    private JFXTimePicker FinalStartTime;
+    private JFXButton addAssignBtn,addTestBtn,addLabsBtn;
 
     @FXML
-    private JFXTimePicker FinalEndTime;
+    private Label finalLabel,finalStartLabel, finalEndLabel;
 
     @FXML
-    private CheckBox haveAssigns;
-
-    @FXML
-    private JFXButton addAssignBtn;
-
-    @FXML
-    private CheckBox haveTests;
-
-    @FXML
-    private JFXButton addTestBtn;
-
-    @FXML
-    private CheckBox haveLabs;
-
-    @FXML
-    private JFXButton addLabsBtn;
-
-    @FXML
-    private CheckBox haveFinal;
-
-    @FXML
-    private Label finalLabel;
-
-    @FXML
-    private Label finalStartLabel;
-
-    @FXML
-    private Label finalEndLabel;
-
-    @FXML
-    private JFXRadioButton monday;
-
-    @FXML
-    private JFXRadioButton tuesday;
-
-    @FXML
-    private JFXRadioButton wednesday;
-
-    @FXML
-    private JFXRadioButton thursday;
-
-    @FXML
-    private JFXRadioButton friday;
+    private JFXRadioButton monday,tuesday, wednesday, thursday, friday;
 
     @FXML
     private AnchorPane drag;
-
-
 
     @FXML
     void Next(MouseEvent e) throws IOException{
@@ -122,7 +69,6 @@ public class  AddEvent_Controller {
         else{
             addLabsBtn.setVisible(false);
         }
-
     }
 
     @FXML
@@ -168,10 +114,7 @@ public class  AddEvent_Controller {
             finalEndLabel.setVisible(false);
             finalWeight.setVisible(false);
         }
-
-
     }
-
 
     @FXML
     void AddAssign(MouseEvent e) throws IOException{
@@ -184,7 +127,6 @@ public class  AddEvent_Controller {
         stage.setTitle("Add Assignments");
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
@@ -197,7 +139,6 @@ public class  AddEvent_Controller {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
@@ -358,7 +299,6 @@ public class  AddEvent_Controller {
         if (friday.isSelected()){
             re +="F";
         }
-
         return re;
     }
 

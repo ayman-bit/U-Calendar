@@ -3,20 +3,16 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<?import com.jfoenix.controls.JFXTimePicker?>
-<?import javafx.scene.control.Separator?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.openjfx.AddTests_Controller"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.AddTests_Controller">
     <children>
-        <Pane layoutX="-1.0" prefHeight="500.0" prefWidth="207.0" style="-fx-background-color: #1B6CD7;" />
+        <Pane fx:id="drag" layoutX="-1.0" prefHeight="500.0" prefWidth="207.0" style="-fx-background-color: #1B6CD7;" />
         <Label layoutX="227.0" layoutY="32.0" prefHeight="35.0" prefWidth="198.0" text="Add Lab">
             <font>
                 <Font name="System Bold" size="24.0" />

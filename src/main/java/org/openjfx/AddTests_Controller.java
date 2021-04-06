@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,6 +31,9 @@ public class AddTests_Controller {
     private Label className;
 
     @FXML
+    private Pane drag;
+
+    @FXML
     void AddTest(MouseEvent event)throws IOException {
         if(testDate.getValue() == null||testNumber.getText() == null||testWeight.getText()==null || testStartTime.getValue() == null || testEndTime.getValue() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -46,20 +50,13 @@ public class AddTests_Controller {
                 alert.showAndWait();
             }
             else{
-                String eventName = className.getText();
-                String subeventDate= testDate.getValue().toString();
-                String subEventName= testNumber.getText();
-                String subeventWeight = testWeight.getText();
-                String subStartTime = testStartTime.getValue().toString();
-                String subEndTime = testEndTime.getValue().toString();
-
                 String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
-                        + "'" + eventName + "',"
-                        + "'" + subEventName + "',"
-                        + "'" + subeventWeight + "',"
-                        + "'" + subeventDate + "',"
-                        + "'" + subStartTime + "',"
-                        + "'" + subEndTime + "',"
+                        + "'" + className.getText() + "',"
+                        + "'" + testNumber.getText() + "',"
+                        + "'" + testWeight.getText() + "',"
+                        + "'" + testDate.getValue().toString() + "',"
+                        + "'" + testStartTime.getValue().toString() + "',"
+                        + "'" + testEndTime.getValue().toString() + "',"
                         + "'" + Login_Controller.uid + "'"
                         + ")";
 
@@ -75,7 +72,6 @@ public class AddTests_Controller {
                     alert.setContentText("This Data Already Exists");
                     alert.showAndWait();
                 }
-
                 clearSelection();
             }
         }
@@ -99,5 +95,10 @@ public class AddTests_Controller {
     void Cancel(MouseEvent e) throws IOException{
         Stage stage = (Stage) Cancel.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void initialize() {
+        //Controller.makeStageDragable(drag);
     }
 }
