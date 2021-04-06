@@ -227,100 +227,110 @@ public class  AddEvent_Controller {
     @FXML
     void Done(MouseEvent event) throws IOException {
         try {
-            String startD= date.getValue().toString();
-            String endD = endDate.getValue().toString();
-            String startT= startTime.getValue().toString();
-            String endT= endTime.getValue().toString();
-            String name= className.getText();
-            String recourrence = getReoccurence();
-
-
-            if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty() || endD.isEmpty()){
+            if(date.getValue() == null||endDate.getValue() == null||startTime.getValue() == null
+                || className.getText().isEmpty() || endTime.getValue() == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setContentText("Some required information was not entered");
                 alert.showAndWait();
-                return;
             }
-            else if(haveFinal.isSelected() == true && (FinalDate.getValue()!= null||FinalStartTime.getValue()!= null||FinalEndTime.getValue() != null)){
-                String eventName = className.getText();
-                String subeventDate= FinalDate.getValue().toString();
-                String subEventName= "Final";
-                String subeventWeight = finalWeight.getText();
-                String subStartTime = FinalStartTime.getValue().toString();
-                String subEndTime = FinalEndTime.getValue().toString();
+            else if(date.getValue() != null||endDate.getValue() != null||startTime.getValue() != null
+                    || className.getText() != null || endTime.getValue() != null){
 
-
-
-
-                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
-                        + "'" + eventName + "',"
-                        + "'" + subEventName + "',"
-                        + "'" + subeventWeight + "',"
-                        + "'" + subeventDate + "',"
-                        + "'" + subStartTime + "',"
-                        + "'" + subEndTime + "',"
-                        + "'" + Login_Controller.uid + "'"
-                        + ")";
-
-                DatabaseHandler.execAction(qu);
-
-                qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
-                        + "'" + name + "',"
-                        + "'" + startD + "',"
-                        + "'" + endD + "',"
-                        + "'" + startT + "',"
-                        + "'" + endT + "',"
-                        + "'" + recourrence + "',"
-                        + "'" + Login_Controller.uid + "'"
-                        + ")";
-
-                if(DatabaseHandler.execAction(qu)){ //Success
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Success");
-                    alert.showAndWait();
-                    Controller.start("Application.fxml", event);
-                }
-                else{ // Error
+                if(endTime.getValue().isBefore(startTime.getValue())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText(null);
-                    alert.setContentText("This Data Already Exists");
+                    alert.setContentText("End time must be after start time");
                     alert.showAndWait();
                 }
-
-            }
-            else {
-                String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
-                        + "'" + name + "',"
-                        + "'" + startD + "',"
-                        + "'" + endD + "',"
-                        + "'" + startT + "',"
-                        + "'" + endT + "',"
-                        + "'" + recourrence + "',"
-                        + "'" + Login_Controller.uid + "'"
-                        + ")";
-                System.out.println(qu);
-
-                if(DatabaseHandler.execAction(qu)){ //Success
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Success");
-                    alert.showAndWait();
-                    Controller.start("Application.fxml", event);
-                }
-                else{ // Error
+                else if(endDate.getValue().isBefore(date.getValue())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText(null);
-                    alert.setContentText("This Data Already Exists");
+                    alert.setContentText("End date must be after start date");
                     alert.showAndWait();
                 }
+                else{
+                    String reoccurrence = getReoccurence();
 
+                    String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
+                            + "'" + className.getText() + "',"
+                            + "'" + date.getValue().toString() + "',"
+                            + "'" + endDate.getValue().toString() + "',"
+                            + "'" + startTime.getValue().toString() + "',"
+                            + "'" + endTime.getValue().toString() + "',"
+                            + "'" + reoccurrence + "',"
+                            + "'" + Login_Controller.uid + "'"
+                            + ")";
+
+                    if(DatabaseHandler.execAction(qu)){ //Success
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Success");
+                        alert.showAndWait();
+                        Controller.start("Application.fxml", event);
+                    }
+                    else{ // Error
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText(null);
+                        alert.setContentText("This Data Already Exists");
+                        alert.showAndWait();
+                    }
+                }
             }
+            else if(haveFinal.isSelected() && (FinalDate.getValue()!= null||FinalStartTime.getValue()!= null||FinalEndTime.getValue() != null)
+                    &&(date.getValue() != null||endDate.getValue() != null||startTime.getValue() != null
+                    || className.getText() !=null || endTime.getValue() != null)){
+                if(FinalEndTime.getValue().isBefore(FinalStartTime.getValue())){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("End time must be after start time for final");
+                    alert.showAndWait();
+                }
+                else{
+                    String subEventName= "Final";
+                    String reoccurrence = getReoccurence();
 
+                    String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
+                            + "'" + className.getText() + "',"
+                            + "'" + subEventName + "',"
+                            + "'" + finalWeight.getText() + "',"
+                            + "'" + FinalDate.getValue().toString() + "',"
+                            + "'" + FinalStartTime.getValue().toString() + "',"
+                            + "'" + FinalEndTime.getValue().toString() + "',"
+                            + "'" + Login_Controller.uid + "'"
+                            + ")";
 
+                    DatabaseHandler.execAction(qu);
 
+                    qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
+                            + "'" + className.getText() + "',"
+                            + "'" + date.getValue().toString() + "',"
+                            + "'" + endDate.getValue().toString() + "',"
+                            + "'" + startTime.getValue().toString() + "',"
+                            + "'" + endTime.getValue().toString() + "',"
+                            + "'" + reoccurrence + "',"
+                            + "'" + Login_Controller.uid + "'"
+                            + ")";
+
+                    if(DatabaseHandler.execAction(qu)){ //Success
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Success");
+                        alert.showAndWait();
+                        Controller.start("Application.fxml", event);
+                    }
+                    else{ // Error
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText(null);
+                        alert.setContentText("This Data Already Exists");
+                        alert.showAndWait();
+                    }
+                }
             }
+            else{
+                //not sure what brings here 
+            }
+        }
         catch (Exception e){
             System.out.println(e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -328,7 +338,6 @@ public class  AddEvent_Controller {
             alert.setContentText("Please fill in all infomartion");
             alert.showAndWait();
         }
-
 
     }
 

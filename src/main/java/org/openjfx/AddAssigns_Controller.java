@@ -36,41 +36,40 @@ public class AddAssigns_Controller {
         if(assignDate.getValue() == null||assignNumber.getText() == null||assignWeight.getText()==null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Some information was not entered");
+            alert.setContentText("Required information was not entered");
             alert.showAndWait();
             return;
         }
-        String eventName = className.getText();
-        String subeventDate= assignDate.getValue().toString();
-        String subEventName= assignNumber.getText();
-        String subeventWeight = assignWeight.getText();
+        else{
+            String eventName = className.getText();
+            String subeventDate = assignDate.getValue().toString();
+            String subEventName = assignNumber.getText();
+            String subeventWeight = assignWeight.getText();
 
 
+            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,user_id) VALUES ("
+                    + "'" + eventName + "',"
+                    + "'" + subEventName + "',"
+                    + "'" + subeventWeight + "',"
+                    + "'" + subeventDate + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
 
 
-        String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,user_id) VALUES ("
-                + "'" + eventName + "',"
-                + "'" + subEventName + "',"
-                + "'" + subeventWeight + "',"
-                + "'" + subeventDate + "',"
-                + "'" + Login_Controller.uid + "'"
-                + ")";
+            if (DatabaseHandler.execAction(qu)) { //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+            } else { // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This Data Already Exists");
+                alert.showAndWait();
+            }
 
-
-        if(DatabaseHandler.execAction(qu)){ //Success
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Success");
-            alert.showAndWait();
+            clearSelection();
         }
-        else{ // Error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("This Data Already Exists");
-            alert.showAndWait();
-        }
-
-        clearSelection();
     }
 
     void setClassName(String text){

@@ -20,10 +20,7 @@ public class AddLabs_Controller {
     private JFXDatePicker labDate;
 
     @FXML
-    private JFXTimePicker labStartTime;
-
-    @FXML
-    private JFXTimePicker labEndTime;
+    private JFXTimePicker labStartTime,labEndTime;
 
     @FXML
     private JFXTextField labWeight;
@@ -47,40 +44,39 @@ public class AddLabs_Controller {
             alert.showAndWait();
             return;
         }
-        String eventName = className.getText();
-        String subeventDate= labDate.getValue().toString();
-        String subEventName= labNumber.getText();
-        String subeventWeight = labWeight.getText();
-        String subStartTime = labStartTime.getValue().toString();
-        String subEndTime = labEndTime.getValue().toString();
+        else{
+            if(labEndTime.getValue().isBefore(labStartTime.getValue())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("End time must be after start time");
+                alert.showAndWait();
+                return;
+            }
+            else{
+                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
+                        + "'" + className.getText() + "',"
+                        + "'" + labNumber.getText() + "',"
+                        + "'" + labWeight.getText() + "',"
+                        + "'" + labDate.getValue().toString() + "',"
+                        + "'" + labStartTime.getValue().toString() + "',"
+                        + "'" + labEndTime.getValue().toString() + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
 
-
-
-        String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
-                + "'" + eventName + "',"
-                + "'" + subEventName + "',"
-                + "'" + subeventWeight + "',"
-                + "'" + subeventDate + "',"
-                + "'" + subStartTime + "',"
-                + "'" + subEndTime + "',"
-                + "'" + Login_Controller.uid + "'"
-                + ")";
-
-
-        if(DatabaseHandler.execAction(qu)){ //Success
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Success");
-            alert.showAndWait();
+                if (DatabaseHandler.execAction(qu)) { //Success
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Success");
+                    alert.showAndWait();
+                } else { // Error
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("This Data Already Exists");
+                    alert.showAndWait();
+                }
+                clearSelection();
+            }
         }
-        else{ // Error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("This Data Already Exists");
-            alert.showAndWait();
-        }
-
-        clearSelection();
     }
 
     void setClassName(String text){
