@@ -11,62 +11,95 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Application.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
-
-    <children>
-      <JFXDrawer fx:id="sidepanel" layoutY="40.0" />
-      <HBox prefHeight="40.0" prefWidth="900.0" styleClass="hbox">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
+   <children>
+      <AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Application.css">
          <children>
-            <JFXHamburger fx:id="options">
-               <padding>
-                  <Insets left="4.0" top="5.0" />
-               </padding>
-            </JFXHamburger>
-            <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="803.0">
-               <font>
-                  <Font name="System Bold" size="32.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" onMouseClicked="#minimize_stage" prefHeight="26.0" prefWidth="28.0" styleClass="min-btn" text="-">
-               <font>
-                  <Font size="33.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" onMouseClicked="#close_app" prefHeight="26.0" prefWidth="29.0" styleClass="close-btn" text="x">
-               <font>
-                  <Font size="33.0" />
-               </font>
-            </Label>
+            <BorderPane>
+               <top>
+                  <HBox fx:id="Drag" prefHeight="40.0" prefWidth="900.0" styleClass="hbox" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXHamburger fx:id="options">
+                           <padding>
+                              <Insets left="10.0" top="5.0" />
+                           </padding>
+                        </JFXHamburger>
+                        <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="803.0">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" onMouseClicked="#minimize_stage" prefHeight="26.0" prefWidth="28.0" styleClass="min-btn" text="-">
+                           <font>
+                              <Font size="33.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" onMouseClicked="#close_app" prefHeight="26.0" prefWidth="29.0" styleClass="close-btn" text="x">
+                           <font>
+                              <Font size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="H_RESIZE" />
+                     </cursor>
+                  </HBox>
+               </top>
+               <center>
+                  <JFXTabPane BorderPane.alignment="CENTER">
+                     <tabs>
+                        <Tab style="-fx-pref-width: 350;" text="Week View">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <JFXDrawer fx:id="WeekView" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab style="-fx-pref-width: 350;" text="Month View">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                    <JFXDrawer fx:id="MonthView" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="...">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                                 <children>
+                                    <Text layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank You for Using our Applcation" textAlignment="CENTER" wrappingWidth="750.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="30.0" />
+                                       </font>
+                                    </Text>
+                                    <TextArea editable="false" layoutY="50.0" prefHeight="515.0" prefWidth="750.0" promptText="Credits" text="Group 8">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </TextArea>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </center>
+               <left>
+                  <JFXDrawer fx:id="sidepanel" defaultDrawerSize="150.0" BorderPane.alignment="CENTER" />
+               </left>
+            </BorderPane>
          </children>
-         <cursor>
-            <Cursor fx:constant="H_RESIZE" />
-         </cursor>
-      </HBox>
-      <JFXTabPane layoutX="150.0" layoutY="49.0">
-         <tabs>
-            <Tab text="Week View">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0">
-                     <children>
-                        <JFXDrawer fx:id="WeekView" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Month View">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0">
-                     <children>
-                        <JFXDrawer fx:id="MonthView" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-         </tabs>
-      </JFXTabPane>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>
