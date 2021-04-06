@@ -87,13 +87,13 @@ public class WeekView_Controller extends DatabaseHandler {
 
         Calendar tempCalendar = Calendar.getInstance();
         tempCalendar.set(Calendar.WEEK_OF_YEAR, 2);
-        String secondDayOnWeek2 = new SimpleDateFormat("dd").format(tempCalendar.getTime()); // Why does this return the day on Monday?
-        int daysInWeek1 = Integer.parseInt(secondDayOnWeek2) - 2;
+        String secondDayOnWeek2 = new SimpleDateFormat("dd").format(tempCalendar.getTime());
+        int daysInWeek1 = Integer.parseInt(secondDayOnWeek2) - 2; // This helps determine the dates of the current week
 
         tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1);
-        String beginDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime());
+        String beginDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime()); // Get the date of first day of week
         tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + 6);
-        String endDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime());
+        String endDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime()); // Get the date of last day of week
 
 
         //Month_Year.setText("Week: " + new SimpleDateFormat("WW, MMMM, YYYY").format(calendar.getTime()));
@@ -103,6 +103,10 @@ public class WeekView_Controller extends DatabaseHandler {
         int cols = 7;
 
         mainPanel.getChildren().clear();
+/*        for (Node n: mainPanel.getChildren()){
+            n.maxHeight(31.26);
+        }*/
+        mainPanel.setGridLinesVisible(true);
 
         reoccurences = new ArrayList<>();
         loadReoccurences();
@@ -120,7 +124,14 @@ public class WeekView_Controller extends DatabaseHandler {
             for (int j = 0; j < rows; j++){
                 int currentHour = j;
 
+                if (i==1 && j==2){
+                    int duration=7;
+                    AnchorPane a = setUpCustomEventBox(Color.BLUEVIOLET,"Hour: " + j, duration);
 
+                    // Add it to the grid
+                    mainPanel.add(a,i,j, 1, duration+1);
+                    mainPanel.setAlignment(Pos.TOP_RIGHT);
+                }
                 //ArrayList<HashMap<String, Object>> eventOfThisHour = new ArrayList<>(); //Make it an arraylist to allow multiple events per hour
                 HashMap<String, Object> eventOfThisHour = new HashMap<>();
                 List<String> subeventNames = new ArrayList<>();
@@ -134,8 +145,6 @@ public class WeekView_Controller extends DatabaseHandler {
                             subeventNames.add(subevent.get("subeventName").toString());
                             //break;
                         }
-                    }
-                    else{
                     }
                 }
 
@@ -155,13 +164,13 @@ public class WeekView_Controller extends DatabaseHandler {
                         // Get the day of week
                         String day = today.getDayOfWeek().name();
                         char currentDayChar = day.charAt(0);
-                        if (day == "Thursday"){
+                        if (day.contains("THURSDAY")){
                             currentDayChar = 'R';
                         }
 
                         // if this class has a reoccurence in this time of the day, add it to class list: create a map with keys eventName and startTime
                         if (r.get("reoccur").toString().contains(String.valueOf(currentDayChar))){
-                            if(r.get("startTime") != null){
+                           if(r.get("startTime") != null){
                                 String[] timeOfEvent = r.get("startTime").toString().split(":");
                                 int hourOfEvent = Integer.parseInt(timeOfEvent[0]);
                                 if(hourOfEvent == currentHour){
@@ -212,15 +221,45 @@ public class WeekView_Controller extends DatabaseHandler {
         a.prefWidth(97);
         a.prefHeight(31.25);
         Rectangle r = new Rectangle();
-        r.setWidth(85); r.setHeight(25);
+        r.setWidth(88); r.setHeight(25);
         r.setArcWidth(20); r.setArcHeight(20);
         r.setLayoutY(5);
+        r.setLayoutX(5);
         r.setFill(color);
         a.getChildren().add(r);
 
         Label label = new Label(eventOfThisHour);
         label.setLayoutY(8);
-        label.setLayoutX(2);
+        label.setLayoutX(8);
+        label.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+        a.getChildren().add(label);
+        return a;
+    }
+
+    private AnchorPane setUpCustomEventBox(Color color, String eventOfThisHour, int duration) {
+        AnchorPane a = new AnchorPane();
+        a.prefWidth(97);
+        a.minHeight(31.25 * duration);
+        a.prefHeight(31.25 * duration);
+        a.maxHeight(31.25 * duration);
+        Rectangle r = new Rectangle();
+        if(duration>1){
+            //r.setHeight(26.25 + 31.25*(duration-2) + 30);
+            r.setHeight(31.25 * duration - 6.25);
+        }
+        else{
+
+        }
+        r.setWidth(88);
+        r.setArcWidth(20); r.setArcHeight(20);
+        r.setLayoutY(5);
+        r.setLayoutX(5);
+        r.setFill(color);
+        a.getChildren().add(r);
+
+        Label label = new Label(eventOfThisHour);
+        label.setLayoutY(8);
+        label.setLayoutX(8);
         label.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
         a.getChildren().add(label);
         return a;
