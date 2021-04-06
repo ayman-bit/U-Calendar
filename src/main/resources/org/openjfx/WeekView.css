@@ -14,10 +14,16 @@
     -fx-text-fill: red;
     align-self: center;
     -fx-min-height: 30 ;
-    -fx-gridLinesVisible: ture;
 }
 
+.myGridStyle Line {
+    -fx-stroke: black;
+    -fx-stroke-width: 10.0;
+}
 
+.label {
+    -fx-max-width: 75;
+}
 #Month_Year{
 
     -fx-font-weight: bolder;

@@ -105,6 +105,7 @@ public class WeekView_Controller extends DatabaseHandler {
         int cols = 7;
 
         mainPanel.getChildren().clear();
+        mainPanel.getStyleClass().add("myGridStyle");
 
         reoccurences = new ArrayList<>();
         loadReoccurences();

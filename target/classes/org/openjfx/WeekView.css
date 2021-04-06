@@ -21,7 +21,9 @@
     -fx-stroke-width: 10.0;
 }
 
-
+.label {
+    -fx-max-width: 75;
+}
 #Month_Year{
 
     -fx-font-weight: bolder;
