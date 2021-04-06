@@ -1,9 +1,6 @@
 package org.openjfx;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTimePicker;
+import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -27,6 +24,9 @@ public class AddLabs_Controller {
     private Label className;
 
     @FXML
+    private JFXColorPicker labColour;
+
+    @FXML
     void AddLab(MouseEvent event)throws IOException {
         if(labDate.getValue() == null||labNumber.getText() == null||labWeight.getText()==null || labStartTime.getValue()==null || labEndTime.getValue() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -36,21 +36,22 @@ public class AddLabs_Controller {
             return;
         }
         else{
-            if(labEndTime.getValue().isBefore(labStartTime.getValue())){
+            if(labEndTime.getValue().isBefore(labStartTime.getValue())|| labStartTime.getValue().isAfter(labEndTime.getValue())){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setContentText("End time must be after start time");
+                alert.setContentText("Time input incorrect");
                 alert.showAndWait();
                 return;
             }
             else{
-                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
+                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
                         + "'" + className.getText() + "',"
                         + "'" + labNumber.getText() + "',"
                         + "'" + labWeight.getText() + "',"
                         + "'" + labDate.getValue().toString() + "',"
                         + "'" + labStartTime.getValue().toString() + "',"
                         + "'" + labEndTime.getValue().toString() + "',"
+                        + "'" + labColour.getValue().toString() + "',"
                         + "'" + Login_Controller.uid + "'"
                         + ")";
 
@@ -70,6 +71,10 @@ public class AddLabs_Controller {
         }
     }
 
+    void setClassName(String text){
+        className.setText(text);
+    }
+
     void clearSelection(){
         labNumber.setText("");
         labWeight.setText("");
@@ -77,6 +82,7 @@ public class AddLabs_Controller {
         labDate.setValue(null);
         labStartTime.setValue(null);
         labEndTime.setValue(null);
+        labColour.setValue(null);
     }
 }
 

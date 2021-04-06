@@ -1,13 +1,13 @@
 package org.openjfx;
 
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTabPane;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTimePicker;
+import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -16,38 +16,52 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.*;
-
-/**
- * @author Mohammed Shahwan
- */
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class EditEvent_Controller {
 
-    List<Map<String, Object>> QU = DatabaseHandler.execQuery("SELECT * FROM userData");
+    List<Map<String, Object>> events = DatabaseHandler.execQuery("SELECT * FROM userData");
+    List<Map<String, Object>> subevents = DatabaseHandler.execQuery("SELECT * FROM subEvents");
 
     @FXML
-    private JFXDatePicker date,FinalDate;
+    private JFXDatePicker date,endDate,FinalDate;
 
     @FXML
     private JFXTimePicker startTime,endTime,FinalStartTime, FinalEndTime;
 
     @FXML
+    private JFXTextField className,finalWeight;
+
+    @FXML
     private JFXTabPane tabPane;
 
     @FXML
-    private JFXTextField className, numAssign, numLabs, numTests;
+    private CheckBox haveAssigns,haveTests,haveLabs,haveFinal;
+
+    @FXML
+    private Label finalLabel,finalStartLabel, finalEndLabel;
+
+    @FXML
+    private JFXRadioButton monday,tuesday, wednesday, thursday, friday;
+
+    @FXML
+    private AnchorPane drag;
+
+    @FXML
+    private AnchorPane labPane, testPane, assignPane;
 
     @FXML
     private ChoiceBox<String> eventMenu;
 
     @FXML
-    void Next(MouseEvent e) throws IOException {
-        tabPane.getSelectionModel().selectNext();
-    }
+    private JFXColorPicker eventColour;
+
 
     @FXML
-    void Back(MouseEvent e) throws IOException{
+    void Back(MouseEvent event) {
         tabPane.getSelectionModel().selectPrevious();
     }
 
@@ -57,86 +71,29 @@ public class EditEvent_Controller {
     }
 
     @FXML
-    void Done(MouseEvent event) throws IOException {
-        try {
-            String startD= date.getValue().toString();
-            String startT= startTime.getValue().toString();
-            String endT= endTime.getValue().toString();
-            String name= className.getText();
-            String assignNum = numAssign.getText();
-            String quizNum = numTests.getText();
-            String labNum = numLabs.getText();
-            String DateFinal= FinalDate.getValue().toString();
-            String startFT= FinalStartTime.getValue().toString();
-            String endFT= FinalEndTime.getValue().toString();
-
-            if(startD.isEmpty()||startT.isEmpty()||endT.isEmpty()||name.isEmpty() || assignNum.isEmpty()
-                    || quizNum.isEmpty() || labNum.isEmpty() || DateFinal.isEmpty() || startFT.isEmpty() || endFT.isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill in all infomartion");
-                alert.showAndWait();
-                return;
-            }
-
-            String qu = "INSERT INTO userData(eventName,date,startTime,endTime,numAssign,numTest,numLabs,finalDate,finalStartTime,finalEndTime,user_id) VALUES ("
-                    + "'" + name + "',"
-                    + "'" + startD + "',"
-                    + "'" + startT + "',"
-                    + "'" + endT + "',"
-                    + "'" + assignNum + "',"
-                    + "'" + quizNum + "',"
-                    + "'" + labNum + "',"
-                    + "'" + DateFinal + "',"
-                    + "'" + startFT + "',"
-                    + "'" + endFT + "',"
-                    + "'" + Login_Controller.uid + "'"
-                    + ")";
-
-            if(DatabaseHandler.execAction(qu)){ //Success
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(null);
-                alert.setContentText("Success");
-                alert.showAndWait();
-                Controller.start("Application.fxml",event);
-            }
-            else{ // Error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText("This Data Already Exists");
-                alert.showAndWait();
-            }
-
-        }
-        catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all infomartion");
-            alert.showAndWait();
-            return;
-        }
+    void Done(MouseEvent event) {
 
     }
 
     @FXML
-    void NextPopulate(MouseEvent event) throws IOException, ParseException {
+    void Next(MouseEvent event) {
+        tabPane.getSelectionModel().selectNext();
+    }
+
+    @FXML
+    void NextPopulate(MouseEvent event) throws ParseException {
         DateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
-        assert QU != null;
-        for (Map<String, Object> stringObjectMap : QU) {
+        assert events != null;
+        assert subevents != null;
+        for (Map<String, Object> stringObjectMap : events) {
             if(stringObjectMap.get("eventName").toString().equals(eventMenu.getValue())) {
-                System.out.println(eventMenu.getValue());
                 className.setText(stringObjectMap.get("eventName").toString());
                 Date temp = simpleDateFormat.parse(stringObjectMap.get("date").toString());
                 date.setValue(convertToLocalDateViaInstant(temp));
                 startTime.setValue(LocalTime.parse(stringObjectMap.get("startTime").toString()));
                 endTime.setValue(LocalTime.parse(stringObjectMap.get("endTime").toString()));
-                numAssign.setText(stringObjectMap.get("numAssign").toString());
-                numTests.setText(stringObjectMap.get("numTest").toString());
-                numLabs.setText(stringObjectMap.get("numLabs").toString());
-                temp = simpleDateFormat.parse(stringObjectMap.get("finalDate").toString());
-                FinalDate.setValue(convertToLocalDateViaInstant(temp));
-                FinalStartTime.setValue(LocalTime.parse(stringObjectMap.get("finalStartTime").toString()));
-                FinalEndTime.setValue(LocalTime.parse(stringObjectMap.get("finalEndTime").toString()));
+                temp = simpleDateFormat.parse(stringObjectMap.get("endDate").toString());
+                endDate.setValue(convertToLocalDateViaInstant(temp));
 
                 //After extracting the needed data delete event from database
                 String qu = "DELETE FROM userData WHERE eventName=" + "'"+stringObjectMap.get("eventName").toString()+"'";
@@ -146,28 +103,24 @@ public class EditEvent_Controller {
         tabPane.getSelectionModel().selectNext();
     }
 
-
     @FXML
-    void initialize() {
-        assert date != null : "fx:id=\"date\" was not injected: check your FXML file 'AddEvent.fxml'.";
-        assert startTime != null : "fx:id=\"startTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
-        assert endTime != null : "fx:id=\"endTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
-        assert className != null : "fx:id=\"className\" was not injected: check your FXML file 'AddEvent.fxml'.";
-        populateChoice();
+    void hasAssigns(MouseEvent event) {
+
     }
 
-    // Find all user events
-    void populateChoice(){
-        ArrayList<String> dates = new ArrayList<String>();
-        assert QU != null;
-        for (Map<String, Object> stringObjectMap : QU) {
-              dates.add(stringObjectMap.get("eventName").toString());
-        }
+    @FXML
+    void hasFinal(MouseEvent event) {
 
-        for(String q: dates)
-        {
-            eventMenu.getItems().add(q);
-        }
+    }
+
+    @FXML
+    void hasLabs(MouseEvent event) {
+
+    }
+
+    @FXML
+    void hasTests(MouseEvent event) {
+
     }
 
     //converting Date to LocalDate using instant
@@ -176,5 +129,47 @@ public class EditEvent_Controller {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
     }
-}
 
+    private String getReoccurence(){
+        String re = "";
+        if (monday.isSelected()){
+            re +="M";
+        }
+        if (tuesday.isSelected()){
+            re +="T";
+        }
+        if (wednesday.isSelected()){
+            re +="W";
+        }
+        if(thursday.isSelected()){
+            re+="R";
+        }
+        if (friday.isSelected()){
+            re +="F";
+        }
+        return re;
+    }
+
+    void populateChoice(){
+        ArrayList<String> dates = new ArrayList<String>();
+        if ( events == null){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("No events found please add event first");
+            alert.showAndWait();
+        }
+        for (Map<String, Object> stringObjectMap : events) {
+            dates.add(stringObjectMap.get("eventName").toString());
+        }
+
+        for(String q: dates)
+        {
+            eventMenu.getItems().add(q);
+        }
+    }
+
+    @FXML
+    void initialize() {
+        populateChoice();
+    }
+}

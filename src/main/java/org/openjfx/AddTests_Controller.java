@@ -1,9 +1,6 @@
 package org.openjfx;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTimePicker;
+import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -31,7 +28,7 @@ public class AddTests_Controller {
     private Label className;
 
     @FXML
-    private Pane drag;
+    private JFXColorPicker testColour;
 
     @FXML
     void AddTest(MouseEvent event)throws IOException {
@@ -40,23 +37,23 @@ public class AddTests_Controller {
             alert.setHeaderText(null);
             alert.setContentText("Required information was not entered");
             alert.showAndWait();
-            return;
         }
         else{
-            if(testEndTime.getValue().isBefore(testStartTime.getValue())){
+            if(testEndTime.getValue().isBefore(testStartTime.getValue()) || testStartTime.getValue().isAfter(testEndTime.getValue())){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setContentText("End time must be after start time");
+                alert.setContentText("Time input incorrect");
                 alert.showAndWait();
             }
             else{
-                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
-                        + "'" + className.getText() + "',"
+                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
+                        + "'" + this.className.getText() + "',"
                         + "'" + testNumber.getText() + "',"
                         + "'" + testWeight.getText() + "',"
                         + "'" + testDate.getValue().toString() + "',"
                         + "'" + testStartTime.getValue().toString() + "',"
                         + "'" + testEndTime.getValue().toString() + "',"
+                        + "'" + testColour.getValue().toString() + "',"
                         + "'" + Login_Controller.uid + "'"
                         + ")";
 
@@ -89,16 +86,7 @@ public class AddTests_Controller {
         testDate.setValue(null);
         testStartTime.setValue(null);
         testEndTime.setValue(null);
+        testColour.setValue(null);
     }
 
-    @FXML
-    void Cancel(MouseEvent e) throws IOException{
-        Stage stage = (Stage) Cancel.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    void initialize() {
-        //Controller.makeStageDragable(drag);
-    }
 }

@@ -54,10 +54,10 @@ public class  AddEvent_Controller {
     private AnchorPane drag;
 
     @FXML
-    private Pane labPane, testPane;
-    @FXML
-    private AnchorPane assignPane;
+    private AnchorPane labPane, testPane, assignPane;
 
+    @FXML
+    private JFXColorPicker eventColour,finalColour;
 
     @FXML
     void Next(MouseEvent e) throws IOException{
@@ -69,8 +69,6 @@ public class  AddEvent_Controller {
         if(haveLabs.isSelected())
         {
             labPane.setVisible(true);
-            Pane aPane = FXMLLoader.load(getClass().getResource("AddLabs.fxml"));
-            labPane.getChildren().add(aPane);
         }
         else{
             labPane.setVisible(false);
@@ -82,8 +80,6 @@ public class  AddEvent_Controller {
         if(haveAssigns.isSelected())
         {
             assignPane.setVisible(true);
-            Pane aPane = FXMLLoader.load(getClass().getResource("AddAssigns.fxml"));
-            assignPane.getChildren().add(aPane);
         }
         else{
             assignPane.setVisible(false);
@@ -95,8 +91,6 @@ public class  AddEvent_Controller {
         if(haveTests.isSelected())
         {
             testPane.setVisible(true);
-            Pane aPane = FXMLLoader.load(getClass().getResource("AddTests.fxml"));
-            testPane.getChildren().add(aPane);
         }
         else{
             testPane.setVisible(false);
@@ -114,6 +108,7 @@ public class  AddEvent_Controller {
             finalStartLabel.setVisible(true);
             finalEndLabel.setVisible(true);
             finalWeight.setVisible(true);
+            finalColour.setVisible(true);
         }
         else{
             FinalDate.setVisible(false);
@@ -123,6 +118,7 @@ public class  AddEvent_Controller {
             finalStartLabel.setVisible(false);
             finalEndLabel.setVisible(false);
             finalWeight.setVisible(false);
+            finalColour.setVisible(false);
         }
     }
 
@@ -149,27 +145,28 @@ public class  AddEvent_Controller {
             else if(date.getValue() != null||endDate.getValue() != null||startTime.getValue() != null
                     || className.getText() != null || endTime.getValue() != null){
 
-                if(endTime.getValue().isBefore(startTime.getValue())){
+                if(endTime.getValue().isBefore(startTime.getValue()) || startTime.getValue().isAfter(endTime.getValue())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText(null);
-                    alert.setContentText("End time must be after start time");
+                    alert.setContentText("Time input incorrect");
                     alert.showAndWait();
                 }
-                else if(endDate.getValue().isBefore(date.getValue())){
+                else if(endDate.getValue().isBefore(date.getValue()) || date.getValue().isAfter(endDate.getValue())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText(null);
-                    alert.setContentText("End date must be after start date");
+                    alert.setContentText("Date input incorrect");
                     alert.showAndWait();
                 }
                 else{
                     String reoccurrence = getReoccurence();
 
-                    String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
+                    String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,user_id) VALUES ("
                             + "'" + className.getText() + "',"
                             + "'" + date.getValue().toString() + "',"
                             + "'" + endDate.getValue().toString() + "',"
                             + "'" + startTime.getValue().toString() + "',"
                             + "'" + endTime.getValue().toString() + "',"
+                            + "'" + eventColour.getValue().toString() + "',"
                             + "'" + reoccurrence + "',"
                             + "'" + Login_Controller.uid + "'"
                             + ")";
@@ -192,34 +189,36 @@ public class  AddEvent_Controller {
             else if(haveFinal.isSelected() && (FinalDate.getValue()!= null||FinalStartTime.getValue()!= null||FinalEndTime.getValue() != null)
                     &&(date.getValue() != null||endDate.getValue() != null||startTime.getValue() != null
                     || className.getText() !=null || endTime.getValue() != null)){
-                if(FinalEndTime.getValue().isBefore(FinalStartTime.getValue())){
+                if(FinalEndTime.getValue().isBefore(FinalStartTime.getValue()) || FinalStartTime.getValue().isAfter(FinalEndTime.getValue())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText(null);
-                    alert.setContentText("End time must be after start time for final");
+                    alert.setContentText("Time input incorrect");
                     alert.showAndWait();
                 }
                 else{
                     String subEventName= "Final";
                     String reoccurrence = getReoccurence();
 
-                    String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,user_id) VALUES ("
+                    String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
                             + "'" + className.getText() + "',"
                             + "'" + subEventName + "',"
                             + "'" + finalWeight.getText() + "',"
                             + "'" + FinalDate.getValue().toString() + "',"
                             + "'" + FinalStartTime.getValue().toString() + "',"
                             + "'" + FinalEndTime.getValue().toString() + "',"
+                            + "'" + finalColour.getValue().toString() + "',"
                             + "'" + Login_Controller.uid + "'"
                             + ")";
 
                     DatabaseHandler.execAction(qu);
 
-                    qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,user_id) VALUES ("
+                    qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,eventColour,user_id) VALUES ("
                             + "'" + className.getText() + "',"
                             + "'" + date.getValue().toString() + "',"
                             + "'" + endDate.getValue().toString() + "',"
                             + "'" + startTime.getValue().toString() + "',"
                             + "'" + endTime.getValue().toString() + "',"
+                            + "'" + eventColour.getValue().toString() + "',"
                             + "'" + reoccurrence + "',"
                             + "'" + Login_Controller.uid + "'"
                             + ")";
@@ -238,9 +237,6 @@ public class  AddEvent_Controller {
                         alert.showAndWait();
                     }
                 }
-            }
-            else{
-                //not sure what brings here 
             }
         }
         catch (Exception e){
@@ -274,15 +270,13 @@ public class  AddEvent_Controller {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
         Controller.makeStageDragable(drag);
 
         assert date != null : "fx:id=\"date\" was not injected: check your FXML file 'AddEvent.fxml'.";
         assert startTime != null : "fx:id=\"startTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
         assert endTime != null : "fx:id=\"endTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
         assert className != null : "fx:id=\"className\" was not injected: check your FXML file 'AddEvent.fxml'.";
-
-
 
         assignPane.setVisible(false);
         labPane.setVisible(false);
@@ -294,5 +288,12 @@ public class  AddEvent_Controller {
         finalStartLabel.setVisible(false);
         finalEndLabel.setVisible(false);
         finalWeight.setVisible(false);
+        finalColour.setVisible(false);
+        Pane aPane = FXMLLoader.load(getClass().getResource("AddAssigns.fxml"));
+        assignPane.getChildren().add(aPane);
+        aPane = FXMLLoader.load(getClass().getResource("AddLabs.fxml"));
+        labPane.getChildren().add(aPane);
+        aPane = FXMLLoader.load(getClass().getResource("AddTests.fxml"));
+        testPane.getChildren().add(aPane);
     }
 }

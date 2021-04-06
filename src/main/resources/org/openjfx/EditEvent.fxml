@@ -5,30 +5,30 @@
  -->
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXColorPicker?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.EditEvent_Controller">
+<AnchorPane fx:id="drag" prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.EditEvent_Controller">
    <children>
-      <Pane layoutX="-1.0" layoutY="-6.0" prefHeight="645.0" prefWidth="161.0" style="-fx-background-color: #1B6CD7;" AnchorPane.bottomAnchor="-1.3999999999999773" AnchorPane.leftAnchor="-1.0" AnchorPane.topAnchor="-6.0" />
-      <JFXTabPane fx:id="tabPane" layoutX="128.0" minHeight="-Infinity" minWidth="-Infinity" side="LEFT" AnchorPane.bottomAnchor="-0.39999999999997726" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="638.0" prefWidth="173.0" style="-fx-background-color: #1B6CD7;" />
+      <JFXTabPane fx:id="tabPane" layoutX="142.0" prefHeight="638.0" prefWidth="758.0" side="LEFT">
          <tabs>
             <Tab text="Select Event">
-              <content>
-                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="200.0">
+               <content>
+                  <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="14.0" layoutY="23.0" prefHeight="31.0" prefWidth="328.0" text="Select Existing Event" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="393.0" AnchorPane.topAnchor="23.0">
                            <font>
@@ -37,41 +37,29 @@
                         </Label>
                         <ChoiceBox fx:id="eventMenu" layoutX="14.0" layoutY="67.0" />
                         <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" valignment="BOTTOM" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="505.0" />
-                        <HBox alignment="BOTTOM_CENTER" layoutX="92.0" layoutY="549.0" prefHeight="71.0" prefWidth="404.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="549.0">
-                           <children>
-                              <JFXButton onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onMouseClicked="#NextPopulate" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </HBox>
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#NextPopulate" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
                      </children>
                   </AnchorPane>
-              </content>
+               </content>
             </Tab>
             <Tab text="Class Info">
                <content>
                   <AnchorPane fx:id="ClassInfoTab" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="578.0">
                      <children>
-                        <Label layoutX="45.0" layoutY="24.0" prefHeight="31.0" prefWidth="328.0" text="Edit Event" AnchorPane.bottomAnchor="579.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="362.0" AnchorPane.topAnchor="24.0">
+                        <Label layoutX="45.0" layoutY="24.0" prefHeight="35.0" prefWidth="160.0" text="Edit Event">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="44.0" layoutY="59.0" text="Select a start date for your event" AnchorPane.bottomAnchor="562.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="518.0" AnchorPane.topAnchor="59.0" />
-                        <Label layoutX="45.0" layoutY="192.0" text="Start Time" AnchorPane.bottomAnchor="429.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="636.0" AnchorPane.topAnchor="192.0" />
-                        <JFXDatePicker fx:id="date" layoutX="44.0" layoutY="76.0" prefHeight="29.0" prefWidth="350.0" AnchorPane.bottomAnchor="533.0" AnchorPane.leftAnchor="44.0" AnchorPane.rightAnchor="341.0" AnchorPane.topAnchor="76.0" />
-                        <JFXTimePicker fx:id="startTime" layoutX="45.0" layoutY="209.0" prefHeight="29.0" prefWidth="350.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="209.0" />
-                        <Label layoutX="45.0" layoutY="255.0" text="End Time" AnchorPane.bottomAnchor="366.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="640.0" AnchorPane.topAnchor="255.0" />
+                        <Label layoutX="44.0" layoutY="59.0" text="Select a start date for your event" />
+                        <Label layoutX="45.0" layoutY="192.0" text="Start Time" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Cancel" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Cancel" textFill="#1b6cd7" />
+                        <JFXDatePicker fx:id="date" layoutX="44.0" layoutY="76.0" prefHeight="29.0" prefWidth="350.0" />
+                        <JFXTimePicker fx:id="startTime" layoutX="45.0" layoutY="209.0" prefHeight="29.0" prefWidth="350.0" />
+                        <Label layoutX="45.0" layoutY="255.0" text="End Time" />
                         <JFXTimePicker fx:id="endTime" layoutX="45.0" layoutY="272.0" prefHeight="29.0" prefWidth="350.0" />
                         <JFXTextField fx:id="className" layoutX="46.0" layoutY="329.0" prefHeight="27.0" prefWidth="311.0" promptText="Class Name" />
                         <Label layoutX="46.0" layoutY="372.0" prefHeight="17.0" prefWidth="107.0" text="Reoccurences:" />
@@ -80,59 +68,32 @@
                         <JFXRadioButton fx:id="wednesday" layoutX="269.0" layoutY="399.0" text="Wednesday" />
                         <JFXRadioButton fx:id="thursday" layoutX="44.0" layoutY="429.0" text="Thursday" />
                         <JFXRadioButton fx:id="friday" layoutX="155.0" layoutY="429.0" text="Friday" />
-                        <Label layoutX="45.0" layoutY="124.0" text="Select a end date for your event" AnchorPane.bottomAnchor="497.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="521.0" AnchorPane.topAnchor="124.0" />
-                        <JFXDatePicker fx:id="endDate" layoutX="45.0" layoutY="153.0" prefHeight="29.0" prefWidth="350.0" AnchorPane.bottomAnchor="456.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="153.0" />
-                        <Separator prefHeight="7.0" prefWidth="647.0" valignment="BOTTOM" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="505.0" />
-                        <HBox alignment="BOTTOM_CENTER" layoutX="112.0" layoutY="526.0" prefHeight="71.0" prefWidth="404.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="549.0">
-                           <children>
-                              <JFXButton onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </HBox>
+                        <Label layoutX="45.0" layoutY="124.0" text="Select a end date for your event" />
+                        <JFXDatePicker fx:id="endDate" layoutX="45.0" layoutY="153.0" prefHeight="29.0" prefWidth="350.0" />
+                        <Label layoutX="46.0" layoutY="460.0" prefHeight="17.0" prefWidth="75.0" text="Event colour" />
+                        <JFXColorPicker fx:id="eventColour" editable="true" layoutX="125.0" layoutY="456.0">
+                           <value>
+                              <Color red="0.40149998664855957" green="0.7122111916542053" blue="0.7300000190734863" opacity="0.6299999952316284" />
+                           </value>
+                        </JFXColorPicker>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
             <Tab text="Assignments">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="180.0">
                      <children>
-                        <Separator layoutX="38.0" layoutY="555.0" prefHeight="7.0" prefWidth="647.0" valignment="BOTTOM" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="505.0" />
                         <Label layoutX="49.0" layoutY="35.0" prefHeight="35.0" prefWidth="215.0" text="Assignments">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <HBox alignment="BOTTOM_CENTER" layoutX="89.0" layoutY="517.0" prefHeight="71.0" prefWidth="404.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="549.0">
-                           <children>
-                              <JFXButton onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </HBox>
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
                         <CheckBox fx:id="haveAssigns" layoutX="49.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#hasAssigns" prefHeight="17.0" prefWidth="289.0" text="Does this course have assignments" />
-                        <AnchorPane layoutX="46.0" layoutY="132.0" prefHeight="287.0" prefWidth="676.0" AnchorPane.bottomAnchor="228.0" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="123.0" />
+                        <AnchorPane fx:id="assignPane" layoutX="47.0" layoutY="112.0" prefHeight="308.0" prefWidth="628.0" AnchorPane.bottomAnchor="218.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="112.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -146,28 +107,12 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" valignment="BOTTOM" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="505.0" />
-                        <HBox alignment="BOTTOM_CENTER" layoutX="89.0" layoutY="517.0" prefHeight="77.0" prefWidth="404.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="549.0">
-                           <children>
-                              <JFXButton onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </HBox>
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
                         <CheckBox fx:id="haveLabs" layoutX="49.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#hasLabs" prefHeight="17.0" prefWidth="289.0" text="Does this course have labs" />
-                        <AnchorPane layoutX="46.0" layoutY="126.0" prefHeight="287.0" prefWidth="676.0" AnchorPane.bottomAnchor="228.0" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="123.0" />
-                     </children>
-                  </AnchorPane>
+                        <AnchorPane fx:id="labPane" layoutX="49.0" layoutY="109.0" AnchorPane.bottomAnchor="221.0" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="109.0" />
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab fx:id="TestTab" text="Quizzes and Tests">
@@ -179,28 +124,12 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" valignment="BOTTOM" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="505.0" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
                         <CheckBox fx:id="haveTests" layoutX="49.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#hasTests" prefHeight="17.0" prefWidth="289.0" text="Does this course have Quizzes or Tests" />
-                        <HBox alignment="BOTTOM_CENTER" layoutX="141.0" layoutY="547.0" prefHeight="77.0" prefWidth="404.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="549.0">
-                           <children>
-                              <JFXButton onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onMouseClicked="#Next" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Next" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </HBox>
-                        <AnchorPane layoutX="46.0" layoutY="132.0" prefHeight="287.0" prefWidth="676.0" AnchorPane.bottomAnchor="228.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="132.0" />
-                     </children>
-                  </AnchorPane>
+                        <AnchorPane fx:id="testPane" layoutX="47.0" layoutY="94.0" prefHeight="308.0" prefWidth="628.0" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="94.0" />
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab fx:id="FinalTab" text="Final">
@@ -218,31 +147,22 @@
                         <JFXTimePicker fx:id="FinalStartTime" layoutX="26.0" layoutY="175.0" prefHeight="29.0" prefWidth="350.0" />
                         <Label fx:id="finalStartLabel" layoutX="26.0" layoutY="152.0" text="Start Time" />
                         <Label fx:id="finalEndLabel" layoutX="28.0" layoutY="230.0" text="End Time" />
-                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" valignment="BOTTOM" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="505.0" />
+                        <JFXButton layoutX="500.0" layoutY="517.0" onMouseClicked="#Done" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE" />
+                        <Separator layoutX="34.0" layoutY="505.0" prefHeight="7.0" prefWidth="647.0" />
+                        <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
                         <CheckBox fx:id="haveFinal" layoutX="26.0" layoutY="65.0" mnemonicParsing="false" onMouseClicked="#hasFinal" prefHeight="17.0" prefWidth="289.0" text="Does this course have a final" />
                         <JFXTextField fx:id="finalWeight" layoutX="28.0" layoutY="307.0" prefHeight="25.0" prefWidth="313.0" promptText="Final Weight" />
-                        <HBox alignment="BOTTOM_CENTER" layoutX="141.0" layoutY="547.0" prefHeight="77.0" prefWidth="404.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="219.0" AnchorPane.topAnchor="549.0">
-                           <children>
-                              <JFXButton onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton onMouseClicked="#Done" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Done" textFill="WHITE">
-                                 <HBox.margin>
-                                    <Insets left="25.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                           </children>
-                           <padding>
-                              <Insets left="50.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
+                        <Label layoutX="28.0" layoutY="367.0" prefHeight="17.0" prefWidth="75.0" text="Event colour" />
+                        <JFXColorPicker fx:id="finalColour" editable="true" layoutX="107.0" layoutY="363.0">
+                           <value>
+                              <Color red="0.40149998664855957" green="0.7122111916542053" blue="0.7300000190734863" opacity="0.6299999952316284" />
+                           </value>
+                        </JFXColorPicker>
+                     </children></AnchorPane>
                </content>
             </Tab>
          </tabs>
       </JFXTabPane>
    </children>
+
 </AnchorPane>

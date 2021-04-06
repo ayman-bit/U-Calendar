@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXColorPicker;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
@@ -23,6 +24,9 @@ public class AddAssigns_Controller {
     private Label className;
 
     @FXML
+    private JFXColorPicker assignColour;
+
+    @FXML
     private void AddAssign(MouseEvent event)throws IOException {
         if(assignDate.getValue() == null||assignNumber.getText() == null||assignWeight.getText()==null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -31,11 +35,12 @@ public class AddAssigns_Controller {
             alert.showAndWait();
         }
         else{
-            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,user_id) VALUES ("
+            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,eventColour,user_id) VALUES ("
                     + "'" + className.getText() + "',"
                     + "'" + assignNumber.getText() + "',"
                     + "'" + assignWeight.getText() + "',"
                     + "'" + assignDate.getValue().toString() + "',"
+                    + "'" + assignColour.getValue().toString() + "',"
                     + "'" + Login_Controller.uid + "'"
                     + ")";
 
@@ -44,21 +49,28 @@ public class AddAssigns_Controller {
                 alert.setHeaderText(null);
                 alert.setContentText("Success");
                 alert.showAndWait();
+                clearSelection();
             } else { // Error
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setContentText("This Data Already Exists");
                 alert.showAndWait();
             }
-
-            clearSelection();
         }
     }
 
     void clearSelection(){
         assignNumber.setText("");
+        assignNumber.setText("");
         assignWeight.setText("");
+        assignNumber.setPromptText("Assignment Name");
+        assignWeight.setPromptText("Assignment Weight");
         assignDate.getEditor().clear();
         assignDate.setValue(null);
+        assignColour.setValue(null);
+    }
+
+    void setClassName(String text){
+        className.setText(text);
     }
 }

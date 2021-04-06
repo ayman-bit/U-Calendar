@@ -39,6 +39,7 @@ public class DatabaseHandler {
         userData.put("startTime", "TEXT");
         userData.put("endTime", "TEXT");
         userData.put("reoccur","TEXT");
+        userData.put("eventColour", "TEXT");
         userData.put("user_id", "INTEGER");
 
         Map<String, String> grades = new HashMap<>();
@@ -60,6 +61,7 @@ public class DatabaseHandler {
         subEvents.put("subeventDate", "TEXT");
         subEvents.put("subStartTime", "TEXT");
         subEvents.put("subEndTime", "TEXT");
+        subEvents.put("eventColour", "TEXT");
 
 
         DatabaseHandler.createTable(login, loginUnique);
