@@ -15,6 +15,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.openjfx.tableEntry;
@@ -34,6 +35,9 @@ import java.util.ResourceBundle;
  */
 
 public class Calculator_Controller implements Initializable {
+
+    @FXML
+    private AnchorPane parent;
 
     @FXML
     private TableView<tableEntry> table;
@@ -57,7 +61,7 @@ public class Calculator_Controller implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle){
-
+        makeStageDragable();
         loadClasses(); // loads the classes to the choice box
 
         // Listen for changes in selection and update currentEvent
@@ -130,11 +134,42 @@ public class Calculator_Controller implements Initializable {
     @FXML
     void addToTableClicked(ActionEvent event) {
 
+        if(currentEvent==null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please choose a class from the list above first to start adding");
+            alert.showAndWait();
+            return;
+        }
+
+        // Make sure user provided the right input
+        if (gradeTextField.getText() == "" || outOfTextField.getText() == "" || weightTextField.getText() == ""){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please make sure to fill in all the proper boxes");
+            alert.showAndWait();
+            return;
+        }
+
+        double grade, outOf, weight;
+        grade = outOf = weight = 0;
+
         // Extract the inputs from the TextFields and perform casting if necessary
+        try{
+            grade = Double.parseDouble(gradeTextField.getText());
+            outOf = Double.parseDouble(outOfTextField.getText());
+            weight = Double.parseDouble(weightTextField.getText());
+        }
+        catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please make sure your fields are formatted correctly");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            return;
+        }
         String subevent = subeventTextField.getText();
-        double grade = Double.parseDouble(gradeTextField.getText());
-        double outOf = Double.parseDouble(outOfTextField.getText());
-        double weight = Double.parseDouble(weightTextField.getText());
+
+        //Make sure nothing is null
 
         String qu = "INSERT INTO grades(eventName,subevent,grade,outOf,weight,user_id) VALUES ("
                 + "'" + currentEvent + "',"
@@ -151,24 +186,17 @@ public class Calculator_Controller implements Initializable {
             alert.setContentText("Warning: 'Grade' is greater than 'Out of'");
             alert.showAndWait();
         }
-        if (currentEvent != null){
-            boolean q = DatabaseHandler.execAction(qu);
-            if(!q){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText("Error in inserting to database");
-                alert.showAndWait();
-            }
-
-            table.setItems(getEntries()); // Update the displayed entries
-            clearTextBoxes();
-        }
-        else {
+        boolean q = DatabaseHandler.execAction(qu);
+        if(!q){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Please choose a class from the list above first to start adding");
+            alert.setContentText("Error in inserting to database");
             alert.showAndWait();
         }
+
+        table.setItems(getEntries()); // Update the displayed entries
+        clearTextBoxes();
+
 
     }
 
@@ -183,13 +211,14 @@ public class Calculator_Controller implements Initializable {
             total+= Double.parseDouble(totalString);
             totalPossible += weightColumn.getCellObservableValue(row).getValue();
         }
-        lost = totalPossible - total;
 
+        lost = totalPossible - total;
 
         if(totalPossible!=0){
             percentage = total/totalPossible * 100;
             DecimalFormat df = new DecimalFormat("#.##");
             percentageS = df.format(percentage);
+            lost = Double.parseDouble(df.format(lost));
         }
 
 
@@ -207,9 +236,35 @@ public class Calculator_Controller implements Initializable {
     void calculateNeeded(ActionEvent event) {
         String totalString, neededPercent;
         double remaining, desired, totalWeight,totalAchieved, neededPoints, max;
-        desired = Double.parseDouble(desiredTextField.getText());
         totalWeight=totalAchieved=0;
         DecimalFormat df = new DecimalFormat("#.##");
+
+        if(currentEvent == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please choose a class from the list above first to start adding");
+            alert.showAndWait();
+            return;
+        }
+
+        if(desiredTextField.getText() == ""){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter your desired grade first");
+            alert.showAndWait();
+            return;
+        }
+        try{
+            desired = Double.parseDouble(desiredTextField.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please make sure your desired grade is a number");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+            desiredTextField.setText("");
+            return;
+        }
+
 
         for (tableEntry row : table.getItems()) {
             totalString = achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
@@ -217,14 +272,20 @@ public class Calculator_Controller implements Initializable {
             totalWeight += weightColumn.getCellObservableValue(row).getValue();
         }
 
-        remaining = 100 - totalWeight; //TODO ensure totalWeight is not >100 and desired is > totalAchieved
+        remaining = 100 - totalWeight;
         neededPoints = desired - totalAchieved;
         neededPercent = df.format(neededPoints/remaining * 100);
         max = totalAchieved + remaining;
 
+        if(totalWeight>100){
+            Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
+            alert.setContentText("The total weight (" + totalWeight + ") is greater than 100. Consider deleting and adjusting some entries.");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.showAndWait();
+        }
         if (desired<totalAchieved){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
-            alert.setContentText("Your desired total is less than your current total");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "", ButtonType.OK);
+            alert.setContentText("Your desired total is less than your current total (" + totalAchieved + ")");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.showAndWait();
         }
@@ -284,10 +345,34 @@ public class Calculator_Controller implements Initializable {
         weightTextField.setText("");
     }
 
-    // TODO:
-    public void changeSubeventName(CellEditEvent edittedCell) {
-          /*tableEntry cell =  table.getSelectionModel().getSelectedItem();
-        cell.setSubevent(edittedCell.getNewValue().toString());*/
+    @FXML
+    private void close_app(MouseEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    private void minimize_stage(MouseEvent event) {
+        UCalendar.stage.setIconified(true);
+    }
+
+    private double xOffSet = 0;
+    private double yOffSet = 0;
+    private void makeStageDragable() {
+        parent.setOnMousePressed((event) -> {
+            xOffSet = event.getSceneX();
+            yOffSet = event.getSceneY();
+        });
+        parent.setOnMouseDragged((event) -> {
+            UCalendar.stage.setX(event.getScreenX() - xOffSet);
+            UCalendar.stage.setY(event.getScreenY() - yOffSet);
+            UCalendar.stage.setOpacity(0.8f);
+        });
+        parent.setOnDragDone((event) -> {
+            UCalendar.stage.setOpacity(1.0f);
+        });
+        parent.setOnMouseReleased((event) -> {
+            UCalendar.stage.setOpacity(1.0f);
+        });
     }
 
 }
