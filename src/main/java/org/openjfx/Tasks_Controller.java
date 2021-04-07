@@ -8,6 +8,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -34,12 +36,16 @@ public class Tasks_Controller implements Initializable {
     private TableColumn<Events, String> timeCol;
 
     @FXML
+    private Pane drag;
+
+    @FXML
     void back(MouseEvent event) throws IOException {
     Controller.start("Application.fxml",event);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Controller.makeStageDragable(drag);
         IdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));

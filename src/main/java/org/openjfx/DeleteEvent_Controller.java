@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,9 +20,11 @@ public class DeleteEvent_Controller {
 
     List<Map<String, Object>> events = DatabaseHandler.execQuery("SELECT * FROM userData");
     List<Map<String, Object>> subevents= DatabaseHandler.execQuery("SELECT * FROM subEvents");
-
     @FXML
     private ChoiceBox<String> eventMenu;
+
+    @FXML
+    private Pane drag;
 
 
     @FXML
@@ -31,6 +34,12 @@ public class DeleteEvent_Controller {
 
     @FXML
     void Delete(MouseEvent event) throws IOException {
+        if(events.size() == 0){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("You must select and event to delete");
+            alert.showAndWait();
+        }
         for (Map<String, Object> stringObjectMap : events) {
             if (stringObjectMap.get("eventName").toString().equals(eventMenu.getValue())) {
 
@@ -69,6 +78,8 @@ public class DeleteEvent_Controller {
     }
     @FXML
     void initialize() {
+
+        Controller.makeStageDragable(drag);
         populateChoice();
     }
 
