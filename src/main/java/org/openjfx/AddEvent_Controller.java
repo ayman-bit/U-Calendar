@@ -169,10 +169,9 @@ public class AddEvent_Controller implements Initializable {
             }
         }
 
-       else if(haveFinal.isSelected() && !checkFinalInfo() && !checkClassInfo()){
+        else if(haveFinal.isSelected() && !checkFinalInfo() && !checkClassInfo()){
 
             String subEventName= "Final";
-            String reoccurrence = getReoccurence();
 
             String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
                     + "'" + className.getText() + "',"
@@ -185,8 +184,6 @@ public class AddEvent_Controller implements Initializable {
                     + "'" + Login_Controller.uid + "'"
                     + ")";
 
-            DatabaseHandler.execAction(qu);
-            System.out.println(DatabaseHandler.execAction(qu));
             if(DatabaseHandler.execAction(qu)){ //Success
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText(null);
@@ -226,6 +223,11 @@ public class AddEvent_Controller implements Initializable {
 
     private boolean checkFinalInfo(){
         boolean a = false;
+        if(FinalEndTime.getValue() == null || FinalStartTime.getValue() == null || finalWeight.getText() ==null )
+        {
+            a=true;
+            return a;
+        }
         if(FinalEndTime.getValue().isBefore(FinalStartTime.getValue()) || FinalStartTime.getValue().isAfter(FinalEndTime.getValue())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -233,7 +235,7 @@ public class AddEvent_Controller implements Initializable {
             alert.showAndWait();
             a=true;
         }
-        else if(finalWeight.getText() != null && !(finalWeight.getText().matches("[1-9]?\\d")) ){
+        if(finalWeight.getText() != null && !(finalWeight.getText().matches("[1-9]?\\d")) ){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Final weight must be between 0-99");
@@ -318,7 +320,7 @@ public class AddEvent_Controller implements Initializable {
     }
 
 
-     boolean checkClassInfo() {
+    boolean checkClassInfo() {
         boolean a = false;
         if (date.getValue() == null || endDate.getValue() == null || startTime.getValue() == null
                 || className.getText().isEmpty() || endTime.getValue() == null) {
@@ -327,8 +329,9 @@ public class AddEvent_Controller implements Initializable {
             alert.setContentText("Some required information was not entered");
             alert.showAndWait();
             a = true;
-        } else if (date.getValue() != null || endDate.getValue() != null || startTime.getValue() != null
-                || className.getText() != null || endTime.getValue() != null || eventColour.getValue() != null) {
+            return a;
+        } else if (date.getValue() != null && endDate.getValue() != null && startTime.getValue() != null
+                && className.getText() != null && endTime.getValue() != null && eventColour.getValue() != null) {
 
             if (endTime.getValue().isBefore(startTime.getValue()) || startTime.getValue().isAfter(endTime.getValue())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -336,15 +339,17 @@ public class AddEvent_Controller implements Initializable {
                 alert.setContentText("Time input incorrect");
                 alert.showAndWait();
                 a = true;
+                return a;
             } else if (endDate.getValue().isBefore(date.getValue()) || date.getValue().isAfter(endDate.getValue())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setContentText("Date input incorrect");
                 alert.showAndWait();
                 a = true;
+                return a;
             }
         }
-         return a;
+        return a;
     }
 
 
@@ -505,5 +510,5 @@ public class AddEvent_Controller implements Initializable {
             }
             clearTestSelection();
         }
-        }
+    }
 }
