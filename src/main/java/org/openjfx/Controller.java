@@ -117,7 +117,7 @@ public class Controller implements Initializable {
 //                    sidepanel.open();
 ////                    sidepanel.setDefaultDrawerSize(-150);
 //                }
-//            });
+//            }); this was not used due to alignment issues in the application
         } catch (IOException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
