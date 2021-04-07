@@ -21,7 +21,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="drag" prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.EditEvent_Controller">
+<AnchorPane fx:id="drag" prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.EditEvent_Controller">
    <children>
       <Pane prefHeight="638.0" prefWidth="173.0" style="-fx-background-color: #1B6CD7;" />
       <JFXTabPane fx:id="tabPane" layoutX="142.0" prefHeight="638.0" prefWidth="758.0" side="LEFT">

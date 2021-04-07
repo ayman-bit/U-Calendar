@@ -18,7 +18,7 @@
 @Author Kamal Ali
  -->
 
-<AnchorPane fx:id="parent" prefHeight="637.6" prefWidth="900.0" stylesheets="@Calculator.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Calculator_Controller">
+<AnchorPane fx:id="parent" prefHeight="637.6" prefWidth="900.0" stylesheets="@Calculator.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Calculator_Controller">
     <children>
         <HBox prefHeight="40.0" prefWidth="900.0" styleClass="hbox">
             <children>

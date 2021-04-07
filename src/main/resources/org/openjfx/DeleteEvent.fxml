@@ -12,7 +12,7 @@
 @Author Mohammed Shahwan
 -->
 
-<AnchorPane prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.DeleteEvent_Controller">
+<AnchorPane prefHeight="637.6" prefWidth="900.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.DeleteEvent_Controller">
    <children>
       <Pane fx:id="drag" prefHeight="643.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
       <Label layoutX="150.0" layoutY="34.0" prefHeight="31.0" prefWidth="323.0" text="Select Existing Event to Delete">
