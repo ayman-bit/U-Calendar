@@ -30,7 +30,6 @@ import javafx.stage.StageStyle;
  */
 
 public class AddEvent_Controller implements Initializable {
-
     @FXML
     private JFXDatePicker date,endDate,FinalDate;
 
@@ -137,132 +136,74 @@ public class AddEvent_Controller implements Initializable {
 
     @FXML
     void Done(MouseEvent event) throws IOException {
-        try {
-            if(eventColour.getValue() == null){
-                Color c = Color.web("0x039be5ff");
-                eventColour.setValue((Color)c);
+        if(eventColour.getValue() == null){
+            Color c = Color.web("0x039be5ff");
+            eventColour.setValue((Color)c);
+        }
+        if(!checkClassInfo()){
+            String reoccurrence = getReoccurence();
+
+            String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,user_id) VALUES ("
+                    + "'" + className.getText() + "',"
+                    + "'" + date.getValue().toString() + "',"
+                    + "'" + endDate.getValue().toString() + "',"
+                    + "'" + startTime.getValue().toString() + "',"
+                    + "'" + endTime.getValue().toString() + "',"
+                    + "'" + reoccurrence + "',"
+                    + "'" + eventColour.getValue().toString() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            if(DatabaseHandler.execAction(qu)){ //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+                Controller.start("Application.fxml", event);
             }
-            if(date.getValue() == null||endDate.getValue() == null||startTime.getValue() == null
-                || className.getText().isEmpty() || endTime.getValue() == null){
+            else{ // Error
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setContentText("Some required information was not entered");
+                alert.setContentText("This Data Already Exists");
                 alert.showAndWait();
             }
-            else if(date.getValue() != null||endDate.getValue() != null||startTime.getValue() != null
-                    || className.getText() != null || endTime.getValue() != null || eventColour.getValue() != null){
-
-                if(endTime.getValue().isBefore(startTime.getValue()) || startTime.getValue().isAfter(endTime.getValue())){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Time input incorrect");
-                    alert.showAndWait();
-                }
-                else if(endDate.getValue().isBefore(date.getValue()) || date.getValue().isAfter(endDate.getValue())){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Date input incorrect");
-                    alert.showAndWait();
-                }
-                else{
-                    String reoccurrence = getReoccurence();
-
-                    String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,user_id) VALUES ("
-                            + "'" + className.getText() + "',"
-                            + "'" + date.getValue().toString() + "',"
-                            + "'" + endDate.getValue().toString() + "',"
-                            + "'" + startTime.getValue().toString() + "',"
-                            + "'" + endTime.getValue().toString() + "',"
-                            + "'" + reoccurrence + "',"
-                            + "'" + eventColour.getValue().toString() + "',"
-                            + "'" + Login_Controller.uid + "'"
-                            + ")";
-
-                    if(DatabaseHandler.execAction(qu)){ //Success
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setHeaderText(null);
-                        alert.setContentText("Success");
-                        alert.showAndWait();
-                        Controller.start("Application.fxml", event);
-                    }
-                    else{ // Error
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setHeaderText(null);
-                        alert.setContentText("This Data Already Exists");
-                        alert.showAndWait();
-                    }
-                }
-            }
-            else if(haveFinal.isSelected() && (FinalDate.getValue()!= null||FinalStartTime.getValue()!= null||FinalEndTime.getValue() != null)
-                    &&(date.getValue() != null||endDate.getValue() != null||startTime.getValue() != null
-                    || className.getText() !=null || endTime.getValue() != null)){
-                if(FinalEndTime.getValue().isBefore(FinalStartTime.getValue()) || FinalStartTime.getValue().isAfter(FinalEndTime.getValue())){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Time input incorrect");
-                    alert.showAndWait();
-                }
-                else if(finalWeight.getText() != null && !(finalWeight.getText().matches("[1-9]?\\d")) ){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Final weight must be between 0-99");
-                    alert.showAndWait();
-                }
-                else{
-                    String subEventName= "Final";
-                    String reoccurrence = getReoccurence();
-
-                    String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
-                            + "'" + className.getText() + "',"
-                            + "'" + subEventName + "',"
-                            + "'" + finalWeight.getText() + "',"
-                            + "'" + FinalDate.getValue().toString() + "',"
-                            + "'" + FinalStartTime.getValue().toString() + "',"
-                            + "'" + FinalEndTime.getValue().toString() + "',"
-                            + "'" + eventColour.getValue().toString() + "',"
-                            + "'" + Login_Controller.uid + "'"
-                            + ")";
-
-                    DatabaseHandler.execAction(qu);
-
-                    qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,user_id) VALUES ("
-                            + "'" + className.getText() + "',"
-                            + "'" + date.getValue().toString() + "',"
-                            + "'" + endDate.getValue().toString() + "',"
-                            + "'" + startTime.getValue().toString() + "',"
-                            + "'" + endTime.getValue().toString() + "',"
-                            + "'" + reoccurrence + "',"
-                            + "'" + eventColour.getValue().toString() + "',"
-                            + "'" + Login_Controller.uid + "'"
-                            + ")";
-
-                    if(DatabaseHandler.execAction(qu)){ //Success
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setHeaderText(null);
-                        alert.setContentText("Success");
-                        alert.showAndWait();
-                        Controller.start("Application.fxml", event);
-                    }
-                    else{ // Error
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setHeaderText(null);
-                        alert.setContentText("This Data Already Exists");
-                        alert.showAndWait();
-                    }
-                }
-            }
-        }
-        catch (Exception e){
-            System.out.println(e);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all infomartion");
-            alert.showAndWait();
         }
 
+       else if(haveFinal.isSelected() && !checkFinalInfo() && !checkClassInfo()){
+
+            String subEventName= "Final";
+            String reoccurrence = getReoccurence();
+
+            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
+                    + "'" + className.getText() + "',"
+                    + "'" + subEventName + "',"
+                    + "'" + finalWeight.getText() + "',"
+                    + "'" + FinalDate.getValue().toString() + "',"
+                    + "'" + FinalStartTime.getValue().toString() + "',"
+                    + "'" + FinalEndTime.getValue().toString() + "',"
+                    + "'" + eventColour.getValue().toString() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            DatabaseHandler.execAction(qu);
+            System.out.println(DatabaseHandler.execAction(qu));
+            if(DatabaseHandler.execAction(qu)){ //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+                Controller.start("Application.fxml", event);
+            }
+            else{ // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This Data Already Exists");
+                alert.showAndWait();
+            }
+        }
     }
 
-    String getReoccurence(){
+    private String getReoccurence() {
         String re = "";
         if (monday.isSelected()){
             re +="M";
@@ -282,27 +223,140 @@ public class AddEvent_Controller implements Initializable {
         return re;
     }
 
+
+    private boolean checkFinalInfo(){
+        boolean a = false;
+        if(FinalEndTime.getValue().isBefore(FinalStartTime.getValue()) || FinalStartTime.getValue().isAfter(FinalEndTime.getValue())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Time input for final incorrect");
+            alert.showAndWait();
+            a=true;
+        }
+        else if(finalWeight.getText() != null && !(finalWeight.getText().matches("[1-9]?\\d")) ){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Final weight must be between 0-99");
+            alert.showAndWait();
+            a=true;
+        }
+        return a;
+    }
+
+    private boolean checkAssignInfo(){
+        boolean a = false;
+        if(assignWeight.getText() == null || assignNumber.getText() == null || assignWeight.getText() == null || assignDate.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Required information was not entered");
+            alert.showAndWait();
+            a=true;
+        }
+        else if(assignWeight.getText() != null && !(assignWeight.getText().matches("[1-9]?\\d")) ){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Assignment weight must be between 0-99");
+            alert.showAndWait();
+            a=true;
+        }
+        return a;
+    }
+
+    private boolean checkLabInfo(){
+        boolean a = false;
+        if(labNumber.getText() == null || labWeight.getText() == null || labDate.getValue() == null  ||labStartTime.getValue()== null  || labEndTime== null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Required information was not entered");
+            alert.showAndWait();
+            a=true;
+
+        }
+        if(labEndTime.getValue().isBefore(labStartTime.getValue()) || labStartTime.getValue().isAfter(labEndTime.getValue())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Time input for Lab incorrect");
+            alert.showAndWait();
+            a=true;
+        }
+        else if(labWeight.getText() != null && !(labWeight.getText().matches("[1-9]?\\d")) ){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Lab weight must be between 0-99");
+            alert.showAndWait();
+            a=true;
+        }
+        return a;
+    }
+    private boolean checkTestInfo(){
+        boolean a = false;
+        if(testNumber.getText() == null || testWeight.getText() == null || testDate.getValue() == null  ||testStartTime.getValue()== null  || testEndTime== null)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Required information was not entered");
+            alert.showAndWait();
+            a=true;
+
+        }
+        if(testEndTime.getValue().isBefore(testStartTime.getValue()) || testStartTime.getValue().isAfter(testEndTime.getValue())){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Time input for test incorrect");
+            alert.showAndWait();
+            a=true;
+        }
+        else if(testWeight.getText() != null && !(testWeight.getText().matches("[1-9]?\\d")) ){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Lab weight must be between 0-99");
+            alert.showAndWait();
+            a=true;
+        }
+        return a;
+    }
+
+
+     boolean checkClassInfo() {
+        boolean a = false;
+        if (date.getValue() == null || endDate.getValue() == null || startTime.getValue() == null
+                || className.getText().isEmpty() || endTime.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Some required information was not entered");
+            alert.showAndWait();
+            a = true;
+        } else if (date.getValue() != null || endDate.getValue() != null || startTime.getValue() != null
+                || className.getText() != null || endTime.getValue() != null || eventColour.getValue() != null) {
+
+            if (endTime.getValue().isBefore(startTime.getValue()) || startTime.getValue().isAfter(endTime.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Time input incorrect");
+                alert.showAndWait();
+                a = true;
+            } else if (endDate.getValue().isBefore(date.getValue()) || date.getValue().isAfter(endDate.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Date input incorrect");
+                alert.showAndWait();
+                a = true;
+            }
+        }
+         return a;
+    }
+
+
+
     @FXML
     private void AddAssign(MouseEvent event)throws IOException {
         if(eventColour.getValue() == null){
             Color c = Color.web("0x039be5ff");
             eventColour.setValue((Color)c);
         }
-        //checking for for two numbers using regex
-        if(assignWeight.getText() != null && !(assignWeight.getText().matches("[1-9]?\\d")) ){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Assignment weight must be between 0-99");
-            alert.showAndWait();
-        }
-
-        if(assignDate.getValue() == null||assignNumber.getText() == null||assignWeight.getText()==null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Required information was not entered");
-            alert.showAndWait();
-        }
-        else{
+        else if(haveAssigns.isSelected() && !checkAssignInfo())
+        {
             String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,eventColour,user_id) VALUES ("
                     + "'" + eventLabelAssign.getText() + "',"
                     + "'" + assignNumber.getText() + "',"
@@ -348,51 +402,31 @@ public class AddEvent_Controller implements Initializable {
             eventColour.setValue((Color)c);
         }
         //checking for for two numbers using regex
-        if(labWeight.getText() != null && !(labWeight.getText().matches("[1-9]?\\d")) ){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Lab weight must be between 0-99");
-            alert.showAndWait();
-            return;
-        }
-        if(labDate.getValue() == null||labNumber.getText() == null||labWeight.getText()==null || labStartTime.getValue()==null || labEndTime.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Some information was not entered");
-            alert.showAndWait();
-        }
-        else{
-            if(labEndTime.getValue().isBefore(labStartTime.getValue())|| labStartTime.getValue().isAfter(labEndTime.getValue())){
+        if(haveLabs.isSelected() && !checkLabInfo())
+        {
+            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
+                    + "'" + eventLabelLab.getText() + "',"
+                    + "'" + labNumber.getText() + "',"
+                    + "'" + labWeight.getText() + "',"
+                    + "'" + labDate.getValue().toString() + "',"
+                    + "'" + labStartTime.getValue().toString() + "',"
+                    + "'" + labEndTime.getValue().toString() + "',"
+                    + "'" + eventColour.getValue().toString() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            if (DatabaseHandler.execAction(qu)) { //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+            } else { // Error
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
-                alert.setContentText("Time input incorrect");
+                alert.setContentText("This Data Already Exists");
                 alert.showAndWait();
             }
-            else{
-                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
-                        + "'" + eventLabelLab.getText() + "',"
-                        + "'" + labNumber.getText() + "',"
-                        + "'" + labWeight.getText() + "',"
-                        + "'" + labDate.getValue().toString() + "',"
-                        + "'" + labStartTime.getValue().toString() + "',"
-                        + "'" + labEndTime.getValue().toString() + "',"
-                        + "'" + eventColour.getValue().toString() + "',"
-                        + "'" + Login_Controller.uid + "'"
-                        + ")";
-
-                if (DatabaseHandler.execAction(qu)) { //Success
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Success");
-                    alert.showAndWait();
-                } else { // Error
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(null);
-                    alert.setContentText("This Data Already Exists");
-                    alert.showAndWait();
-                }
-                clearLabSelection();
-            }
+            clearLabSelection();
         }
     }
 
@@ -445,54 +479,31 @@ public class AddEvent_Controller implements Initializable {
             Color c = Color.web("0x039be5ff");
             eventColour.setValue((Color)c);
         }
-        //checking for for two numbers using regex
-        if(testWeight.getText() != null && !(testWeight.getText().matches("[1-9]?\\d")) ){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Test weight must be between 0-99");
-            alert.showAndWait();
-        }
-        if(testDate.getValue() == null||testNumber.getText() == null||testWeight.getText()==null || testStartTime.getValue() == null || testEndTime.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Required information was not entered");
-            alert.showAndWait();
-        }
-        else{
-            if(testEndTime.getValue().isBefore(testStartTime.getValue()) || testStartTime.getValue().isAfter(testEndTime.getValue())){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+        if(haveTests.isSelected() && !checkTestInfo()) {
+            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
+                    + "'" + this.className.getText() + "',"
+                    + "'" + testNumber.getText() + "',"
+                    + "'" + testWeight.getText() + "',"
+                    + "'" + testDate.getValue().toString() + "',"
+                    + "'" + testStartTime.getValue().toString() + "',"
+                    + "'" + testEndTime.getValue().toString() + "',"
+                    + "'" + eventColour.getValue().toString() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            if(DatabaseHandler.execAction(qu)){ //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText(null);
-                alert.setContentText("Time input incorrect");
+                alert.setContentText("Success");
                 alert.showAndWait();
             }
-            else{
-                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
-                        + "'" + this.className.getText() + "',"
-                        + "'" + testNumber.getText() + "',"
-                        + "'" + testWeight.getText() + "',"
-                        + "'" + testDate.getValue().toString() + "',"
-                        + "'" + testStartTime.getValue().toString() + "',"
-                        + "'" + testEndTime.getValue().toString() + "',"
-                        + "'" + eventColour.getValue().toString() + "',"
-                        + "'" + Login_Controller.uid + "'"
-                        + ")";
-
-                if(DatabaseHandler.execAction(qu)){ //Success
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Success");
-                    alert.showAndWait();
-                }
-                else{ // Error
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(null);
-                    alert.setContentText("This Data Already Exists");
-                    alert.showAndWait();
-                }
-                clearTestSelection();
+            else{ // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This Data Already Exists");
+                alert.showAndWait();
             }
+            clearTestSelection();
         }
-
-    }
-
+        }
 }

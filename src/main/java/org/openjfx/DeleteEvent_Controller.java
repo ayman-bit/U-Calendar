@@ -34,33 +34,45 @@ public class DeleteEvent_Controller {
 
     @FXML
     void Delete(MouseEvent event) throws IOException {
+
         if(events.size() == 0){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setContentText("You must select and event to delete");
             alert.showAndWait();
         }
-        for (Map<String, Object> stringObjectMap : events) {
-            if (stringObjectMap.get("eventName").toString().equals(eventMenu.getValue())) {
+        else{
+            for (Map<String, Object> stringObjectMap : events) {
+                if (stringObjectMap.get("eventName").toString().equals(eventMenu.getValue())) {
 
-                String qu = "DELETE FROM userData WHERE eventName=" + "'" + stringObjectMap.get("eventName").toString() + "'";
-                if (DatabaseHandler.execAction(qu)) { //Success
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Success");
-                    alert.showAndWait();
-                    Controller.start("Application.fxml", event);
-                } else { // Error
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText(null);
-                    alert.setContentText("This data is already deleted.");
-                    alert.showAndWait();
+                    String qu = "DELETE FROM userData WHERE eventName=" + "'" + stringObjectMap.get("eventName").toString() + "'";
+                    if (DatabaseHandler.execAction(qu)) { //Success
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Success");
+                        alert.showAndWait();
+                        Controller.start("Application.fxml", event);
+                    } else { // Error
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText(null);
+                        alert.setContentText("This data is already deleted.");
+                        alert.showAndWait();
+                    }
+
+                    qu = "DELETE FROM subEvents WHERE eventName=" + "'" + stringObjectMap.get("eventName").toString() + "'";
+                    DatabaseHandler.execAction(qu);
                 }
-
-                qu = "DELETE FROM subEvents WHERE eventName=" + "'" + stringObjectMap.get("eventName").toString() + "'";
-                DatabaseHandler.execAction(qu);
             }
         }
+
+    }
+
+    @FXML
+    public void warn(MouseEvent e){
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText(null);
+        a.setContentText("Warning deleting event will delete all subevents for that event");
+        a.showAndWait();
     }
 
     // Find all user events

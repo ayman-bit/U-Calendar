@@ -33,7 +33,7 @@ public class EditEvent_Controller {
     private JFXDatePicker date,endDate,FinalDate;
 
     @FXML
-    private JFXTimePicker startTime,endTime,FinalStartTime, FinalEndTime;
+    private JFXTimePicker startTime,endTime,FinalStartTime, FinalEndTime,labStartTime,labEndTime;
 
     @FXML
     private JFXTextField className,finalWeight;
@@ -42,10 +42,16 @@ public class EditEvent_Controller {
     private JFXTabPane tabPane;
 
     @FXML
-    private CheckBox haveAssigns,haveTests,haveLabs,haveFinal;
+    private CheckBox haveAssigns,haveLabs,haveFinal;
 
     @FXML
     private Label finalLabel,finalStartLabel, finalEndLabel,colorLabel;
+
+    @FXML
+    private JFXTextField labNumber,labWeight;
+
+    @FXML
+    private JFXDatePicker labDate;
 
     @FXML
     private JFXRadioButton monday,tuesday, wednesday, thursday, friday;
@@ -60,7 +66,7 @@ public class EditEvent_Controller {
     private ChoiceBox<String> eventMenu;
 
     @FXML
-    private JFXColorPicker eventColour,finalColour;
+    private JFXColorPicker eventColour;
 
 
     @FXML
@@ -112,8 +118,6 @@ public class EditEvent_Controller {
     @FXML
     void hasAssigns(MouseEvent event) throws IOException {
         assignPane.setVisible(haveAssigns.isSelected());
-        Pane aPane = FXMLLoader.load(getClass().getResource("AddAssigns.fxml"));
-        assignPane.getChildren().add(aPane);
     }
 
     @FXML
@@ -125,20 +129,16 @@ public class EditEvent_Controller {
         finalStartLabel.setVisible(haveFinal.isSelected());
         finalEndLabel.setVisible(haveFinal.isSelected());
         finalWeight.setVisible(haveFinal.isSelected());
-        finalColour.setVisible(haveFinal.isSelected());
-        colorLabel.setVisible(haveFinal.isSelected());
     }
 
     @FXML
     void hasLabs(MouseEvent event) throws IOException {
-        Pane aPane = FXMLLoader.load(getClass().getResource("AddLabs.fxml"));
-        labPane.getChildren().add(aPane);
+        labPane.setVisible(haveAssigns.isSelected());
     }
 
     @FXML
     void hasTests(MouseEvent event) throws IOException {
-        Pane aPane = FXMLLoader.load(getClass().getResource("AddTests.fxml"));
-        testPane.getChildren().add(aPane);
+        testPane.setVisible(haveAssigns.isSelected());
     }
 
     //converting Date to LocalDate using instant
@@ -200,7 +200,14 @@ public class EditEvent_Controller {
         finalStartLabel.setVisible(false);
         finalEndLabel.setVisible(false);
         finalWeight.setVisible(false);
-        finalColour.setVisible(false);
-        colorLabel.setVisible(false);
+    }
+
+    public void AddAssign(MouseEvent mouseEvent) {
+    }
+
+    public void AddLab(MouseEvent mouseEvent) {
+    }
+
+    public void AddTest(MouseEvent mouseEvent) {
     }
 }
