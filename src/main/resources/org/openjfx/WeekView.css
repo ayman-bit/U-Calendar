@@ -25,12 +25,21 @@
 .label {
     -fx-max-width: 75;
 }
+
+.jfx-button {
+    -fx-cursor: hand;
+}
+.jfx-button:hover {
+    -fx-background-color: #7F7F7F;
+    -fx-cursor: hand;
+}
 #Month_Year{
 
     -fx-font-weight: bolder;
     -fx-font-style: italic;
     -fx-font-size: 20px;
     -fx-background-color: transparent;
+    -fx-max-width: 500;
 }
 #anchorPane{
 
