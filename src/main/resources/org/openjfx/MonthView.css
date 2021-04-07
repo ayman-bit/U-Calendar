@@ -24,6 +24,14 @@
     -fx-max-width: 70;
 }
 
+.jfx-button {
+    -fx-cursor: hand;
+}
+.jfx-button:hover {
+    -fx-background-color: #7F7F7F;
+    -fx-cursor: hand;
+}
+
 .mainPanel{
     -fx-text-alignment: CENTER;
     -fx-font-alignment: CENTER;
