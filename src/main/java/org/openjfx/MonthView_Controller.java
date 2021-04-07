@@ -204,7 +204,7 @@ public class MonthView_Controller extends DatabaseHandler {
                 // Get the day of week
                 String day = today.getDayOfWeek().name();
                 char currentDayChar = day.charAt(0);
-                if (day == "Thursday"){
+                if (day.contains("THURSDAY")){
                     currentDayChar = 'R';
                 }
 
