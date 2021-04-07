@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -79,6 +80,7 @@ public class WeekView_Controller extends DatabaseHandler {
         Calendar calendar = Calendar.getInstance();
         currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
         today = new SimpleDateFormat("ddMMYYYY").format(calendar.getTime());
+        System.out.println("today: " + today); //TODO: get day of week then shift accordingly
         CreateGrid ();
     }
 
@@ -86,6 +88,7 @@ public class WeekView_Controller extends DatabaseHandler {
     void CreateGrid () throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.WEEK_OF_YEAR, currentWeek);
+        System.out.println("current week " + calendar.get(Calendar.DAY_OF_YEAR));
 
         Calendar tempCalendar = Calendar.getInstance();
         tempCalendar.set(Calendar.WEEK_OF_YEAR, 2);
@@ -115,7 +118,7 @@ public class WeekView_Controller extends DatabaseHandler {
 
             // Find all events that occur on this day
             List<Map<String, Object>> todaysSubevents = DatabaseHandler.execQuery(
-                    "SELECT subeventName, subStartTime, subEndTime FROM subEvents WHERE " +
+                    "SELECT subeventName, subStartTime, subEndTime, eventName FROM subEvents WHERE " +
                             "user_id = " + Login_Controller.uid +
                             " AND subeventDate = '" + todaysDate + "'");
 
@@ -142,8 +145,24 @@ public class WeekView_Controller extends DatabaseHandler {
 
                         String subeventName = subevent.get("subeventName").toString();
 
+                        // To get color we need eventName
+                        String eventName = subevent.get("eventName").toString();
+
+                        List<Map<String, Object>> eventOfSubevent = DatabaseHandler.execQuery(
+                                "SELECT eventColour FROM userData WHERE " +
+                                        "user_id = " + Login_Controller.uid +
+                                        " AND eventName = '" + eventName + "'");
+
+                        String eventColour = "0x8a2be2"; //dummy value
+                        for (Map<String, Object> r : eventOfSubevent){
+                            eventColour = r.get("eventColour").toString();
+                            break;
+                        }
+
+                        Color color =  Color.valueOf(eventColour);
+
                         if(startHourOfEvent == currentHour){
-                            addToDisplay(subeventName, durationInMinutes, startMinuteOfEvent, i, j);
+                            addToDisplay(subeventName, durationInMinutes, startMinuteOfEvent, i, j, color);
                         }
                     }
                 }
@@ -188,9 +207,11 @@ public class WeekView_Controller extends DatabaseHandler {
 
                                String subeventName = r.get("eventName").toString();
 
+                               String eventColour = r.get("eventColour").toString();
+                               Color color =  Color.valueOf(eventColour);
 
                                 if(startHourOfEvent == currentHour){
-                                    addToDisplay(subeventName, durationInMinutes, startMinuteOfEvent, i, j);
+                                    addToDisplay(subeventName, durationInMinutes, startMinuteOfEvent, i, j, color);
                                 }
                             }
                         }
@@ -231,6 +252,9 @@ public class WeekView_Controller extends DatabaseHandler {
 
 
     private AnchorPane setUpEventBox(Color color, String eventOfThisHour, double durationInMinutes, double  startMinuteOfEvent) {
+        if(durationInMinutes == 0){
+            durationInMinutes = 15;
+        }
         double ratio = durationInMinutes/60;
 
         AnchorPane a = new AnchorPane();
@@ -245,8 +269,11 @@ public class WeekView_Controller extends DatabaseHandler {
         a.getChildren().add(r);
 
         Label label = new Label(eventOfThisHour);
-        label.setLayoutY(startMinuteOfEvent/60 * 31.25 + 3); //startMinuteOfEvent/60 * 31.25 +
         label.setLayoutX(8);
+        label.setLayoutY(startMinuteOfEvent/60 * 31.25);
+        if (durationInMinutes != 15){
+
+        }
         label.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
         a.getChildren().add(label);
         return a;
@@ -254,11 +281,11 @@ public class WeekView_Controller extends DatabaseHandler {
 
     private void loadReoccurences() {
         List<Map<String, Object>> classList = DatabaseHandler.execQuery(
-                "SELECT eventName, reoccur, date, endDate, startTime, endTime FROM userData WHERE " +
+                "SELECT eventName, reoccur, date, endDate, startTime, endTime, eventColour FROM userData WHERE " +
                         "user_id = " + Login_Controller.uid);
 
         if (classList != null) {
-            // Cast map to hash map using deep copy
+            // deep copy map to hash map using
             for (Map<String, Object> c : classList) {
                 HashMap<String, Object> m = new HashMap<>(c);
                 reoccurences.add(m);
@@ -266,11 +293,11 @@ public class WeekView_Controller extends DatabaseHandler {
         }
     }
 
-    private void addToDisplay(String eventName, double duration, double startMinuteOfEvent, int i, int j){
+    private void addToDisplay(String eventName, double duration, double startMinuteOfEvent, int i, int j, Color color){
 
-        AnchorPane a = setUpEventBox(Color.BLUEVIOLET, eventName, duration, startMinuteOfEvent);
+        AnchorPane a = setUpEventBox(color, eventName, duration, startMinuteOfEvent);
 
-        int durationInt = (int) duration;
+        int durationInt = (int) duration + 1;
         int colSpan = 1;
         mainPanel.add(a,i,j, colSpan, durationInt); // Add it to the grid
         mainPanel.setAlignment(Pos.TOP_RIGHT);
