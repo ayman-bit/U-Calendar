@@ -79,8 +79,7 @@ public class WeekView_Controller extends DatabaseHandler {
         assert mainPanel != null : "fx:id=\"Grid\" was not injected: check your FXML file 'WeekView.fxml'.";
         Calendar calendar = Calendar.getInstance();
         currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-        today = new SimpleDateFormat("ddMMYYYY").format(calendar.getTime());
-        System.out.println("today: " + today); //TODO: get day of week then shift accordingly
+        //today = new SimpleDateFormat("ddMMYYYY").format(calendar.getTime());
         CreateGrid ();
     }
 
@@ -88,20 +87,18 @@ public class WeekView_Controller extends DatabaseHandler {
     void CreateGrid () throws IOException {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.WEEK_OF_YEAR, currentWeek);
-        System.out.println("current week " + calendar.get(Calendar.DAY_OF_YEAR));
 
         Calendar tempCalendar = Calendar.getInstance();
         tempCalendar.set(Calendar.WEEK_OF_YEAR, 2);
         String secondDayOnWeek2 = new SimpleDateFormat("dd").format(tempCalendar.getTime());
         int daysInWeek1 = Integer.parseInt(secondDayOnWeek2) - 2; // This helps determine the dates of the current week
 
-        tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1);
+        tempCalendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_WEEK) + 1);
         String beginDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime()); // Get the date of first day of week
-        tempCalendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + 6);
+        tempCalendar.add(Calendar.DAY_OF_YEAR, 6);
         String endDate = new SimpleDateFormat("MMMM-dd").format(tempCalendar.getTime()); // Get the date of last day of week
 
 
-        //Month_Year.setText("Week: " + new SimpleDateFormat("WW, MMMM, YYYY").format(calendar.getTime()));
         Month_Year.setText(beginDate + " to " + endDate);
 
         int rows = 24;
@@ -113,7 +110,7 @@ public class WeekView_Controller extends DatabaseHandler {
         loadReoccurences();
 
         for (int i = 0; i < cols; i++){
-            calendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + i);
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_WEEK) + i + 1);
             String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
 
             // Find all events that occur on this day
