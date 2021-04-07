@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -53,13 +54,13 @@ public class AddEvent_Controller implements Initializable {
     private JFXTimePicker labStartTime,labEndTime;
 
     @FXML
-    private JFXColorPicker labColour,testColour,eventColour,finalColour,assignColour;
+    private JFXColorPicker eventColour;
 
     @FXML
     private CheckBox haveAssigns,haveTests,haveLabs,haveFinal;
 
     @FXML
-    private Label finalLabel,finalStartLabel, finalEndLabel,colorLabel;
+    private Label finalLabel,finalStartLabel, finalEndLabel;
 
     @FXML
     private JFXRadioButton monday,tuesday, wednesday, thursday, friday;
@@ -85,7 +86,6 @@ public class AddEvent_Controller implements Initializable {
     @FXML
     private JFXTimePicker testStartTime, testEndTime;
 
-
     @FXML
     private Label eventLabelAssign,eventLabelLab,eventLabelTest;
 
@@ -98,7 +98,6 @@ public class AddEvent_Controller implements Initializable {
     void hasLabs(MouseEvent e) throws IOException {
         labPane.setVisible(haveLabs.isSelected());
         eventLabelLab.setText(this.className.getText());
-
     }
 
     @FXML
@@ -123,8 +122,6 @@ public class AddEvent_Controller implements Initializable {
         finalStartLabel.setVisible(haveFinal.isSelected());
         finalEndLabel.setVisible(haveFinal.isSelected());
         finalWeight.setVisible(haveFinal.isSelected());
-        finalColour.setVisible(haveFinal.isSelected());
-        colorLabel.setVisible(haveFinal.isSelected());
     }
 
     @FXML
@@ -141,6 +138,10 @@ public class AddEvent_Controller implements Initializable {
     @FXML
     void Done(MouseEvent event) throws IOException {
         try {
+            if(eventColour.getValue() == null){
+                Color c = Color.web("0x039be5ff");
+                eventColour.setValue((Color)c);
+            }
             if(date.getValue() == null||endDate.getValue() == null||startTime.getValue() == null
                 || className.getText().isEmpty() || endTime.getValue() == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -149,7 +150,7 @@ public class AddEvent_Controller implements Initializable {
                 alert.showAndWait();
             }
             else if(date.getValue() != null||endDate.getValue() != null||startTime.getValue() != null
-                    || className.getText() != null || endTime.getValue() != null){
+                    || className.getText() != null || endTime.getValue() != null || eventColour.getValue() != null){
 
                 if(endTime.getValue().isBefore(startTime.getValue()) || startTime.getValue().isAfter(endTime.getValue())){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -201,6 +202,12 @@ public class AddEvent_Controller implements Initializable {
                     alert.setContentText("Time input incorrect");
                     alert.showAndWait();
                 }
+                else if(finalWeight.getText() != null && !(finalWeight.getText().matches("[1-9]?\\d")) ){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Final weight must be between 0-99");
+                    alert.showAndWait();
+                }
                 else{
                     String subEventName= "Final";
                     String reoccurrence = getReoccurence();
@@ -212,20 +219,20 @@ public class AddEvent_Controller implements Initializable {
                             + "'" + FinalDate.getValue().toString() + "',"
                             + "'" + FinalStartTime.getValue().toString() + "',"
                             + "'" + FinalEndTime.getValue().toString() + "',"
-                            + "'" + finalColour.getValue().toString() + "',"
+                            + "'" + eventColour.getValue().toString() + "',"
                             + "'" + Login_Controller.uid + "'"
                             + ")";
 
                     DatabaseHandler.execAction(qu);
 
-                    qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,eventColour,user_id) VALUES ("
+                    qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,user_id) VALUES ("
                             + "'" + className.getText() + "',"
                             + "'" + date.getValue().toString() + "',"
                             + "'" + endDate.getValue().toString() + "',"
                             + "'" + startTime.getValue().toString() + "',"
                             + "'" + endTime.getValue().toString() + "',"
-                            + "'" + eventColour.getValue().toString() + "',"
                             + "'" + reoccurrence + "',"
+                            + "'" + eventColour.getValue().toString() + "',"
                             + "'" + Login_Controller.uid + "'"
                             + ")";
 
@@ -277,6 +284,18 @@ public class AddEvent_Controller implements Initializable {
 
     @FXML
     private void AddAssign(MouseEvent event)throws IOException {
+        if(eventColour.getValue() == null){
+            Color c = Color.web("0x039be5ff");
+            eventColour.setValue((Color)c);
+        }
+        //checking for for two numbers using regex
+        if(assignWeight.getText() != null && !(assignWeight.getText().matches("[1-9]?\\d")) ){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Assignment weight must be between 0-99");
+            alert.showAndWait();
+        }
+
         if(assignDate.getValue() == null||assignNumber.getText() == null||assignWeight.getText()==null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -289,7 +308,7 @@ public class AddEvent_Controller implements Initializable {
                     + "'" + assignNumber.getText() + "',"
                     + "'" + assignWeight.getText() + "',"
                     + "'" + assignDate.getValue().toString() + "',"
-                    + "'" + assignColour.getValue().toString() + "',"
+                    + "'" + eventColour.getValue().toString() + "',"
                     + "'" + Login_Controller.uid + "'"
                     + ")";
 
@@ -315,12 +334,27 @@ public class AddEvent_Controller implements Initializable {
         assignWeight.setPromptText("Assignment Weight");
         assignDate.getEditor().clear();
         assignDate.setValue(null);
-        assignColour.setValue(null);
         eventLabelAssign.setText(className.getText());
+        if(eventColour.getValue() == null){
+            Color c = Color.web("0x039be5ff");
+            eventColour.setValue((Color)c);
+        }
     }
 
     @FXML
     void AddLab(MouseEvent event)throws IOException {
+        if(eventColour.getValue() == null){
+            Color c = Color.web("0x039be5ff");
+            eventColour.setValue((Color)c);
+        }
+        //checking for for two numbers using regex
+        if(labWeight.getText() != null && !(labWeight.getText().matches("[1-9]?\\d")) ){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Lab weight must be between 0-99");
+            alert.showAndWait();
+            return;
+        }
         if(labDate.getValue() == null||labNumber.getText() == null||labWeight.getText()==null || labStartTime.getValue()==null || labEndTime.getValue() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -342,7 +376,7 @@ public class AddEvent_Controller implements Initializable {
                         + "'" + labDate.getValue().toString() + "',"
                         + "'" + labStartTime.getValue().toString() + "',"
                         + "'" + labEndTime.getValue().toString() + "',"
-                        + "'" + labColour.getValue().toString() + "',"
+                        + "'" + eventColour.getValue().toString() + "',"
                         + "'" + Login_Controller.uid + "'"
                         + ")";
 
@@ -369,8 +403,11 @@ public class AddEvent_Controller implements Initializable {
         labDate.setValue(null);
         labStartTime.setValue(null);
         labEndTime.setValue(null);
-        labColour.setValue(null);
         eventLabelLab.setText(className.getText());
+        if(eventColour.getValue() == null){
+            Color c = Color.web("0x039be5ff");
+            eventColour.setValue((Color)c);
+        }
     }
 
     @Override
@@ -383,8 +420,6 @@ public class AddEvent_Controller implements Initializable {
         finalStartLabel.setVisible(false);
         finalEndLabel.setVisible(false);
         finalWeight.setVisible(false);
-        finalColour.setVisible(false);
-        colorLabel.setVisible(false);
         labPane.setVisible(false);
         assignPane.setVisible(false);
         testPane.setVisible(false);
@@ -400,11 +435,23 @@ public class AddEvent_Controller implements Initializable {
         testDate.setValue(null);
         testStartTime.setValue(null);
         testEndTime.setValue(null);
-        testColour.setValue(null);
         eventLabelTest.setText(className.getText());
+        Color c = Color.web("0x039be5ff");
+        eventColour.setValue((Color)c);
     }
     @FXML
     void AddTest(MouseEvent event)throws IOException {
+        if(eventColour.getValue() == null){
+            Color c = Color.web("0x039be5ff");
+            eventColour.setValue((Color)c);
+        }
+        //checking for for two numbers using regex
+        if(testWeight.getText() != null && !(testWeight.getText().matches("[1-9]?\\d")) ){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Test weight must be between 0-99");
+            alert.showAndWait();
+        }
         if(testDate.getValue() == null||testNumber.getText() == null||testWeight.getText()==null || testStartTime.getValue() == null || testEndTime.getValue() == null){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -426,7 +473,7 @@ public class AddEvent_Controller implements Initializable {
                         + "'" + testDate.getValue().toString() + "',"
                         + "'" + testStartTime.getValue().toString() + "',"
                         + "'" + testEndTime.getValue().toString() + "',"
-                        + "'" + testColour.getValue().toString() + "',"
+                        + "'" + eventColour.getValue().toString() + "',"
                         + "'" + Login_Controller.uid + "'"
                         + ")";
 

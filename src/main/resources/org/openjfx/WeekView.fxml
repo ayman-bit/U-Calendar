@@ -13,7 +13,7 @@
 Kamal Ali (shifted the main grid downwards)
  -->
 
-<AnchorPane fx:id="anchorPane" stylesheets="@WeekView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
+<AnchorPane fx:id="anchorPane" stylesheets="@WeekView.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
    <children>
       <ScrollPane layoutX="-2.0" layoutY="63.0" prefHeight="505.0" prefWidth="750.0" vbarPolicy="ALWAYS">
         <content>

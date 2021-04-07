@@ -83,14 +83,8 @@
                               <JFXDatePicker fx:id="assignDate" layoutX="14.0" layoutY="59.0" prefHeight="29.0" prefWidth="350.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="59.0" />
                               <Label layoutX="120.0" layoutY="93.0" text="Select a date for your assignment" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="39.0" />
                               <JFXTextField fx:id="assignWeight" layoutX="14.0" layoutY="138.0" prefHeight="27.0" prefWidth="311.0" promptText="Assignment Weight" />
-                              <JFXButton fx:id="addAssign" layoutX="320.0" layoutY="239.0" onMouseClicked="#AddAssign" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="92.0" />
+                              <JFXButton fx:id="addAssign" layoutX="14.0" layoutY="201.0" onMouseClicked="#AddAssign" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="398.0" />
                               <Label fx:id="eventLabelAssign" layoutX="248.0" layoutY="11.0" prefHeight="17.0" prefWidth="135.0" AnchorPane.bottomAnchor="275.0" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="11.0" />
-                              <Label layoutX="14.0" layoutY="208.0" prefHeight="17.0" prefWidth="75.0" text="Event colour" />
-                              <JFXColorPicker fx:id="assignColour" editable="true" layoutX="89.0" layoutY="204.0">
-                                 <value>
-                                    <Color red="0.40149998664855957" green="0.7122111916542053" blue="0.7300000190734863" opacity="0.6299999952316284" />
-                                 </value>
-                              </JFXColorPicker>
                            </children>
                         </AnchorPane>
                      </children>
@@ -125,18 +119,12 @@
                               <JFXDatePicker fx:id="labDate" layoutX="21.0" layoutY="68.0" prefHeight="29.0" prefWidth="350.0" />
                               <Label layoutX="21.0" layoutY="41.0" text="Select a date for your Lab" />
                               <JFXTextField fx:id="labWeight" layoutX="23.0" layoutY="248.0" prefHeight="27.0" prefWidth="311.0" promptText="Lab Weight" />
-                              <JFXButton fx:id="addLab" layoutX="345.0" layoutY="286.0" onMouseClicked="#AddLab" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" />
+                              <JFXButton fx:id="addLab" layoutX="22.0" layoutY="289.0" onMouseClicked="#AddLab" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" />
                               <JFXTimePicker fx:id="labStartTime" layoutX="21.0" layoutY="124.0" prefHeight="27.0" prefWidth="350.0" />
                               <Label layoutX="21.0" layoutY="107.0" text="Start Time" />
                               <Label layoutX="21.0" layoutY="161.0" text="End Time" />
                               <JFXTimePicker fx:id="labEndTime" layoutX="21.0" layoutY="178.0" prefHeight="27.0" prefWidth="350.0" />
                               <Label fx:id="eventLabelLab" layoutX="196.0" layoutY="41.0" prefHeight="17.0" prefWidth="149.0" />
-                              <Label layoutX="23.0" layoutY="301.0" text="Event colour" />
-                              <JFXColorPicker fx:id="labColour" editable="true" layoutX="107.0" layoutY="297.0">
-                                 <value>
-                                    <Color red="0.4000000059604645" green="0.7137255072593689" blue="0.729411780834198" />
-                                 </value>
-                              </JFXColorPicker>
                            </children>
                         </AnchorPane>
                      </children>
@@ -171,18 +159,12 @@
                               <JFXDatePicker fx:id="testDate" layoutX="21.0" layoutY="68.0" prefHeight="29.0" prefWidth="350.0" />
                               <Label layoutX="21.0" layoutY="41.0" text="Select a date for your Test/Quiz" />
                               <JFXTextField fx:id="testWeight" layoutX="23.0" layoutY="248.0" prefHeight="27.0" prefWidth="311.0" promptText="Test Weight" />
-                              <JFXButton fx:id="addTest" alignment="CENTER" layoutX="334.0" layoutY="291.0" onMouseClicked="#AddTest" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" />
+                              <JFXButton fx:id="addTest" alignment="CENTER" layoutX="23.0" layoutY="297.0" onMouseClicked="#AddTest" prefHeight="41.0" prefWidth="135.0" style="-fx-background-radius: 5em; -fx-background-color: #1B6CD7;" text="Add" textFill="WHITE" />
                               <JFXTimePicker fx:id="testStartTime" layoutX="21.0" layoutY="124.0" prefHeight="27.0" prefWidth="350.0" />
                               <Label layoutX="21.0" layoutY="107.0" text="Start Time" />
                               <Label layoutX="21.0" layoutY="161.0" text="End Time" />
                               <JFXTimePicker fx:id="testEndTime" layoutX="21.0" layoutY="178.0" prefHeight="27.0" prefWidth="350.0" />
                               <Label fx:id="eventLabelTest" layoutX="278.0" layoutY="41.0" prefHeight="17.0" prefWidth="149.0" />
-                              <Label layoutX="32.0" layoutY="303.0" text="Event colour" />
-                              <JFXColorPicker fx:id="testColour" editable="true" layoutX="105.0" layoutY="299.0">
-                                 <value>
-                                    <Color red="0.4000000059604645" green="0.7137255072593689" blue="0.729411780834198" />
-                                 </value>
-                              </JFXColorPicker>
                            </children>
                         </AnchorPane>
                      </children>
@@ -211,12 +193,6 @@
                   <JFXButton layoutX="89.0" layoutY="517.0" onMouseClicked="#Back" prefHeight="41.0" prefWidth="135.0" style="-fx-border-color: #1B6CD7; -fx-border-radius: 5em;" text="Back" textFill="#1b6cd7" />
                   <CheckBox fx:id="haveFinal" layoutX="26.0" layoutY="65.0" mnemonicParsing="false" onMouseClicked="#hasFinal" prefHeight="17.0" prefWidth="289.0" text="Does this course have a final" />
                   <JFXTextField fx:id="finalWeight" layoutX="28.0" layoutY="307.0" prefHeight="25.0" prefWidth="313.0" promptText="Final Weight" />
-                  <Label fx:id="colorLabel" layoutX="28.0" layoutY="367.0" prefHeight="17.0" prefWidth="75.0" text="Event colour" />
-                  <JFXColorPicker fx:id="finalColour" editable="true" layoutX="107.0" layoutY="363.0">
-                     <value>
-                        <Color red="0.40149998664855957" green="0.7122111916542053" blue="0.7300000190734863" opacity="0.6299999952316284" />
-                     </value>
-                  </JFXColorPicker>
                </children>
             </AnchorPane>
          </content>
