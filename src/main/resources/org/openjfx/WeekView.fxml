@@ -13,7 +13,7 @@
 Kamal Ali (shifted the main grid downwards)
  -->
 
-<AnchorPane fx:id="anchorPane" stylesheets="@WeekView.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
+<AnchorPane fx:id="anchorPane" stylesheets="@WeekView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.WeekView_Controller">
    <children>
       <ScrollPane layoutX="-2.0" layoutY="63.0" prefHeight="505.0" prefWidth="750.0" vbarPolicy="ALWAYS">
         <content>
@@ -143,6 +143,6 @@ Kamal Ali (shifted the main grid downwards)
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="103.0" text="Saturday" textAlignment="CENTER" GridPane.columnIndex="6" />
          </children>
       </GridPane>
-      <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" prefHeight="26.0" prefWidth="300.0" stylesheets="@WeekView.css" text="Label" />
+      <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" maxWidth="195.0" prefHeight="30.0" prefWidth="195.0" stylesheets="@WeekView.css" text="Label" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="539.0" />
    </children>
 </AnchorPane>
