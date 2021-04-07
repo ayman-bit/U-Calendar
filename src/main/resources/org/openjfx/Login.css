@@ -19,3 +19,11 @@
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
 }
+
+.drag {
+    -fx-background-color:transparent;
+}
+
+.drag:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}

@@ -4,8 +4,11 @@
 .hbox {
     -fx-background-color: #CCCCCC;
     -fx-cursor: default;
-
 }
+.hbox:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+
 .pane {
     -fx-background-color: #8fbc8f;
 }

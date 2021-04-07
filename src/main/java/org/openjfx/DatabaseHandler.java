@@ -76,8 +76,8 @@ public class DatabaseHandler {
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A database is connected!.");
+//                System.out.println("The driver name is " + meta.getDriverName());
+//                System.out.println("A database is connected!.");
             }
 
         } catch (SQLException ex) {

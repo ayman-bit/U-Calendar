@@ -7,7 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +29,9 @@ public class Login_Controller implements Initializable {
 
     @FXML
     private JFXPasswordField password;
+
+    @FXML
+    private HBox drag;
 
     @FXML
     private void handleLogin(MouseEvent event) throws IOException {
@@ -195,5 +201,6 @@ public class Login_Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Controller.makeStageDragable(drag);
     }
 }

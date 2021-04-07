@@ -25,14 +25,14 @@
          <children>
             <BorderPane>
                <top>
-                  <HBox fx:id="Drag" prefHeight="40.0" prefWidth="900.0" styleClass="hbox" BorderPane.alignment="CENTER">
+                  <HBox fx:id="drag" prefHeight="40.0" prefWidth="900.0" styleClass="hbox" BorderPane.alignment="CENTER">
                      <children>
                         <JFXHamburger fx:id="options">
                            <padding>
                               <Insets left="10.0" top="5.0" />
                            </padding>
                         </JFXHamburger>
-                        <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="803.0">
+                        <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="803.0" styleClass="drag" stylesheets="@Application.css">
                            <font>
                               <Font name="System Bold" size="32.0" />
                            </font>

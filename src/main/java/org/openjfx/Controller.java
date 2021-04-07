@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -41,10 +42,11 @@ public class Controller implements Initializable {
     private JFXDrawer MonthView;
 
     @FXML
-    private HBox Drag;
+    private JFXDrawer WeekView;
 
     @FXML
-    private JFXDrawer WeekView;
+    private HBox drag;
+
 
 //    @FXML
 //    private JFXHamburger options;
@@ -88,7 +90,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        makeStageDragable(Drag);
+        makeStageDragable(drag);
         try {
             VBox box = FXMLLoader.load(getClass().getResource("SidePanel.fxml"));
             sidepanel.setSidePane(box);
