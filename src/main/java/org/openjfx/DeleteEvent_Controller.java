@@ -67,13 +67,7 @@ public class DeleteEvent_Controller {
 
     }
 
-    @FXML
-    public void warn(MouseEvent e){
-        Alert a = new Alert(Alert.AlertType.WARNING);
-        a.setHeaderText(null);
-        a.setContentText("Warning deleting event will delete all subevents for that event");
-        a.showAndWait();
-    }
+
 
     // Find all user events
     void populateChoice(){

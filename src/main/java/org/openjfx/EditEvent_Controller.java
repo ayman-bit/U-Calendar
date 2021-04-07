@@ -63,11 +63,10 @@ public class EditEvent_Controller {
     private AnchorPane labPane, testPane, assignPane;
 
     @FXML
-    private ChoiceBox<String> eventMenu;
+    private ChoiceBox<String> eventMenu,assignMenu,labMenu,testMenu;
 
     @FXML
     private JFXColorPicker eventColour;
-
 
     @FXML
     void Back(MouseEvent event) {
@@ -80,8 +79,66 @@ public class EditEvent_Controller {
     }
 
     @FXML
-    void Done(MouseEvent event) {
+    void Done(MouseEvent event) throws IOException {
+        if(!checkClassInfo()){
+            String reoccurrence = getReoccurence();
 
+            String qu = "INSERT INTO userData(eventName,date,endDate,startTime,endTime,reoccur,eventColour,user_id) VALUES ("
+                    + "'" + className.getText() + "',"
+                    + "'" + date.getValue().toString() + "',"
+                    + "'" + endDate.getValue().toString() + "',"
+                    + "'" + startTime.getValue().toString() + "',"
+                    + "'" + endTime.getValue().toString() + "',"
+                    + "'" + reoccurrence + "',"
+                    + "'" + eventColour.getValue().toString() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            if(DatabaseHandler.execAction(qu)){ //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+                Controller.start("Application.fxml", event);
+            }
+            else{ // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This Data Already Exists");
+                alert.showAndWait();
+            }
+        }
+    }
+
+
+    boolean checkClassInfo() {
+        boolean a = false;
+        if (date.getValue() == null || endDate.getValue() == null || startTime.getValue() == null
+                || className.getText().isEmpty() || endTime.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Some required information was not entered");
+            alert.showAndWait();
+            a = true;
+            return a;
+        } else{
+            if (endTime.getValue().isBefore(startTime.getValue()) || startTime.getValue().isAfter(endTime.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Time input incorrect");
+                alert.showAndWait();
+                a = true;
+                return a;
+            } else if (endDate.getValue().isBefore(date.getValue()) || date.getValue().isAfter(endDate.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Date input incorrect");
+                alert.showAndWait();
+                a = true;
+                return a;
+            }
+        }
+        return a;
     }
 
     @FXML
@@ -107,6 +164,7 @@ public class EditEvent_Controller {
                 color = stringObjectMap.get("eventColour").toString();
                 Color c = Color.web(color);
                 eventColour.setValue(c);
+
                 //After extracting the needed data delete event from database
                 String qu = "DELETE FROM userData WHERE eventName=" + "'"+stringObjectMap.get("eventName").toString()+"'";
                 DatabaseHandler.execAction(qu);
@@ -115,31 +173,6 @@ public class EditEvent_Controller {
         tabPane.getSelectionModel().selectNext();
     }
 
-    @FXML
-    void hasAssigns(MouseEvent event) throws IOException {
-        assignPane.setVisible(haveAssigns.isSelected());
-    }
-
-    @FXML
-    void hasFinal(MouseEvent event) {
-        FinalDate.setVisible(haveFinal.isSelected());
-        FinalStartTime.setVisible(haveFinal.isSelected());
-        FinalEndTime.setVisible(haveFinal.isSelected());
-        finalLabel.setVisible(haveFinal.isSelected());
-        finalStartLabel.setVisible(haveFinal.isSelected());
-        finalEndLabel.setVisible(haveFinal.isSelected());
-        finalWeight.setVisible(haveFinal.isSelected());
-    }
-
-    @FXML
-    void hasLabs(MouseEvent event) throws IOException {
-        labPane.setVisible(haveAssigns.isSelected());
-    }
-
-    @FXML
-    void hasTests(MouseEvent event) throws IOException {
-        testPane.setVisible(haveAssigns.isSelected());
-    }
 
     //converting Date to LocalDate using instant
     public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
@@ -190,24 +223,25 @@ public class EditEvent_Controller {
     void initialize() throws IOException {
         Controller.makeStageDragable(drag);
         populateChoice();
-        assignPane.setVisible(false);
-        labPane.setVisible(false);
-        testPane.setVisible(false);
-        FinalDate.setVisible(false);
-        FinalStartTime.setVisible(false);
-        FinalEndTime.setVisible(false);
-        finalLabel.setVisible(false);
-        finalStartLabel.setVisible(false);
-        finalEndLabel.setVisible(false);
-        finalWeight.setVisible(false);
     }
 
-    public void AddAssign(MouseEvent mouseEvent) {
-    }
 
-    public void AddLab(MouseEvent mouseEvent) {
-    }
-
-    public void AddTest(MouseEvent mouseEvent) {
+    void loadClasses(){
+        List<Map<String, Object>> classList = DatabaseHandler.execQuery("SELECT subeventName FROM subEvents WHERE eventName = " + className.getText());
+        assert classList != null;
+        if(classList.size() == 0)
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("No assignment events found please add event first");
+            alert.showAndWait();
+        }
+        else{
+            for (Map<String, Object> i : classList) {
+                for (Map.Entry<String, Object> me : i.entrySet()) {
+                    assignMenu.getItems().add(me.getValue().toString());
+                }
+            }
+        }
     }
 }
