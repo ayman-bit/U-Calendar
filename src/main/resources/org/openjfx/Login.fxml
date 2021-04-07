@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -46,16 +47,21 @@
         </Label>
         <Label layoutX="28.0" layoutY="231.0" text="Everything you need to keep you on track" textFill="#c3b7b7" />
         <JFXButton layoutX="28.0" layoutY="285.0" onMouseClicked="#handleSignup" prefHeight="35.0" prefWidth="107.0" style="-fx-background-color: #E45652#E45652;" text="Sign-Up" textFill="#cdcdcd" />
-        <Label layoutX="875.0" layoutY="4.0" onMouseClicked="#handleClose" text="X" textFill="#c3b7b7">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-        <Label layoutX="858.0" layoutY="-3.0" onMouseClicked="#handleMin" text="-" textFill="#c3b7b7">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <HBox fx:id="drag" prefHeight="24.0" prefWidth="856.0" styleClass="drag" stylesheets="@Login.css" />
+      <HBox fx:id="drag" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="894.0" styleClass="drag" stylesheets="@Login.css">
+         <children>
+              <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleMin" prefHeight="20.0" prefWidth="14.0" text="-" textFill="#c3b7b7">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+              <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#handleClose" text="X" textFill="#c3b7b7">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Label>
+         </children></HBox>
     </children>
 </AnchorPane>
