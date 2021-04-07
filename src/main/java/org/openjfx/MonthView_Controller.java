@@ -172,13 +172,13 @@ public class MonthView_Controller extends DatabaseHandler {
         addReoccurToTodaysEvents(todaysSubevents, calendar);
 
         // Get events and their time from db and add them to lists for size<=3
-        if (todaysSubevents.size()<=3){
+        if (todaysSubevents.size() <= 3){
             sortAndAddEvents(vbox, todaysSubevents, true, dateString);
         }
 
-        // Get events and their time from db and add them to lists
-        else if (todaysSubevents.size()>3){
-            int diff = todaysSubevents.size()-3;
+        // Get events and their time from db and add them to lists if size>3
+        else if (todaysSubevents.size() >3){
+            int diff = todaysSubevents.size() -3;
             sortAndAddEvents(vbox, todaysSubevents, false, dateString);
             TextField textField =  new TextField("and " + diff + " more");
             textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
@@ -230,7 +230,6 @@ public class MonthView_Controller extends DatabaseHandler {
 
             String eventName = c.get("subeventName").toString(); //get event name and add it to list
             events.add(eventName);
-            /*            System.out.println(c.getClass());*/
 
             if(c.get("subStartTime") != null){
                 String[] timeS = c.get("subStartTime").toString().split(":"); //get event time and add it to list
@@ -256,17 +255,16 @@ public class MonthView_Controller extends DatabaseHandler {
 
         int size = 3;
         if(isLessThanThree){
-            size = times.size();
+            size = events.size();
         }
         // Add events to vbox according to their time chronologically
         for (int x = 0; x<size; x++) {
             for (int y = 0; y< times.size(); y++) {
 
                 if(times.get(x).compareTo(unsortedTimes.get(y)) == 0 ) {
-                    TextField textField =  new TextField(events.get(y));
+                    TextField textField =  new TextField(events.get(y) + " " + times.get(x));
                     textField.setEditable(false);
                     textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
-                    // Another textField for times.get(y) //TODO to be done when implementing adding time to the month view
                     vbox.getChildren().add(textField);
                     //unsortedTimes.remove(y); // TODO: this is a bad mechanism for dealing with multiple events with same time ouputting only the first one
                     //times.remove(x);
@@ -274,13 +272,16 @@ public class MonthView_Controller extends DatabaseHandler {
                 }
             }
         }
-        for (int x=0; x<eventsNoTime.size(); x++){
-            TextField textField =  new TextField(eventsNoTime.get(x));
-            textField.setEditable(false);
-            textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
-            // Another textField for times.get(y) //TODO to be done when implementing adding time to the month view
-            vbox.getChildren().add(textField);
+        if (isLessThanThree && eventsNoTime.size()>0){
+            size = 3-size;
+            for (int x=0; x<size; x++){
+                TextField textField =  new TextField(eventsNoTime.get(x));
+                textField.setEditable(false);
+                textField.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+                vbox.getChildren().add(textField);
+            }
         }
+
 
     }
 
