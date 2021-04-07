@@ -140,6 +140,27 @@ public class AddEvent_Controller implements Initializable {
             Color c = Color.web("0x039be5ff");
             eventColour.setValue((Color)c);
         }
+
+        if(haveFinal.isSelected() && !checkFinalInfo() && !checkClassInfo()){
+            String subEventName= "Final";
+            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
+                    + "'" + className.getText() + "',"
+                    + "'" + subEventName + "',"
+                    + "'" + finalWeight.getText() + "',"
+                    + "'" + FinalDate.getValue().toString() + "',"
+                    + "'" + FinalStartTime.getValue().toString() + "',"
+                    + "'" + FinalEndTime.getValue().toString() + "',"
+                    + "'" + eventColour.getValue().toString() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            if(!DatabaseHandler.execAction(qu)){ //Success
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This Data Already Exists");
+                alert.showAndWait();
+            }
+        }
         if(!checkClassInfo()){
             String reoccurrence = getReoccurence();
 
@@ -150,36 +171,6 @@ public class AddEvent_Controller implements Initializable {
                     + "'" + startTime.getValue().toString() + "',"
                     + "'" + endTime.getValue().toString() + "',"
                     + "'" + reoccurrence + "',"
-                    + "'" + eventColour.getValue().toString() + "',"
-                    + "'" + Login_Controller.uid + "'"
-                    + ")";
-
-            if(DatabaseHandler.execAction(qu)){ //Success
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(null);
-                alert.setContentText("Success");
-                alert.showAndWait();
-                Controller.start("Application.fxml", event);
-            }
-            else{ // Error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText("This Data Already Exists");
-                alert.showAndWait();
-            }
-        }
-
-        else if(haveFinal.isSelected() && !checkFinalInfo() && !checkClassInfo()){
-
-            String subEventName= "Final";
-
-            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
-                    + "'" + className.getText() + "',"
-                    + "'" + subEventName + "',"
-                    + "'" + finalWeight.getText() + "',"
-                    + "'" + FinalDate.getValue().toString() + "',"
-                    + "'" + FinalStartTime.getValue().toString() + "',"
-                    + "'" + FinalEndTime.getValue().toString() + "',"
                     + "'" + eventColour.getValue().toString() + "',"
                     + "'" + Login_Controller.uid + "'"
                     + ")";
@@ -330,9 +321,7 @@ public class AddEvent_Controller implements Initializable {
             alert.showAndWait();
             a = true;
             return a;
-        } else if (date.getValue() != null && endDate.getValue() != null && startTime.getValue() != null
-                && className.getText() != null && endTime.getValue() != null && eventColour.getValue() != null) {
-
+        } else{
             if (endTime.getValue().isBefore(startTime.getValue()) || startTime.getValue().isAfter(endTime.getValue())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
