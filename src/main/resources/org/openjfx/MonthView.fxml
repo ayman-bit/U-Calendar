@@ -15,7 +15,7 @@ Kamal Ali
 
 <AnchorPane style="-fx-background-color: FFFFF;" stylesheets="@MonthView.css" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.MonthView_Controller">
    <children>
-      <GridPane fx:id="mainPanel" alignment="TOP_RIGHT" layoutY="84.0" prefHeight="482.0" prefWidth="750.0" styleClass="mainPanel" stylesheets="@MonthView.css">
+      <GridPane fx:id="mainPanel" alignment="TOP_RIGHT" gridLinesVisible="true" layoutY="84.0" prefHeight="482.0" prefWidth="750.0" styleClass="grid" stylesheets="@MonthView.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

@@ -12,11 +12,6 @@
 
 }
 
-.label:hover{
-    -fx-background-color: #00C853;
-}
-
-
 .text-field{
     -fx-background-color: transparent;
     -fx-font-size: 11px;
@@ -32,12 +27,9 @@
     -fx-cursor: hand;
 }
 
-.mainPanel{
-    -fx-text-alignment: CENTER;
-    -fx-font-alignment: CENTER;
-    -fx-legend-side: right;
-    -fx-title-side: right;
-    -fx-alignment: CENTER;
-    -fx-gridLinesVisible: true;
+.grid {
+    /* 1 pixel border around the top and right of the grid: */
+    -fx-background-color: cell-border-color, cell-color ;
+    -fx-background-insets: 0, 1 1 0 0 ;
+    -fx-padding: 1 ;
 }
-

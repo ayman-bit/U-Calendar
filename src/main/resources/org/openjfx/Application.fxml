@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.Controller">
    <children>
       <AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Application.css">
          <children>
@@ -83,7 +83,7 @@
                                           <Font name="System Bold Italic" size="30.0" />
                                        </font>
                                     </Text>
-                                    <TextArea editable="false" layoutY="50.0" prefHeight="515.0" prefWidth="750.0" promptText="Credits" text="Group 8">
+                                    <TextArea editable="false" layoutY="50.0" prefHeight="515.0" prefWidth="750.0" promptText="Credits" text="U-Calendar is designed to assist students plan their course schedule&#10;&#10;Some features coming soon:&#10;-Custom views&#10;-User App Settings &#10;-Dark mode&#10;&#10;In spirit of the Easter Bunny, we have added a hidden egg in our application. &#10;Good luck finding it!&#10;&#10;Credits to Group 8: &#10;-Ayman Abu Awad&#10;-Kamal Ali&#10;-Mohammed Shahwan">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
