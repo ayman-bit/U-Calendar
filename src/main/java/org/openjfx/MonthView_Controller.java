@@ -274,6 +274,9 @@ public class MonthView_Controller extends DatabaseHandler {
         }
         if (isLessThanThree && eventsNoTime.size()>0){
             size = 3-size;
+            if(eventsNoTime.size()<size){
+                size = eventsNoTime.size();
+            }
             for (int x=0; x<size; x++){
                 TextField textField =  new TextField(eventsNoTime.get(x));
                 textField.setEditable(false);
