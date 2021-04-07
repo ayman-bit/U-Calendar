@@ -110,7 +110,7 @@ public class WeekView_Controller extends DatabaseHandler {
         loadReoccurences();
 
         for (int i = 0; i < cols; i++){
-            calendar.set(Calendar.DAY_OF_YEAR, (currentWeek-2)*7 + daysInWeek1 + i);
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - calendar.get(Calendar.DAY_OF_WEEK) + i + 1);
             String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
 
             // Find all events that occur on this day
