@@ -24,17 +24,12 @@
     -fx-max-width: 70;
 }
 
-#mainPanel{
-    -fx-text-alignment: center;
-    -fx-font-size: 20px;
-    -fx-font-alignment:CENTER;
-    -fx-hpos:right;
-    -fx-legend-side:right;
-    -fx-title-side:right;
+.mainPanel{
+    -fx-text-alignment: CENTER;
+    -fx-font-alignment: CENTER;
+    -fx-legend-side: right;
+    -fx-title-side: right;
     -fx-alignment: CENTER;
-    -fx-text-fill: red;
-    align-self: center;
-    -fx-min-height: 30 ;
     -fx-gridLinesVisible: true;
 }
 

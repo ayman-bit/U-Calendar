@@ -80,6 +80,7 @@ public class MonthView_Controller extends DatabaseHandler {
 
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
                     Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+                    Data.setStyle("-fx-border-color: black;");
                     VBox vbox = new VBox(Data); // Add the first day of month to the view
 
                     addEventToBox(vbox, calendar); // Add its events to the vbox
@@ -93,6 +94,7 @@ public class MonthView_Controller extends DatabaseHandler {
                     calendar.set(Calendar.DAY_OF_MONTH, date);
                     Text Data = new Text(String.valueOf(calendar.get(Calendar.DATE)));
                     Data.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 11));
+                    Data.setStyle("-fx-border-color: black;");
 
                     if (today.equals(new SimpleDateFormat("ddMMYYYY").format(calendar.getTime()))) {
                         Data.setFill(Color.RED);
@@ -110,6 +112,7 @@ public class MonthView_Controller extends DatabaseHandler {
                     nextMonth.set(Calendar.DAY_OF_MONTH, date);
                     Text Data = new Text(String.valueOf(nextMonth.get(Calendar.DATE)));
                     Data.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 11));
+                    Data.setStyle("-fx-border-color: black;");
                     VBox vbox = new VBox(Data);
 
                     addEventToBox(vbox, nextMonth);
@@ -121,6 +124,7 @@ public class MonthView_Controller extends DatabaseHandler {
                     previous.set(Calendar.DAY_OF_MONTH, prev);
                     Text prevData = new Text(String.valueOf(previous.get(Calendar.DATE)));
                     prevData.setFont(Font.font("system", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 11));
+                    prevData.setStyle("-fx-border-color: black;");
                     VBox vbox = new VBox(prevData);
 
                     addEventToBox(vbox, previous);

@@ -12,9 +12,9 @@
 Kamal Ali
  -->
 
-<AnchorPane stylesheets="@MonthView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.MonthView_Controller">
+<AnchorPane style="-fx-background-color: FFFFF;" stylesheets="@MonthView.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.MonthView_Controller">
    <children>
-      <GridPane fx:id="mainPanel" alignment="TOP_RIGHT" layoutY="84.0" prefHeight="482.0" prefWidth="750.0" stylesheets="@MonthView.css">
+      <GridPane fx:id="mainPanel" alignment="TOP_RIGHT" layoutY="84.0" prefHeight="482.0" prefWidth="750.0" styleClass="mainPanel" stylesheets="@MonthView.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -50,15 +50,15 @@ Kamal Ali
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="35.0" prefWidth="110.0" stylesheets="@MonthView.css" text="Sun" textAlignment="CENTER" />
-            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="110.0" stylesheets="@MonthView.css" text="Mon" textAlignment="CENTER" GridPane.columnIndex="1" />
-            <Label id="Top" alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="111.0" stylesheets="@MonthView.css" text="Tues" textAlignment="CENTER" GridPane.columnIndex="2" />
-            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="114.0" stylesheets="@MonthView.css" text="Wed" textAlignment="CENTER" GridPane.columnIndex="3" />
-            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Thu" textAlignment="CENTER" GridPane.columnIndex="4" />
-            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="78.0" prefWidth="160.0" stylesheets="@MonthView.css" text="Fri" textAlignment="CENTER" GridPane.columnIndex="5" />
-            <Label alignment="CENTER_LEFT" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sat" textAlignment="CENTER" GridPane.columnIndex="6" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="110.0" stylesheets="@MonthView.css" text="Sun" textAlignment="CENTER" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="110.0" stylesheets="@MonthView.css" text="Mon" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label id="Top" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="111.0" stylesheets="@MonthView.css" text="Tues" textAlignment="CENTER" GridPane.columnIndex="2" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="114.0" stylesheets="@MonthView.css" text="Wed" textAlignment="CENTER" GridPane.columnIndex="3" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Thu" textAlignment="CENTER" GridPane.columnIndex="4" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="160.0" stylesheets="@MonthView.css" text="Fri" textAlignment="CENTER" GridPane.columnIndex="5" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="108.0" stylesheets="@MonthView.css" text="Sat" textAlignment="CENTER" GridPane.columnIndex="6" />
          </children>
       </GridPane>
-      <Label fx:id="Month_Year" layoutX="14.0" layoutY="6.0" prefHeight="40.0" prefWidth="210.0" stylesheets="@MonthView.css" text="Month, Year" />
+      <Label fx:id="Month_Year" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="6.0" prefHeight="40.0" prefWidth="210.0" stylesheets="@MonthView.css" text="Month, Year" />
    </children>
 </AnchorPane>
