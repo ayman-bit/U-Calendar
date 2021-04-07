@@ -19,7 +19,13 @@ public class tableEntry {
         this.weight=weight;
 
         DecimalFormat df = new DecimalFormat("#.##");
-        achieved= df.format(grade/outOf*weight);
+        if (outOf != 0){
+            achieved= df.format(grade/outOf*weight);
+        }
+        else{
+            achieved = "";
+
+        }
     }
 
     public String getSubevent() {

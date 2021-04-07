@@ -116,9 +116,18 @@ public class Calculator_Controller implements Initializable {
         for(Map<String, Object> row : grades){
             // reading the row from table and converting to string
             String subevent = row.get("subevent").toString();
-            String gradeS = row.get("grade").toString();
-            String outOfS = row.get("outOf").toString();
             String weightS = row.get("weight").toString();
+            String gradeS;
+            String outOfS;
+
+            try {
+                gradeS = row.get("grade").toString();
+                outOfS = row.get("outOf").toString();
+            }
+            catch (Exception e){
+                gradeS = "0";
+                outOfS = "0";
+            }
 
 
 
@@ -208,7 +217,9 @@ public class Calculator_Controller implements Initializable {
 
         for (tableEntry row : table.getItems()) {
             totalString = achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
-            total+= Double.parseDouble(totalString);
+            if (totalString != ""){
+                total+= Double.parseDouble(totalString);
+            }
             totalPossible += weightColumn.getCellObservableValue(row).getValue();
         }
 
@@ -223,7 +234,7 @@ public class Calculator_Controller implements Initializable {
 
 
         String totalValueLabel = "Achieved " + total + " out of a possible " + totalPossible
-                + " points\nand lost " + lost + " points. Current percentage: "
+                + " points.\n Current percentage: "
                 + percentageS + "%";
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
@@ -268,8 +279,11 @@ public class Calculator_Controller implements Initializable {
 
         for (tableEntry row : table.getItems()) {
             totalString = achievedColumn.getCellObservableValue(row).getValue(); // reads the values in achievedColumn
-            totalAchieved+= Double.parseDouble(totalString);
-            totalWeight += weightColumn.getCellObservableValue(row).getValue();
+            if (totalString != ""){
+                totalAchieved= Double.parseDouble(totalString);
+                totalWeight += weightColumn.getCellObservableValue(row).getValue();
+            }
+
         }
 
         remaining = 100 - totalWeight;
