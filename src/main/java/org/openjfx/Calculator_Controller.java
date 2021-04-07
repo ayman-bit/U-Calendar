@@ -116,9 +116,18 @@ public class Calculator_Controller implements Initializable {
         for(Map<String, Object> row : grades){
             // reading the row from table and converting to string
             String subevent = row.get("subevent").toString();
-            String gradeS = row.get("grade").toString();
-            String outOfS = row.get("outOf").toString();
             String weightS = row.get("weight").toString();
+            String gradeS;
+            String outOfS;
+
+            try {
+                gradeS = row.get("grade").toString();
+                outOfS = row.get("outOf").toString();
+            }
+            catch (Exception e){
+                gradeS = "0";
+                outOfS = "0";
+            }
 
 
 

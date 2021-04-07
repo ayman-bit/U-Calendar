@@ -312,7 +312,15 @@ public class AddEvent_Controller implements Initializable {
                     + "'" + Login_Controller.uid + "'"
                     + ")";
 
-            if (DatabaseHandler.execAction(qu)) { //Success
+            //Write to grades table
+            String qu2 = "INSERT INTO grades(eventName,subevent,weight,user_id) VALUES ("
+                    + "'" + eventLabelAssign.getText() + "',"
+                    + "'" + assignNumber.getText() + "',"
+                    + "'" + assignWeight.getText() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            if (DatabaseHandler.execAction(qu) && DatabaseHandler.execAction(qu2)) { //Success
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText(null);
                 alert.setContentText("Success");
@@ -323,6 +331,7 @@ public class AddEvent_Controller implements Initializable {
                 alert.setContentText("This Data Already Exists");
                 alert.showAndWait();
             }
+
             clearAssignSelection();
         }
     }
@@ -380,7 +389,15 @@ public class AddEvent_Controller implements Initializable {
                         + "'" + Login_Controller.uid + "'"
                         + ")";
 
-                if (DatabaseHandler.execAction(qu)) { //Success
+                // Write to grades table
+                String qu2 = "INSERT INTO grades(eventName,subevent,weight,user_id) VALUES ("
+                        + "'" + eventLabelLab.getText() + "',"
+                        + "'" + labNumber.getText() + "',"
+                        + "'" + labWeight.getText() + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
+
+                if (DatabaseHandler.execAction(qu) && DatabaseHandler.execAction(qu2)) { //Success
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(null);
                     alert.setContentText("Success");
@@ -391,6 +408,7 @@ public class AddEvent_Controller implements Initializable {
                     alert.setContentText("This Data Already Exists");
                     alert.showAndWait();
                 }
+
                 clearLabSelection();
             }
         }
@@ -439,6 +457,7 @@ public class AddEvent_Controller implements Initializable {
         Color c = Color.web("0x039be5ff");
         eventColour.setValue((Color)c);
     }
+
     @FXML
     void AddTest(MouseEvent event)throws IOException {
         if(eventColour.getValue() == null){
@@ -476,8 +495,15 @@ public class AddEvent_Controller implements Initializable {
                         + "'" + eventColour.getValue().toString() + "',"
                         + "'" + Login_Controller.uid + "'"
                         + ")";
+                // Write to grades table
+                String qu2 = "INSERT INTO grades(eventName,subevent,weight,user_id) VALUES ("
+                        + "'" + this.className.getText() + "',"
+                        + "'" + testNumber.getText() + "',"
+                        + "'" + testWeight.getText() + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
 
-                if(DatabaseHandler.execAction(qu)){ //Success
+                if(DatabaseHandler.execAction(qu) && DatabaseHandler.execAction(qu2)){ //Success
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText(null);
                     alert.setContentText("Success");
@@ -489,6 +515,7 @@ public class AddEvent_Controller implements Initializable {
                     alert.setContentText("This Data Already Exists");
                     alert.showAndWait();
                 }
+
                 clearTestSelection();
             }
         }
