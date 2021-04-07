@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,7 +28,7 @@ import javafx.stage.StageStyle;
  * @edited Mohammed Shahwan created the Done() function.
  */
 
-public class  AddEvent_Controller {
+public class AddEvent_Controller implements Initializable {
 
     @FXML
     private JFXDatePicker date,endDate,FinalDate;
@@ -36,16 +37,29 @@ public class  AddEvent_Controller {
     private JFXTimePicker startTime,endTime,FinalStartTime, FinalEndTime;
 
     @FXML
-    private JFXTextField className,finalWeight;
-
+    public JFXTextField className;
+    @FXML
+    private JFXTextField finalWeight;
     @FXML
     private JFXTabPane tabPane;
+
+    @FXML
+    private JFXTextField labNumber,labWeight;
+
+    @FXML
+    private JFXDatePicker labDate;
+
+    @FXML
+    private JFXTimePicker labStartTime,labEndTime;
+
+    @FXML
+    private JFXColorPicker labColour,testColour,eventColour,finalColour,assignColour;
 
     @FXML
     private CheckBox haveAssigns,haveTests,haveLabs,haveFinal;
 
     @FXML
-    private Label finalLabel,finalStartLabel, finalEndLabel;
+    private Label finalLabel,finalStartLabel, finalEndLabel,colorLabel;
 
     @FXML
     private JFXRadioButton monday,tuesday, wednesday, thursday, friday;
@@ -57,69 +71,60 @@ public class  AddEvent_Controller {
     private AnchorPane labPane, testPane, assignPane;
 
     @FXML
-    private JFXColorPicker eventColour,finalColour;
+    private JFXTextField assignNumber,assignWeight;
 
     @FXML
-    void Next(MouseEvent e) throws IOException{
+    private JFXDatePicker assignDate;
+
+    @FXML
+    private JFXTextField testNumber,testWeight;
+
+    @FXML
+    private JFXDatePicker testDate;
+
+    @FXML
+    private JFXTimePicker testStartTime, testEndTime;
+
+
+    @FXML
+    private Label eventLabelAssign,eventLabelLab,eventLabelTest;
+
+    @FXML
+    void Next(MouseEvent e){
         tabPane.getSelectionModel().selectNext();
     }
 
     @FXML
-    void hasLabs(MouseEvent e) throws IOException{
-        if(haveLabs.isSelected())
-        {
-            labPane.setVisible(true);
-        }
-        else{
-            labPane.setVisible(false);
-        }
+    void hasLabs(MouseEvent e) throws IOException {
+        labPane.setVisible(haveLabs.isSelected());
+        eventLabelLab.setText(this.className.getText());
+
     }
 
     @FXML
-    void hasAssigns(MouseEvent e) throws IOException{
-        if(haveAssigns.isSelected())
-        {
-            assignPane.setVisible(true);
-        }
-        else{
-            assignPane.setVisible(false);
-        }
+    void hasAssigns(MouseEvent e){
+        assignPane.setVisible(haveAssigns.isSelected());
+        eventLabelAssign.setText(this.className.getText());
+
     }
 
     @FXML
-    void hasTests(MouseEvent e) throws IOException{
-        if(haveTests.isSelected())
-        {
-            testPane.setVisible(true);
-        }
-        else{
-            testPane.setVisible(false);
-        }
+    void hasTests(MouseEvent e){
+        testPane.setVisible(haveTests.isSelected());
+        eventLabelTest.setText(this.className.getText());
     }
 
     @FXML
-    void hasFinal(MouseEvent e) throws IOException{
-        if(haveFinal.isSelected())
-        {
-            FinalDate.setVisible(true);
-            FinalStartTime.setVisible(true);
-            FinalEndTime.setVisible(true);
-            finalLabel.setVisible(true);
-            finalStartLabel.setVisible(true);
-            finalEndLabel.setVisible(true);
-            finalWeight.setVisible(true);
-            finalColour.setVisible(true);
-        }
-        else{
-            FinalDate.setVisible(false);
-            FinalStartTime.setVisible(false);
-            FinalEndTime.setVisible(false);
-            finalLabel.setVisible(false);
-            finalStartLabel.setVisible(false);
-            finalEndLabel.setVisible(false);
-            finalWeight.setVisible(false);
-            finalColour.setVisible(false);
-        }
+    void hasFinal(MouseEvent e){
+        FinalDate.setVisible(haveFinal.isSelected());
+        FinalStartTime.setVisible(haveFinal.isSelected());
+        FinalEndTime.setVisible(haveFinal.isSelected());
+        finalLabel.setVisible(haveFinal.isSelected());
+        finalStartLabel.setVisible(haveFinal.isSelected());
+        finalEndLabel.setVisible(haveFinal.isSelected());
+        finalWeight.setVisible(haveFinal.isSelected());
+        finalColour.setVisible(haveFinal.isSelected());
+        colorLabel.setVisible(haveFinal.isSelected());
     }
 
     @FXML
@@ -129,6 +134,7 @@ public class  AddEvent_Controller {
 
     @FXML
     void Cancel(MouseEvent event) throws IOException {
+
         Controller.start("Application.fxml" ,event);
     }
 
@@ -166,8 +172,8 @@ public class  AddEvent_Controller {
                             + "'" + endDate.getValue().toString() + "',"
                             + "'" + startTime.getValue().toString() + "',"
                             + "'" + endTime.getValue().toString() + "',"
-                            + "'" + eventColour.getValue().toString() + "',"
                             + "'" + reoccurrence + "',"
+                            + "'" + eventColour.getValue().toString() + "',"
                             + "'" + Login_Controller.uid + "'"
                             + ")";
 
@@ -270,17 +276,106 @@ public class  AddEvent_Controller {
     }
 
     @FXML
-    void initialize() throws IOException {
+    private void AddAssign(MouseEvent event)throws IOException {
+        if(assignDate.getValue() == null||assignNumber.getText() == null||assignWeight.getText()==null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Required information was not entered");
+            alert.showAndWait();
+        }
+        else{
+            String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,eventColour,user_id) VALUES ("
+                    + "'" + eventLabelAssign.getText() + "',"
+                    + "'" + assignNumber.getText() + "',"
+                    + "'" + assignWeight.getText() + "',"
+                    + "'" + assignDate.getValue().toString() + "',"
+                    + "'" + assignColour.getValue().toString() + "',"
+                    + "'" + Login_Controller.uid + "'"
+                    + ")";
+
+            if (DatabaseHandler.execAction(qu)) { //Success
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText(null);
+                alert.setContentText("Success");
+                alert.showAndWait();
+            } else { // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("This Data Already Exists");
+                alert.showAndWait();
+            }
+            clearAssignSelection();
+        }
+    }
+
+    void clearAssignSelection(){
+        assignNumber.setText("");
+        assignWeight.setText("");
+        assignNumber.setPromptText("Assignment Name");
+        assignWeight.setPromptText("Assignment Weight");
+        assignDate.getEditor().clear();
+        assignDate.setValue(null);
+        assignColour.setValue(null);
+        eventLabelAssign.setText(className.getText());
+    }
+
+    @FXML
+    void AddLab(MouseEvent event)throws IOException {
+        if(labDate.getValue() == null||labNumber.getText() == null||labWeight.getText()==null || labStartTime.getValue()==null || labEndTime.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Some information was not entered");
+            alert.showAndWait();
+        }
+        else{
+            if(labEndTime.getValue().isBefore(labStartTime.getValue())|| labStartTime.getValue().isAfter(labEndTime.getValue())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Time input incorrect");
+                alert.showAndWait();
+            }
+            else{
+                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
+                        + "'" + eventLabelLab.getText() + "',"
+                        + "'" + labNumber.getText() + "',"
+                        + "'" + labWeight.getText() + "',"
+                        + "'" + labDate.getValue().toString() + "',"
+                        + "'" + labStartTime.getValue().toString() + "',"
+                        + "'" + labEndTime.getValue().toString() + "',"
+                        + "'" + labColour.getValue().toString() + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
+
+                if (DatabaseHandler.execAction(qu)) { //Success
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Success");
+                    alert.showAndWait();
+                } else { // Error
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("This Data Already Exists");
+                    alert.showAndWait();
+                }
+                clearLabSelection();
+            }
+        }
+    }
+
+    void clearLabSelection(){
+        labNumber.setText("");
+        labWeight.setText("");
+        labDate.getEditor().clear();
+        labDate.setValue(null);
+        labStartTime.setValue(null);
+        labEndTime.setValue(null);
+        labColour.setValue(null);
+        eventLabelLab.setText(className.getText());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         Controller.makeStageDragable(drag);
-
-        assert date != null : "fx:id=\"date\" was not injected: check your FXML file 'AddEvent.fxml'.";
-        assert startTime != null : "fx:id=\"startTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
-        assert endTime != null : "fx:id=\"endTime\" was not injected: check your FXML file 'AddEvent.fxml'.";
-        assert className != null : "fx:id=\"className\" was not injected: check your FXML file 'AddEvent.fxml'.";
-
-        assignPane.setVisible(false);
-        labPane.setVisible(false);
-        testPane.setVisible(false);
         FinalDate.setVisible(false);
         FinalStartTime.setVisible(false);
         FinalEndTime.setVisible(false);
@@ -289,11 +384,68 @@ public class  AddEvent_Controller {
         finalEndLabel.setVisible(false);
         finalWeight.setVisible(false);
         finalColour.setVisible(false);
-        Pane aPane = FXMLLoader.load(getClass().getResource("AddAssigns.fxml"));
-        assignPane.getChildren().add(aPane);
-        aPane = FXMLLoader.load(getClass().getResource("AddLabs.fxml"));
-        labPane.getChildren().add(aPane);
-        aPane = FXMLLoader.load(getClass().getResource("AddTests.fxml"));
-        testPane.getChildren().add(aPane);
+        colorLabel.setVisible(false);
+        labPane.setVisible(false);
+        assignPane.setVisible(false);
+        testPane.setVisible(false);
+        eventLabelLab.setText(this.className.getText());
+        eventLabelTest.setText(this.className.getText());
+        eventLabelAssign.setText(this.className.getText());
     }
+
+    void clearTestSelection(){
+        testNumber.setText("");
+        testWeight.setText("");
+        testDate.getEditor().clear();
+        testDate.setValue(null);
+        testStartTime.setValue(null);
+        testEndTime.setValue(null);
+        testColour.setValue(null);
+        eventLabelTest.setText(className.getText());
+    }
+    @FXML
+    void AddTest(MouseEvent event)throws IOException {
+        if(testDate.getValue() == null||testNumber.getText() == null||testWeight.getText()==null || testStartTime.getValue() == null || testEndTime.getValue() == null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Required information was not entered");
+            alert.showAndWait();
+        }
+        else{
+            if(testEndTime.getValue().isBefore(testStartTime.getValue()) || testStartTime.getValue().isAfter(testEndTime.getValue())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Time input incorrect");
+                alert.showAndWait();
+            }
+            else{
+                String qu = "INSERT INTO subEvents(eventName,subeventName,subeventWeight,subeventDate,subStartTime,subEndTime,eventColour,user_id) VALUES ("
+                        + "'" + this.className.getText() + "',"
+                        + "'" + testNumber.getText() + "',"
+                        + "'" + testWeight.getText() + "',"
+                        + "'" + testDate.getValue().toString() + "',"
+                        + "'" + testStartTime.getValue().toString() + "',"
+                        + "'" + testEndTime.getValue().toString() + "',"
+                        + "'" + testColour.getValue().toString() + "',"
+                        + "'" + Login_Controller.uid + "'"
+                        + ")";
+
+                if(DatabaseHandler.execAction(qu)){ //Success
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Success");
+                    alert.showAndWait();
+                }
+                else{ // Error
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setContentText("This Data Already Exists");
+                    alert.showAndWait();
+                }
+                clearTestSelection();
+            }
+        }
+
+    }
+
 }

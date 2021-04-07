@@ -2,12 +2,15 @@ package org.openjfx;
 
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -42,7 +45,7 @@ public class EditEvent_Controller {
     private CheckBox haveAssigns,haveTests,haveLabs,haveFinal;
 
     @FXML
-    private Label finalLabel,finalStartLabel, finalEndLabel;
+    private Label finalLabel,finalStartLabel, finalEndLabel,colorLabel;
 
     @FXML
     private JFXRadioButton monday,tuesday, wednesday, thursday, friday;
@@ -57,7 +60,7 @@ public class EditEvent_Controller {
     private ChoiceBox<String> eventMenu;
 
     @FXML
-    private JFXColorPicker eventColour;
+    private JFXColorPicker eventColour,finalColour;
 
 
     @FXML
@@ -83,6 +86,7 @@ public class EditEvent_Controller {
     @FXML
     void NextPopulate(MouseEvent event) throws ParseException {
         DateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        String color;
         assert events != null;
         assert subevents != null;
         for (Map<String, Object> stringObjectMap : events) {
@@ -94,7 +98,9 @@ public class EditEvent_Controller {
                 endTime.setValue(LocalTime.parse(stringObjectMap.get("endTime").toString()));
                 temp = simpleDateFormat.parse(stringObjectMap.get("endDate").toString());
                 endDate.setValue(convertToLocalDateViaInstant(temp));
-
+                color = stringObjectMap.get("eventColour").toString();
+                Color c = Color.web(color);
+                eventColour.setValue(c);
                 //After extracting the needed data delete event from database
                 String qu = "DELETE FROM userData WHERE eventName=" + "'"+stringObjectMap.get("eventName").toString()+"'";
                 DatabaseHandler.execAction(qu);
@@ -104,23 +110,35 @@ public class EditEvent_Controller {
     }
 
     @FXML
-    void hasAssigns(MouseEvent event) {
-
+    void hasAssigns(MouseEvent event) throws IOException {
+        assignPane.setVisible(haveAssigns.isSelected());
+        Pane aPane = FXMLLoader.load(getClass().getResource("AddAssigns.fxml"));
+        assignPane.getChildren().add(aPane);
     }
 
     @FXML
     void hasFinal(MouseEvent event) {
-
+        FinalDate.setVisible(haveFinal.isSelected());
+        FinalStartTime.setVisible(haveFinal.isSelected());
+        FinalEndTime.setVisible(haveFinal.isSelected());
+        finalLabel.setVisible(haveFinal.isSelected());
+        finalStartLabel.setVisible(haveFinal.isSelected());
+        finalEndLabel.setVisible(haveFinal.isSelected());
+        finalWeight.setVisible(haveFinal.isSelected());
+        finalColour.setVisible(haveFinal.isSelected());
+        colorLabel.setVisible(haveFinal.isSelected());
     }
 
     @FXML
-    void hasLabs(MouseEvent event) {
-
+    void hasLabs(MouseEvent event) throws IOException {
+        Pane aPane = FXMLLoader.load(getClass().getResource("AddLabs.fxml"));
+        labPane.getChildren().add(aPane);
     }
 
     @FXML
-    void hasTests(MouseEvent event) {
-
+    void hasTests(MouseEvent event) throws IOException {
+        Pane aPane = FXMLLoader.load(getClass().getResource("AddTests.fxml"));
+        testPane.getChildren().add(aPane);
     }
 
     //converting Date to LocalDate using instant
@@ -169,7 +187,20 @@ public class EditEvent_Controller {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
+        Controller.makeStageDragable(drag);
         populateChoice();
+        assignPane.setVisible(false);
+        labPane.setVisible(false);
+        testPane.setVisible(false);
+        FinalDate.setVisible(false);
+        FinalStartTime.setVisible(false);
+        FinalEndTime.setVisible(false);
+        finalLabel.setVisible(false);
+        finalStartLabel.setVisible(false);
+        finalEndLabel.setVisible(false);
+        finalWeight.setVisible(false);
+        finalColour.setVisible(false);
+        colorLabel.setVisible(false);
     }
 }

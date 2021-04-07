@@ -21,7 +21,7 @@
          </font>
       </Label>
       <JFXNodesList layoutX="147.0" layoutY="159.0" prefHeight="7.0" prefWidth="0.0" />
-      <Pane prefHeight="638.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
+      <Pane fx:id="drag" prefHeight="638.0" prefWidth="128.0" style="-fx-background-color: #1B6CD7;" />
       <TableView fx:id="table" layoutX="128.0" layoutY="84.0" prefHeight="461.0" prefWidth="772.0">
         <columns>
           <TableColumn fx:id="IdCol" prefWidth="75.0" text="id" />
