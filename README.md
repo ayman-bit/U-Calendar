@@ -61,4 +61,4 @@ Ayman :
 
 Moe : Edited Add Event (adding the new tables)
 
-Kamel : Create The Calculator 
+Kamel : Create The Calculator, weekview and monthview events 
